@@ -39,6 +39,12 @@ EXPECTED_PNG = {
     "apple-touch-icon.png": 180,
 }
 
+SOCIAL = TOKENS["social"]
+EXPECTED_SOCIAL = {
+    "og-image.png": (SOCIAL["og"]["width"], SOCIAL["og"]["height"], INK),
+    "twitter-card.png": (SOCIAL["twitter"]["width"], SOCIAL["twitter"]["height"], CHALK),
+}
+
 failures: list[str] = []
 passes = 0
 
@@ -121,13 +127,25 @@ def is_blend_of(rgb, dominant, tolerance: float = 4.0) -> bool:
     """
     import numpy as np
 
-    cols = np.array([_rgb(h) for h in dominant], dtype=float)  # n x 3
-    # solve cols.T @ w = rgb with sum(w) = 1 by appending a weighted constraint row
-    A = np.vstack([cols.T, np.full((1, len(cols)), 100.0)])
-    b = np.append(np.array(rgb, dtype=float), 100.0)
-    w, *_ = np.linalg.lstsq(A, b, rcond=None)
-    resid = np.linalg.norm(cols.T @ w - np.array(rgb, dtype=float))
-    return bool(resid <= tolerance and (w >= -0.03).all())
+    cols = np.array([_rgb(h) for h in dominant], dtype=float)
+    p = np.array(rgb, dtype=float)
+    # anti-aliasing mixes two colours where two shapes meet, so test every pair
+    # (with 4+ colours a 3-channel solve is underdetermined and unreliable)
+    for i in range(len(cols)):
+        for j in range(i, len(cols)):
+            d = cols[j] - cols[i]
+            t = 0.0 if not d.any() else float(np.clip(np.dot(p - cols[i], d) / np.dot(d, d), 0, 1))
+            if np.linalg.norm(cols[i] + t * d - p) <= tolerance:
+                return True
+    # where three shapes meet, a mix of three colours is fine (exactly solvable)
+    import itertools
+
+    for idx in itertools.combinations(range(len(cols)), 3):
+        A = np.vstack([cols[list(idx)].T, np.ones((1, 3))])
+        w, *_ = np.linalg.lstsq(A, np.append(p, 1.0), rcond=None)
+        if (w >= -0.03).all() and np.linalg.norm(cols[list(idx)].T @ w - p) <= tolerance:
+            return True
+    return False
 
 
 def check_png(path: Path):
@@ -170,6 +188,40 @@ def check_png(path: Path):
         check(min(xs) >= lo and max(xs) <= hi and min(ys) >= lo and max(ys) <= hi, f"{rel}: mark outside the 80% safe zone")
     else:
         check(False, f"{rel}: image is blank")
+
+
+def check_social_png(path: Path):
+    rel = path.relative_to(ROOT)
+    spec = EXPECTED_SOCIAL.get(path.name)
+    check(spec is not None, f"{rel}: social image not listed in the guide (add it to DESIGN_GUIDE.md section 8 and this checker)")
+    if spec is None:
+        return
+    w, h, bg = spec
+    img = Image.open(path)
+    check(img.size == (w, h), f"{rel}: expected {w}x{h}, got {img.size}")
+    check(img.mode == "RGB", f"{rel}: must be opaque RGB, got {img.mode}")
+    check(path.stat().st_size < 5_000_000, f"{rel}: must be under 5 MB")
+    img = img.convert("RGB")
+    bg_rgb = _rgb(bg)
+    check(img.getpixel((0, 0)) == bg_rgb and img.getpixel((w - 1, h - 1)) == bg_rgb, f"{rel}: corner pixels must match the background colour")
+
+    counts = img.getcolors(maxcolors=w * h) or []
+    total = w * h
+    hexof = lambda rgb: "#%02X%02X%02X" % rgb
+    dominant = [hexof(rgb) for n, rgb in counts if hexof(rgb) in PALETTE and n / total >= 0.0005]
+    check(hexof(bg_rgb) in dominant, f"{rel}: background colour is not dominant")
+    off = [(hexof(rgb), n) for n, rgb in counts if hexof(rgb) not in PALETTE and not is_blend_of(rgb, dominant)]
+    check(not off, f"{rel}: colours that are neither palette colours nor anti-aliased blends of them: {off[:3]}")
+    # only the palette colours the guide allows here: background, headline, coral accent, body text
+    used = {c for c in dominant}
+    allowed = {INK, CHALK, CORAL, TOKENS["colour"]["iron"]["hex"].upper()}
+    check(used <= allowed, f"{rel}: uses colours outside ink, chalk, coral and iron: {sorted(used - allowed)}")
+    blended = sum(n for n, rgb in counts if hexof(rgb) not in PALETTE)
+    check(blended / total < 0.12, f"{rel}: too many blended pixels ({blended / total:.1%}); expected only anti-aliased text and edges")
+    # coral on ink is only allowed for large text, so the accent must be big: check the coral run is tall
+    if bg == INK:
+        coral_rows = sorted({y for y in range(h) for x in range(0, w, 2) if img.getpixel((x, y)) == _rgb(CORAL)})
+        check(bool(coral_rows), f"{rel}: expected the coral accent")
 
 
 def check_ico(path: Path):
@@ -217,6 +269,65 @@ def check_web():
         check(needle in stub, f"functions/[stub].js: profile page must include {needle}")
 
 
+def check_metadata():
+    """Every public page carries the metadata the guides require; share images exist and match the guide."""
+    from html.parser import HTMLParser
+
+    class Head(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.meta, self.links, self.title, self._t = [], [], "", False
+
+        def handle_starttag(self, tag, attrs):
+            a = dict(attrs)
+            if tag == "meta":
+                self.meta.append(a)
+            elif tag == "link":
+                self.links.append(a)
+            elif tag == "title":
+                self._t = True
+
+        def handle_endtag(self, tag):
+            if tag == "title":
+                self._t = False
+
+        def handle_data(self, data):
+            if self._t:
+                self.title += data
+
+    site = "https://setsoflove.com"
+    for page in sorted((ROOT / "public").glob("*.html")):
+        rel = page.relative_to(ROOT)
+        h = Head()
+        h.feed(page.read_text())
+        prop = {m.get("property") or m.get("name"): m.get("content") for m in h.meta if m.get("property") or m.get("name")}
+        check(bool(h.title.strip()), f"{rel}: missing <title>")
+        check(prop.get("theme-color", "").upper() in PALETTE, f"{rel}: theme-color must be a palette colour")
+        if page.name not in ("index.html", "signup.html", "signin.html"):
+            continue  # only the pages people are sent to carry share cards
+        d = prop.get("description", "")
+        check(0 < len(d) <= 160, f"{rel}: description must be 1 to 160 characters")
+        check(not re.search(r"[!]|\b(hot|babe|hunk|swipe|match|bro|thirst)\b", d, re.I), f"{rel}: description breaks the style guide word rules")
+        canon = next((l.get("href") for l in h.links if l.get("rel") == "canonical"), None)
+        check(bool(canon) and canon.startswith(site + "/"), f"{rel}: canonical link must be an absolute {site} URL")
+        for key in ("og:title", "og:description", "og:type", "og:url", "og:site_name", "og:locale", "og:image", "og:image:alt", "og:image:width", "og:image:height", "og:image:type"):
+            check(bool(prop.get(key)), f"{rel}: missing {key}")
+        for key in ("twitter:card", "twitter:title", "twitter:description", "twitter:image", "twitter:image:alt"):
+            check(bool(prop.get(key)), f"{rel}: missing {key}")
+        check(prop.get("twitter:card") == "summary_large_image", f"{rel}: twitter:card must be summary_large_image")
+        check(prop.get("og:site_name") == "SetsOfLove", f"{rel}: og:site_name must be SetsOfLove")
+        check(prop.get("og:locale") == "en_AU", f"{rel}: og:locale must be en_AU")
+        for key, asset in (("og:image", "og-image.png"), ("twitter:image", "twitter-card.png")):
+            url = prop.get(key, "")
+            check(url == f"{site}/{asset}", f"{rel}: {key} must be {site}/{asset}")
+            check((ROOT / "public" / asset).exists(), f"public/{asset} is missing (copy from assets/social/)")
+            src = ROOT / "assets" / "social" / asset
+            dst = ROOT / "public" / asset
+            check(dst.exists() and src.exists() and dst.read_bytes() == src.read_bytes(), f"public/{asset} differs from assets/social/{asset}")
+        spec = EXPECTED_SOCIAL["og-image.png"]
+        check(prop.get("og:image:width") == str(spec[0]) and prop.get("og:image:height") == str(spec[1]), f"{rel}: og:image size must be {spec[0]}x{spec[1]}")
+
+
 def main():
     # 1. tokens.css is generated from tokens.json and must be current
     css = ROOT / "tokens" / "tokens.css"
@@ -240,16 +351,20 @@ def main():
         check(p.name in guide, f"{rel}: not documented in DESIGN_GUIDE.md")
         if p.suffix == ".svg":
             check_svg(p)
+        elif p.suffix == ".png" and p.parent.name == "social":
+            check_social_png(p)
         elif p.suffix == ".png":
             check_png(p)
         elif p.suffix == ".ico":
             check_ico(p)
 
     # 4. everything the guide promises actually exists
-    for name in re.findall(r"`((?:logo|icon|app-icon|apple-touch-icon|favicon)[a-z0-9.-]*\.(?:svg|png|ico))`", guide):
+    for name in re.findall(r"`((?:logo|icon|app-icon|apple-touch-icon|favicon|og-image|twitter-card)[a-z0-9.-]*\.(?:svg|png|ico))`", guide):
         check(any(p.name == name for p in assets), f"DESIGN_GUIDE.md lists {name} but the file does not exist")
 
     check_web()
+    # 5. page metadata and share cards
+    check_metadata()
 
     print(f"{passes} checks passed, {len(failures)} failed, {len(assets)} assets checked")
     for f in failures:

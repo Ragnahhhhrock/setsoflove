@@ -102,7 +102,6 @@ export async function onRequestGet(context) {
   <script src="/share.js" defer></script>`;
   const about = String(profile.about || "").replace(/\s+/g, " ").trim();
   const description = about.length > 150 ? about.slice(0, 147).trimEnd() + "..." : about;
-  const firstPhoto = photos.results[0];
   const head = preview
     ? ""
     : `<meta name="description" content="${escapeHtml(description)}">
@@ -112,8 +111,17 @@ export async function onRequestGet(context) {
 <meta property="og:title" content="${name}, ${escapeHtml(profile.age)} on SetsOfLove">
 <meta property="og:description" content="${escapeHtml(description)}">
 <meta property="og:url" content="${escapeHtml(url)}">
-<meta name="twitter:card" content="${firstPhoto ? "summary_large_image" : "summary"}">
-${firstPhoto ? `<meta property="og:image" content="${origin}/api/photos/${firstPhoto.id}">\n<meta property="og:image:alt" content="Photo of ${name}">\n<meta name="twitter:image" content="${origin}/api/photos/${firstPhoto.id}">\n` : ""}`;
+<meta property="og:locale" content="en_AU">
+<meta property="og:image" content="https://setsoflove.com/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SetsOfLove. Find someone who gets the early alarm.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${name}, ${escapeHtml(profile.age)} on SetsOfLove">
+<meta name="twitter:description" content="${escapeHtml(description)}">
+<meta name="twitter:image" content="https://setsoflove.com/twitter-card.png">
+<meta name="twitter:image:alt" content="SetsOfLove. Find someone who gets the early alarm.">`;
 
   const banner = preview
     ? `<p class="notice notice-warning" role="status">Preview only. This profile isn't live, so only you and the admin can see it.</p>`

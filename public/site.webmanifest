@@ -1,0 +1,14 @@
+{
+  "name": "SetsOfLove",
+  "short_name": "SetsOfLove",
+  "description": "A simple place for single gym-goers to put up a profile and be found by someone worth meeting.",
+  "lang": "en-AU",
+  "start_url": "/",
+  "display": "browser",
+  "theme_color": "#F7F3EC",
+  "background_color": "#F7F3EC",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

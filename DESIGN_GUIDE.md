@@ -122,20 +122,37 @@ Files in `assets/icons/`:
 - The mark fills 60% of the icon canvas, centred, so it sits inside the 80% maskable safe zone.
 - Icons are never transparent.
 
-## 8. Imagery and iconography
+## 8. Social images
+
+Shown when a SetsOfLove link is shared in a message, feed or search result.
+
+Files in `assets/social/`:
+
+| File | Size | Notes |
+|---|---|---|
+| `og-image.png` | 1200 x 630 | Open Graph image. Ink background, reversed lockup |
+| `twitter-card.png` | 1200 x 600 | Twitter (X) large summary card, 2:1. Chalk background, standard lockup |
+
+- Built at 2x the interface scale: type sizes and spacing steps are doubled (display 80 / 96, body 32 / 48, page padding 64). Use only the colours, Inter weights and logo files from sections 2, 3 and 6.
+- Layout: lockup top left (80px tall), headline in display style, one line of body text under it. Left-aligned, sentence case.
+- Headline and body copy follow `STYLE_GUIDE.md`. On ink, the coral phrase is large text (24px+) so the coral on ink pairing is allowed. On chalk, body text is iron.
+- Opaque PNG, no transparency, no photos, no member content. Profile pages use these same images, never a member's photo.
+- Corner pixel must match the background colour (ink for `og-image.png`, chalk for `twitter-card.png`).
+
+## 9. Imagery and iconography
 
 - Icons: outline style, 2px stroke at 24px, round caps and joins, colour `iron` (or `ink` when active, `coral` for the primary action). Draw from one set only; don't mix styles.
 - Photography guidance for profile content lives in `STYLE_GUIDE.md`.
 - No stock photos, no illustrations of people, no emoji in the interface.
 
-## 9. Accessibility
+## 10. Accessibility
 
 - All text meets the pairings in section 2.
 - Visible focus ring on every interactive element: 2px ink outline with 2px offset.
 - Every image has alt text. Profile photos get "Photo of [first name]".
 - Respect reduced-motion. Motion is limited to 150ms to 200ms fades and slides. Nothing bounces, pulses or auto-plays.
 
-## 10. Asset checklist
+## 11. Asset checklist
 
 Before an asset is committed:
 
