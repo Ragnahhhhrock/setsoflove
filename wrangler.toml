@@ -13,3 +13,4 @@ bucket_name = "setsoflove-photos"
 
 [vars]
 SITE_NAME = "SetsOfLove"
+CONTACT_EMAIL = ""

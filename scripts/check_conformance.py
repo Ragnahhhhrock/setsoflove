@@ -179,6 +179,39 @@ def check_ico(path: Path):
     check({(16, 16), (32, 32), (48, 48)} <= sizes, f"{rel}: must contain 16, 32 and 48 px images, has {sorted(sizes)}")
 
 
+def check_web():
+    """DESIGN_GUIDE.md section 11: styles, copy and required legal links for the web pages."""
+    css = (ROOT / "public" / "app.css").read_text()
+    check(not re.search(r"#[0-9A-Fa-f]{3,8}\b", css), "public/app.css: use token variables, not hex colours")
+    check(not re.search(r"box-shadow|gradient|filter:|opacity:", css), "public/app.css: no shadows, gradients, filters or opacity")
+    banned = re.compile(r"\b(hot|babe|hunk|swipe|match(?:es|ing)?|bro|thirst)\b", re.I)
+    emoji = re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF]")
+    pages = [ROOT / "content" / "terms.html", ROOT / "content" / "privacy.html",
+             ROOT / "public" / "terms" / "index.html", ROOT / "public" / "privacy" / "index.html"]
+    for p in pages:
+        rel = p.relative_to(ROOT)
+        check(p.exists(), f"{rel} is missing (run scripts/build_legal.py)")
+        if not p.exists():
+            continue
+        raw = p.read_text()
+        text = re.sub(r"<[^>]+>", " ", raw)
+        m = banned.search(text)
+        check(not m, f"{rel}: contains a banned word ({m and m.group(0)})")
+        check("!" not in text, f"{rel}: no exclamation marks")
+        check(not emoji.search(text), f"{rel}: no emoji")
+        check("style=" not in raw, f"{rel}: no inline styles")
+        if rel.parts[0] == "public":
+            check('href="/terms/"' in raw and 'href="/privacy/"' in raw, f"{rel}: footer must link to terms and privacy")
+    # public legal pages must be current with their sources
+    before = {p: p.read_text() for p in pages[2:] if p.exists()}
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "build_legal.py")], check=True, capture_output=True)
+    for p, old in before.items():
+        check(p.read_text() == old, f"{p.relative_to(ROOT)} was out of date (regenerated; commit it)")
+    stub = (ROOT / "functions" / "[stub].js").read_text()
+    for needle in ("data-share-root", "og:title", "og:image", "/terms/", "/privacy/", "noindex", "data-share-copy"):
+        check(needle in stub, f"functions/[stub].js: profile page must include {needle}")
+
+
 def main():
     # 1. tokens.css is generated from tokens.json and must be current
     css = ROOT / "tokens" / "tokens.css"
@@ -210,6 +243,8 @@ def main():
     # 4. everything the guide promises actually exists
     for name in re.findall(r"`((?:logo|icon|app-icon|apple-touch-icon|favicon)[a-z0-9.-]*\.(?:svg|png|ico))`", guide):
         check(any(p.name == name for p in assets), f"DESIGN_GUIDE.md lists {name} but the file does not exist")
+
+    check_web()
 
     print(f"{passes} checks passed, {len(failures)} failed, {len(assets)} assets checked")
     for f in failures:

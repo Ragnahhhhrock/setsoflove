@@ -1,6 +1,6 @@
-import { getUser, escapeHtml } from "../lib/util.js";
+import { getUser, escapeHtml, RESERVED_STUBS } from "../lib/util.js";
 
-const page = (title, body, { robots = "noindex, nofollow", status = 200 } = {}) =>
+const page = (title, body, { robots = "noindex, nofollow", status = 200, head = "" } = {}) =>
   new Response(
     `<!doctype html>
 <html lang="en-AU">
@@ -13,7 +13,7 @@ const page = (title, body, { robots = "noindex, nofollow", status = 200 } = {}) 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/app.css">
-</head>
+${head}</head>
 <body>
 ${body}
 </body>
@@ -23,14 +23,22 @@ ${body}
 
 const header = `<header class="site-header"><a href="/" aria-label="SetsOfLove home"><img src="/brand/logo-lockup.svg" alt="SetsOfLove" height="32"></a></header>`;
 
-const notFound = () =>
+const footer = (env) => `<footer class="site-footer">
+  <ul>
+    <li><a href="/terms/">Terms of use</a></li>
+    <li><a href="/privacy/">Privacy policy</a></li>${env.CONTACT_EMAIL ? `\n    <li><a href="mailto:${escapeHtml(env.CONTACT_EMAIL)}">${escapeHtml(env.CONTACT_EMAIL)}</a></li>` : ""}
+  </ul>
+  <p class="small">SetsOfLove is for adults aged 18 and over. We approve every profile before it goes live.</p>
+</footer>`;
+
+const notFound = (env) =>
   page(
     "Profile not found – SetsOfLove",
     `${header}<main class="page narrow center">
       <h1>We can't find that profile</h1>
       <p>The link may be wrong, or the profile isn't live yet.</p>
       <p><a class="btn btn-secondary" href="/">Go to SetsOfLove</a></p>
-    </main>`,
+    </main>${footer(env)}`,
     { status: 404 }
   );
 
@@ -43,16 +51,15 @@ export async function onRequestGet(context) {
   const stub = String(params.stub || "").toLowerCase();
 
   // Not a profile link (static pages like /signin, files like /app.css): let static assets answer.
-  const reserved = ["admin", "login", "signin", "signup", "signout", "profile", "account", "api", "brand", "fonts"];
-  if (reserved.includes(stub) || stub.includes(".") || !/^[a-z0-9-]{3,30}$/.test(stub)) return context.next();
+  if (RESERVED_STUBS.has(stub) || stub.includes(".") || !/^[a-z0-9-]{3,30}$/.test(stub)) return context.next();
 
   const profile = await env.DB.prepare("SELECT * FROM profiles WHERE stub = ?").bind(stub).first();
-  if (!profile) return notFound();
+  if (!profile) return notFound(env);
 
   let preview = false;
   if (profile.status !== "approved") {
     const user = await getUser(env, request);
-    if (!user || (user.id !== profile.user_id && !user.isAdmin)) return notFound();
+    if (!user || (user.id !== profile.user_id && !user.isAdmin)) return notFound(env);
     preview = true;
   }
 
@@ -63,6 +70,50 @@ export async function onRequestGet(context) {
   const gallery = photos.results
     .map((p, i) => `<img class="profile-photo" src="/api/photos/${p.id}" alt="Photo of ${name}" ${i ? 'loading="lazy"' : ""}>`)
     .join("");
+
+  const origin = new URL(request.url).origin;
+  const url = `${origin}/${stub}`;
+  const shareText = `Meet ${profile.first_name} on SetsOfLove`;
+  const u = encodeURIComponent(url);
+  const t = encodeURIComponent(shareText);
+  const shareLinks = [
+    ["Facebook", `https://www.facebook.com/sharer/sharer.php?u=${u}`, true],
+    ["X", `https://twitter.com/intent/tweet?url=${u}&text=${t}`, true],
+    ["WhatsApp", `https://wa.me/?text=${t}%20${u}`, true],
+    ["Email", `mailto:?subject=${t}&body=${t}%0A%0A${u}`, false],
+  ]
+    .map(
+      ([label, href, external]) =>
+        `<li><a class="btn btn-secondary" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""} aria-label="Share ${label === "Email" ? "by email" : "on " + label}">${label}</a></li>`
+    )
+    .join("");
+  const sharing = preview
+    ? ""
+    : `<section class="card" aria-labelledby="share-h" data-share-root data-url="${escapeHtml(url)}" data-text="${escapeHtml(shareText)}">
+    <h2 id="share-h" class="h3 share-title">Share this profile</h2>
+    <p class="small muted">Anyone with this link can see ${name}'s profile.</p>
+    <ul class="share-list">
+      <li hidden><button type="button" class="btn btn-secondary" data-share-native>Share</button></li>
+      <li hidden><button type="button" class="btn btn-secondary" data-share-copy>Copy link</button></li>
+      ${shareLinks}
+    </ul>
+    <p class="share-status" role="status" aria-live="polite" data-share-status></p>
+  </section>
+  <script src="/share.js" defer></script>`;
+  const about = String(profile.about || "").replace(/\s+/g, " ").trim();
+  const description = about.length > 150 ? about.slice(0, 147).trimEnd() + "..." : about;
+  const firstPhoto = photos.results[0];
+  const head = preview
+    ? ""
+    : `<meta name="description" content="${escapeHtml(description)}">
+<link rel="canonical" href="${escapeHtml(url)}">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="SetsOfLove">
+<meta property="og:title" content="${name}, ${escapeHtml(profile.age)} on SetsOfLove">
+<meta property="og:description" content="${escapeHtml(description)}">
+<meta property="og:url" content="${escapeHtml(url)}">
+<meta name="twitter:card" content="${firstPhoto ? "summary_large_image" : "summary"}">
+${firstPhoto ? `<meta property="og:image" content="${origin}/api/photos/${firstPhoto.id}">\n<meta property="og:image:alt" content="Photo of ${name}">\n<meta name="twitter:image" content="${origin}/api/photos/${firstPhoto.id}">\n` : ""}`;
 
   const banner = preview
     ? `<p class="notice notice-warning" role="status">Preview only. This profile isn't live, so only you and the admin can see it.</p>`
@@ -84,9 +135,11 @@ export async function onRequestGet(context) {
       ${section("Looking for", profile.looking_for)}
     </div>
   </article>
-  <p class="small muted">We approve every profile before it goes live.</p>
+  ${sharing}
+  <p class="small muted">We approve every profile before it goes live. <a href="${env.CONTACT_EMAIL ? `mailto:${escapeHtml(env.CONTACT_EMAIL)}?subject=${encodeURIComponent("Report profile " + stub)}` : "/terms/#report"}">Report this profile</a></p>
   <p><a class="btn btn-secondary" href="/signup">Create your profile</a></p>
-</main>`,
-    { robots: "noindex, nofollow" }
+</main>
+${footer(env)}`,
+    { robots: "noindex, nofollow", head }
   );
 }

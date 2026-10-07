@@ -1,4 +1,5 @@
 import { json, fail, readJson, hashPassword, safeEqual, createSession } from "../../lib/util.js";
+import { TERMS_VERSION } from "../../lib/legal.js";
 
 export async function onRequestPost({ request, env }) {
   const body = await readJson(request);
@@ -9,6 +10,9 @@ export async function onRequestPost({ request, env }) {
     return fail("That invite code doesn't match. Check it with whoever invited you.", 403);
   }
   if (body.confirm !== true) return fail("Please confirm you're a gym member looking to meet a woman.");
+
+  if (body.accept_terms !== true) return fail("Tick the box to accept the terms of use and privacy policy.");
+  if (body.consent_public !== true) return fail("Tick the box to confirm you understand your profile is visible to anyone with your link.");
 
   const email = String(body.email || "").trim().toLowerCase();
   const password = String(body.password || "");
@@ -21,9 +25,9 @@ export async function onRequestPost({ request, env }) {
   const { hash, salt } = await hashPassword(password);
   const now = Math.floor(Date.now() / 1000);
   const result = await env.DB.prepare(
-    "INSERT INTO users (email, pass_hash, pass_salt, created_at) VALUES (?, ?, ?, ?)"
+    "INSERT INTO users (email, pass_hash, pass_salt, created_at, terms_version, terms_accepted_at) VALUES (?, ?, ?, ?, ?, ?)"
   )
-    .bind(email, hash, salt, now)
+    .bind(email, hash, salt, now, TERMS_VERSION, now)
     .run();
   const userId = result.meta.last_row_id;
   await env.DB.prepare("INSERT INTO profiles (user_id, updated_at) VALUES (?, ?)").bind(userId, now).run();

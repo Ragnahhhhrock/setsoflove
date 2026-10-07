@@ -143,3 +143,14 @@ Before an asset is committed:
 2. Listed in this guide (new asset types: add them here first).
 3. `python3 scripts/check_conformance.py` passes.
 4. Looked at, at actual size, on chalk and on ink where relevant.
+
+## 11. Web pages
+
+The Cloudflare Pages app (`public/`, `functions/`) is an asset type too. Legal pages are built from `content/*.html` by `python3 scripts/build_legal.py` into `public/terms/` and `public/privacy/`.
+
+- Styles use only `tokens/tokens.css` variables. No hex colours, gradients or `box-shadow` in `public/app.css`.
+- Every page links to the terms of use and privacy policy in the footer.
+- Profile pages live at `/<stub>`, are `noindex`, and carry Open Graph preview tags and share buttons (Facebook, X, WhatsApp, email, plus Copy link and Share where the browser supports them).
+- Share buttons are secondary buttons with text labels. They are plain links: no third-party scripts, logos or tracking.
+- Sign-up requires the member to accept the terms and privacy policy and to confirm that their approved profile is visible to anyone with their link. The accepted version and time are stored (`lib/legal.js`, `users.terms_version`).
+- Copy follows `STYLE_GUIDE.md`: no banned words, no exclamation marks, no emoji.

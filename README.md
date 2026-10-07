@@ -28,3 +28,11 @@ Assets live in `assets/logo/` and `assets/icons/`. A new asset type must be adde
 ## The app
 
 Cloudflare Pages (`public/` and `functions/`) with D1 and R2. See [`DEPLOY.md`](DEPLOY.md) for setup. Brand files in `public/` (`tokens.css`, `brand/`, icons) are copies of `tokens/` and `assets/`; recopy them after rebuilding assets.
+
+## Legal pages and sharing
+
+- Legal copy lives in `content/terms.html` and `content/privacy.html`. After editing, run `python3 scripts/build_legal.py` and commit `public/terms/` and `public/privacy/`. Change the date at the top and `TERMS_VERSION` in `lib/legal.js` when the change is material.
+- Set `CONTACT_EMAIL` in `wrangler.toml` before launch. It appears in the footer of every page and in the "Report this profile" link.
+- Run `npx wrangler d1 migrations apply setsoflove --remote` to add the terms-acceptance columns (migration 0002).
+- Each approved profile page (`/<stub>`) has preview tags for social sharing and share buttons.
+- The sign-up form must send `accept_terms: true` and `consent_public: true` to `/api/signup`.
