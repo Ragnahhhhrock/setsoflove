@@ -207,6 +207,11 @@ def check_web():
     subprocess.run([sys.executable, str(ROOT / "scripts" / "build_legal.py")], check=True, capture_output=True)
     for p, old in before.items():
         check(p.read_text() == old, f"{p.relative_to(ROOT)} was out of date (regenerated; commit it)")
+    for p in sorted((ROOT / "public").glob("*.html")):
+        raw = p.read_text()
+        check('href="/terms/"' in raw and 'href="/privacy/"' in raw, f"{p.relative_to(ROOT)}: footer must link to terms and privacy")
+    signup = (ROOT / "public" / "signup.html").read_text()
+    check('id="accept_terms"' in signup and 'id="consent_public"' in signup, "public/signup.html: needs terms and public-visibility consent boxes")
     stub = (ROOT / "functions" / "[stub].js").read_text()
     for needle in ("data-share-root", "og:title", "og:image", "/terms/", "/privacy/", "noindex", "data-share-copy"):
         check(needle in stub, f"functions/[stub].js: profile page must include {needle}")

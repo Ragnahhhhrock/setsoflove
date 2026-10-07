@@ -15,6 +15,8 @@ form.addEventListener("submit", async (e) => {
       password: form.password.value,
       code: form.code.value,
       confirm: document.getElementById("confirm").checked,
+      accept_terms: document.getElementById("accept_terms").checked,
+      consent_public: document.getElementById("consent_public").checked,
     },
   });
   if (res.ok) {

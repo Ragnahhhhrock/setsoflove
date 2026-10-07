@@ -36,7 +36,15 @@
     </div>
     <div class="checkbox">
       <input id="confirm" type="checkbox">
-      <label for="confirm">I'm a member of the gym, I'm a man, and I'm looking to meet a woman</label>
+      <label for="confirm">I'm a member of the gym, I'm a single man, and I'm looking to meet a woman</label>
+    </div>
+    <div class="checkbox">
+      <input id="accept_terms" type="checkbox">
+      <label for="accept_terms">I'm 18 or over. I accept the <a href="/terms/">terms of use</a> and have read the <a href="/privacy/">privacy policy</a></label>
+    </div>
+    <div class="checkbox">
+      <input id="consent_public" type="checkbox">
+      <label for="consent_public">I understand that once approved, my profile and photos are visible to anyone who has my link</label>
     </div>
     <div id="message" class="msg" role="alert" hidden></div>
     <button id="submit" class="btn btn-block" type="submit" data-label="Create account">Create account</button>
@@ -44,5 +52,11 @@
   <p class="small muted space-top">Already have an account? <a href="/signin">Sign in</a></p>
 </main>
 <script type="module" src="/signup.js"></script>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/terms/">Terms of use</a></li>
+    <li><a href="/privacy/">Privacy policy</a></li>
+  </ul>
+</footer>
 </body>
 </html>
