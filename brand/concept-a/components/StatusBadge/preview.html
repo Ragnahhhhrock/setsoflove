@@ -1,0 +1,21 @@
+<!-- @dsCard group="Moderation" height=220 subtitle="Pending approval, Live, Needs changes" -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+body{margin:0;padding:24px;background:var(--surface);color:var(--ink);font-family:var(--font-sans)}
+.row{display:flex;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-5)}
+.badge{display:inline-flex;align-items:center;gap:var(--space-2);min-height:32px;padding:0 var(--space-3);box-sizing:border-box;border-radius:var(--radius-sm);border:1.5px solid transparent;font-size:14px;line-height:16px;font-weight:600;letter-spacing:0.02em}
+.pending{background:var(--gold);color:var(--on-gold)}
+.live{color:var(--status-live);border-color:var(--status-live);background:var(--surface)}
+.rejected{color:var(--status-rejected);border-color:var(--status-rejected);background:var(--surface)}
+.note{max-width:420px;padding:var(--space-4);background:var(--surface-raised);border:1px solid var(--line);border-radius:var(--radius-md);display:flex;flex-direction:column;gap:var(--space-2)}
+.note p{margin:0;font-size:14px;line-height:20px}
+</style>
+<div class="row">
+<span class="badge pending"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Pending approval</span>
+<span class="badge live"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Live</span>
+<span class="badge rejected"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>Needs changes</span>
+</div>
+<div class="note">
+<span class="badge rejected"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>Needs changes</span>
+<p>[ADMIN NOTE: what to change]</p>
+</div>

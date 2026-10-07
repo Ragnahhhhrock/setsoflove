@@ -1,0 +1,23 @@
+<!-- @dsCard group="Actions" height=170 subtitle="Primary, secondary, ghost, focus, disabled" -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+body{margin:0;padding:24px;background:var(--surface);color:var(--ink);font-family:var(--font-sans)}
+.row{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.btn{font-family:var(--font-sans);font-size:14px;line-height:16px;font-weight:600;letter-spacing:0.02em;min-height:44px;padding:0 var(--space-5);border-radius:var(--radius-md);cursor:pointer;border:1.5px solid transparent;background:none}
+.primary{background:var(--action);color:var(--on-action)}
+.secondary{border-color:var(--control-border);color:var(--ink)}
+.ghost{color:var(--brand-text);text-decoration:underline;text-underline-offset:3px}
+.focused{outline:2px solid var(--focus);outline-offset:2px}
+.btn:disabled{background:var(--surface-raised);color:var(--ink-muted);border-color:var(--line);cursor:not-allowed}
+.cap{font-size:12px;line-height:16px;color:var(--ink-muted)}
+</style>
+<div class="row">
+<button class="btn primary">Send for approval</button>
+<button class="btn secondary">Edit profile</button>
+<button class="btn ghost">Report this profile</button>
+</div>
+<div class="row">
+<button class="btn primary focused">Focused</button>
+<button class="btn primary" disabled>Disabled</button>
+<span class="cap">44px minimum height, `label` text</span>
+</div>

@@ -1,0 +1,37 @@
+<!-- @dsCard group="Profile" height=780 subtitle="Sample profile at setsoflove.com/sam-t" -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+body{margin:0;padding:24px;background:var(--surface);color:var(--ink);font-family:var(--font-sans)}
+.card{width:340px;background:var(--surface-raised);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+.photo{aspect-ratio:4/5;background:var(--brand-tint);display:flex;align-items:flex-end;padding:var(--space-4);box-sizing:border-box}
+.photo span{font-size:14px;line-height:20px;color:var(--ink)}
+.content{padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-3)}
+h3{margin:0;font-family:var(--font-display);font-size:28px;line-height:32px;font-weight:700;letter-spacing:-0.01em}
+.place{font-size:14px;line-height:20px;color:var(--ink-muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-2)}
+.tile{padding:var(--space-3);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md)}
+.eyebrow{font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted)}
+.stat{font-family:var(--font-display);font-size:28px;line-height:28px;font-weight:800;letter-spacing:-0.01em;margin-top:6px}
+.stat small{font-size:14px;font-weight:700}
+.lb{font-size:14px;line-height:20px;color:var(--ink-muted)}
+.k{font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);margin:0}
+.t{font-size:16px;line-height:24px;margin:2px 0 0}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);border-top:1px solid var(--line);padding-top:var(--space-3);font-size:14px;line-height:20px}
+.link{font-weight:600}
+.report{font:inherit;font-weight:600;color:var(--brand-text);background:none;border:0;text-decoration:underline;text-underline-offset:3px;min-height:44px;cursor:pointer}
+</style>
+<div class="card">
+<div class="photo"><span>Main photo: face clearly visible</span></div>
+<div class="content">
+<div><h3>Sam, 29</h3><p class="place">Subiaco, Perth, Australia</p></div>
+<div class="grid">
+<div class="tile"><div class="eyebrow">Bench</div><div class="stat">100 <small>kg</small></div><div class="lb">220 lb</div></div>
+<div class="tile"><div class="eyebrow">Squat</div><div class="stat">140 <small>kg</small></div><div class="lb">309 lb</div></div>
+</div>
+<div><p class="k">What I do</p><p class="t">[WHAT THEY DO]</p></div>
+<div><p class="k">How I train</p><p class="t">[HOW THEY TRAIN]</p></div>
+<div><p class="k">About me</p><p class="t">[ABOUT YOU TEXT]</p></div>
+<div><p class="k">Looking for</p><p class="t">[WHAT YOU'RE LOOKING FOR TEXT]</p></div>
+<div class="foot"><span class="link">setsoflove.com/sam-t</span><button class="report">Report this profile</button></div>
+</div>
+</div>

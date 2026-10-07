@@ -1,0 +1,29 @@
+<!-- @dsCard group="Forms" height=380 subtitle="Default, link stub, error" -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+body{margin:0;padding:24px;background:var(--surface);color:var(--ink);font-family:var(--font-sans)}
+.field{width:360px;display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-5)}
+label{font-size:14px;line-height:16px;font-weight:600;letter-spacing:0.02em;display:flex;justify-content:space-between}
+label span{font-weight:400;color:var(--ink-muted)}
+.box{display:flex;align-items:center;min-height:44px;box-sizing:border-box;padding:0 var(--space-4);background:var(--surface-raised);border:1.5px solid var(--control-border);border-radius:var(--radius-md)}
+.box:focus-within{outline:2px solid var(--focus);outline-offset:2px}
+.box.err{border-color:var(--status-rejected)}
+.prefix{font-size:16px;line-height:24px;color:var(--ink-muted)}
+input{flex:1;min-width:0;border:0;background:none;outline:0;font-family:var(--font-sans);font-size:16px;line-height:24px;color:var(--ink);padding:10px 0}
+.help{margin:0;font-size:14px;line-height:20px;color:var(--ink-muted)}
+.error{margin:0;font-size:14px;line-height:20px;color:var(--status-rejected);display:flex;gap:var(--space-2);align-items:center}
+</style>
+<div class="field">
+<label for="f1">First name <span>Required</span></label>
+<div class="box"><input id="f1" value="Sam"></div>
+</div>
+<div class="field">
+<label for="f2">Link <span>Required</span></label>
+<div class="box"><span class="prefix">setsoflove.com/</span><input id="f2" value="sam-t"></div>
+<p class="help">Letters, numbers and hyphens. No contact details.</p>
+</div>
+<div class="field">
+<label for="f3">About you <span>Required</span></label>
+<div class="box err"><input id="f3" value="" aria-invalid="true" aria-describedby="e3"></div>
+<p class="error" id="e3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>Add a line or two about you.</p>
+</div>

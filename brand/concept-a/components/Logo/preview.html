@@ -1,0 +1,33 @@
+<!-- @dsCard group="Brand" height=340 subtitle="Mark, lockups and small sizes" -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+body{margin:0;padding:24px;background:var(--surface);color:var(--ink);font-family:var(--font-sans)}
+.row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.panel{display:flex;align-items:center;gap:16px;padding:20px 24px;border-radius:var(--radius-lg);border:1px solid var(--line)}
+.light{background:var(--paper);color:var(--night)}
+.dark{background:var(--night);color:var(--paper)}
+.word{font-family:var(--font-display);font-weight:800;font-size:48px;letter-spacing:-0.02em;line-height:1}
+.word b{color:var(--brand);font-weight:800}
+.mk{flex:none}
+.heart{fill:var(--brand)}
+.arm{fill:var(--paper);stroke:var(--paper)}
+.crease{stroke:var(--brand)}
+.sizes{display:flex;align-items:flex-end;gap:28px}
+.cap{font-size:12px;line-height:16px;color:var(--ink-muted);margin-top:8px}
+</style>
+<div class="row">
+<div class="panel light"><div class="mk" data-mark style="width:78px;height:78px"></div><span class="word">SetsOf<b>Love</b></span></div>
+<div class="panel dark"><div class="mk" data-mark style="width:78px;height:78px"></div><span class="word">SetsOf<b>Love</b></span></div>
+</div>
+<div class="sizes">
+<div><div data-mark style="width:96px;height:96px"></div><div class="cap">Mark, 96px</div></div>
+<div><div data-mark style="width:48px;height:48px"></div><div class="cap">Mark, 48px</div></div>
+<div><div data-mark="simple" style="width:32px;height:32px"></div><div class="cap">Simple, 32px</div></div>
+<div><div data-mark="simple" style="width:24px;height:24px"></div><div class="cap">Simple, 24px</div></div>
+</div>
+<script>
+const P='M100 178 C20 120 8 80 8 58 C8 30 30 14 54 14 C75 14 92 26 100 44 C108 26 125 14 146 14 C170 14 192 30 192 58 C192 80 180 120 100 178 Z';
+const A='M30 168 L30 80 Q30 52 56 52 L62 52 Q80 52 82 70 L84 88 C100 62 150 56 172 92 C182 108 184 140 178 168 Z';
+const mark=(simple)=>`<svg viewBox="0 0 200 200" width="100%" height="100%" role="img" aria-label="SetsOfLove mark"><path class="heart" d="${P}"/><g transform="translate(100 86) scale(0.56) translate(-107 -110)"><path class="arm" d="${A}" stroke-width="8" stroke-linejoin="round"/>${simple?'':'<path class="crease" d="M47 58 V78 M64 56 V78 M112 70 C126 72 140 80 146 96" fill="none" stroke-width="4" stroke-linecap="round"/>'}</g></svg>`;
+document.querySelectorAll('[data-mark]').forEach(el=>{el.innerHTML=mark(el.dataset.mark==='simple')});
+</script>

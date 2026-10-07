@@ -1,0 +1,38 @@
+<!-- @dsCard height=300 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+body{margin:0;background:var(--surface)}
+.cover{position:relative;width:960px;height:300px;background:var(--surface);overflow:hidden}
+.cover svg{position:absolute;inset:0}
+.coral{fill:var(--brand);rx:var(--radius-xl)}
+.inkb{fill:var(--ink);rx:var(--radius-xl)}
+.goldb{fill:var(--gold);rx:var(--radius-xl)}
+.tint{fill:var(--brand-tint);rx:var(--radius-xl)}
+.ring{fill:none;stroke:var(--surface);stroke-width:10}
+.hub{fill:var(--surface)}
+.text{position:absolute;left:48px;bottom:40px;width:420px}
+.name{font-family:var(--font-display);font-size:72px;line-height:.95;font-weight:800;letter-spacing:-0.02em;color:var(--ink);white-space:nowrap}
+.name b{color:var(--brand);font-weight:800}
+.tag{font-family:var(--font-sans);font-size:14px;line-height:20px;color:var(--ink-muted);margin-top:12px}
+</style>
+<div class="cover">
+<svg viewBox="0 0 960 300" width="960" height="300" aria-hidden="true">
+<!-- Derivation
+blocks: brand 272x252 slab, ink 152x160, gold 72x76, brand-tint 64x76; gold and tint are the small satellites.
+arrangement: one tall coral slab with three satellites, every gap 16 (space-4), right of x=480.
+pattern: weight-plate rings (three concentric circles and a hub) cut from the coral slab in the surface colour, chosen because lifting is what SetsOfLove is about.
+steps and radii: space-4 gaps, radius-xl corners on every block. -->
+<rect class="coral" x="496" y="24" width="272" height="252"/>
+<rect class="inkb" x="784" y="24" width="152" height="160"/>
+<rect class="goldb" x="784" y="200" width="72" height="76"/>
+<rect class="tint" x="872" y="200" width="64" height="76"/>
+<circle class="ring" cx="632" cy="150" r="100"/>
+<circle class="ring" cx="632" cy="150" r="66"/>
+<circle class="ring" cx="632" cy="150" r="32"/>
+<circle class="hub" cx="632" cy="150" r="10"/>
+</svg>
+<div class="text">
+<div class="name">SetsOf<b>Love</b></div>
+<div class="tag">Dating profiles for one gym.</div>
+</div>
+</div>
