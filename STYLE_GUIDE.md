@@ -78,6 +78,12 @@ Profiles are reviewed and approved by the admin before they go live. Keep these 
 - Positive framing: say what you're looking for, not what you can't stand.
 - Not allowed: anything obscene, discriminatory, hateful, political rants, contact details such as phone numbers or social handles in public text fields, or anything controversial.
 
+**Quick picks**
+
+- Suggestions under a field are plain, positive and written in the first person. No humour, no innuendo, no contact details.
+- Sentence case, Australian English, full stops on sentences. Phrases for lists ("Early morning weights") have no full stop.
+- Tapping adds a suggestion and tapping again removes it. Members can always change the text.
+
 **Lifts**
 
 - Optional. Bench press, squat, deadlift and overhead press, entered in kg or lb.

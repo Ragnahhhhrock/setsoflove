@@ -5,7 +5,7 @@ export async function onRequestGet({ request, env }) {
   if (!user?.isAdmin) return fail("Not found.", 404);
 
   const rows = await env.DB.prepare(
-    `SELECT pr.user_id, pr.stub, pr.first_name, pr.age, pr.suburb, pr.occupation, pr.training, pr.about,
+    `SELECT pr.user_id, pr.stub, pr.first_name, pr.age, pr.suburb, pr.city, pr.country, pr.occupation, pr.training, pr.about,
             pr.bench_kg, pr.squat_kg, pr.deadlift_kg, pr.ohp_kg, pr.weight_unit, pr.looking_for, pr.status, pr.admin_note, pr.submitted_at, u.email
      FROM profiles pr JOIN users u ON u.id = pr.user_id
      WHERE pr.status IN ('pending','approved','rejected')

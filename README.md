@@ -33,7 +33,7 @@ Cloudflare Pages (`public/` and `functions/`) with D1 and R2. See [`DEPLOY.md`](
 
 - Legal copy lives in `content/terms.html` and `content/privacy.html`. After editing, run `python3 scripts/build_legal.py` and commit `public/terms/` and `public/privacy/`. Change the date at the top and `TERMS_VERSION` in `lib/legal.js` when the change is material.
 - `CONTACT_EMAIL` in `wrangler.toml` is `contact@setsoflove.com`. It appears in the footer of every page and in the "Report this profile" link.
-- Run `npx wrangler d1 migrations apply setsoflove --remote` to add the terms-acceptance columns (migration 0002), the contact messages table (0003) and the lift stat columns (0004).
+- Run `npx wrangler d1 migrations apply setsoflove --remote` to add the terms-acceptance columns (migration 0002), the contact messages table (0003) the lift stat columns (0004) and the city and country columns (0005).
 - The contact form lives at `/contact` and posts to `/api/contact`. See `DEPLOY.md` for email setup.
 - Each approved profile page (`/<stub>`) has preview tags for social sharing and share buttons.
 - The sign-up form must send `accept_terms: true` and `consent_public: true` to `/api/signup`.

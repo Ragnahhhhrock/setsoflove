@@ -1,4 +1,5 @@
 import { api, el, setMessage, notice, busy, signOut } from "/common.js";
+import { SUGGESTIONS, mountChips, mountStubChips } from "/suggestions.js";
 
 const form = document.getElementById("form");
 const statusBox = document.getElementById("status");
@@ -9,7 +10,7 @@ const fileInput = document.getElementById("photo-input");
 const addPhoto = document.getElementById("add-photo");
 const saveBtn = document.getElementById("save");
 const sendBtn = document.getElementById("send");
-const FIELDS = ["first_name", "age", "suburb", "occupation", "training", "about", "looking_for", "stub"];
+const FIELDS = ["first_name", "age", "suburb", "city", "country", "occupation", "training", "about", "looking_for", "stub"];
 // Lifts are saved in kg. The form shows them in the member's chosen unit.
 const LIFTS = [["bench", "bench_kg"], ["squat", "squat_kg"], ["deadlift", "deadlift_kg"], ["ohp", "ohp_kg"]];
 const KG_PER_LB = 0.45359237;
@@ -44,6 +45,17 @@ form.addEventListener("change", (e) => {
   setUnit(next);
 });
 
+// Quick picks. They stay in step with the fields, so refreshing them after each render keeps them honest.
+const refreshers = [];
+for (const [name, config] of Object.entries(SUGGESTIONS)) {
+  const holder = form.querySelector(`[data-suggest="${name}"]`);
+  const label = form.querySelector(`label[for="${name}"]`).textContent.toLowerCase();
+  holder.hidden = false;
+  refreshers.push(mountChips(holder, form[name], config, label));
+}
+const stubHolder = form.querySelector("[data-suggest-stub]");
+refreshers.push(mountStubChips(stubHolder, form));
+
 document.getElementById("link-prefix").textContent = `${location.host}/`;
 document.getElementById("signout").addEventListener("click", signOut);
 
@@ -72,6 +84,8 @@ function render() {
   for (const [key, column] of LIFTS) {
     if (document.activeElement !== form[key]) form[key].value = profile[column] == null ? "" : toUnit(profile[column], unit);
   }
+
+  for (const refresh of refreshers) refresh();
 
   statusBox.replaceChildren();
   const link = profile.stub ? `${location.origin}/${profile.stub}` : null;

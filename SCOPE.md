@@ -13,10 +13,18 @@ The voice stays friendly and dry. Keep the humour in the product, not in the bod
 ## Profile contents
 
 - 1 to 4 photos, with the main photo showing the member's face clearly
-- First name, age (18+), suburb, what they do, how they train
+- First name, age (18+), suburb, city, country, what they do, how they train
 - Optional lifts: bench press, squat, deadlift and overhead press, in kg or lb (stored in kg, shown in both)
 - About you and what you're looking for
 - A link stub such as `sam-t`
+
+## Required to send for approval
+
+First name, age, suburb, city, country, about you, what you're looking for, a link stub and at least 1 photo. What they do, how they train and the lifts are optional.
+
+## Quick picks
+
+To make the profile form faster, most text fields show tappable suggestions: country, what they do, how they train, about you, what you're looking for, and link stub ideas built from the member's first name, age and suburb. Tapping adds the text, tapping again removes it, and members can edit it freely. Suggestions follow `STYLE_GUIDE.md`, and a profile built from them is still approved by the admin like any other.
 
 ## Photo rules
 

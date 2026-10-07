@@ -40,6 +40,8 @@ function card(p) {
   add("Email", p.email);
   add("Link", p.stub ? `/${p.stub}` : "");
   add("Suburb", p.suburb);
+  add("City", p.city);
+  add("Country", p.country);
   add("What they do", p.occupation);
   add("How they train", p.training);
   const lifts = [["Bench", p.bench_kg], ["Squat", p.squat_kg], ["Deadlift", p.deadlift_kg], ["Overhead press", p.ohp_kg]]

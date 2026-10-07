@@ -42,7 +42,7 @@
 
   <form id="form" class="card" novalidate>
     <h2>About you</h2>
-    <p class="small muted">Write it in your own voice. Say what you're looking for, not what you can't stand. Leave out phone numbers, links and social handles.</p>
+    <p class="small muted">Write it in your own voice. Say what you're looking for, not what you can't stand. Leave out phone numbers, links and social handles. Tap a quick pick to add it, then change it however you like.</p>
     <div class="field">
       <label for="first_name">First name</label>
       <input id="first_name" name="first_name" type="text" autocomplete="given-name" maxlength="30">
@@ -56,14 +56,25 @@
       <input id="suburb" name="suburb" type="text" maxlength="40">
     </div>
     <div class="field">
+      <label for="city">City</label>
+      <input id="city" name="city" type="text" autocomplete="address-level2" maxlength="40">
+    </div>
+    <div class="field">
+      <label for="country">Country</label>
+      <input id="country" name="country" type="text" autocomplete="country-name" maxlength="40">
+      <div class="chips" data-suggest="country" hidden></div>
+    </div>
+    <div class="field">
       <label for="occupation">What you do</label>
       <input id="occupation" name="occupation" type="text" maxlength="60">
       <p class="help">Your work, or what fills your week</p>
+      <div class="chips" data-suggest="occupation" hidden></div>
     </div>
     <div class="field">
       <label for="training">How you train</label>
       <input id="training" name="training" type="text" maxlength="200">
       <p class="help">For example, early weights and a Sunday swim</p>
+      <div class="chips" data-suggest="training" hidden></div>
     </div>
     <fieldset class="field lifts">
       <legend class="label">Your lifts</legend>
@@ -95,16 +106,19 @@
       <label for="about">About you</label>
       <textarea id="about" name="about" maxlength="600"></textarea>
       <p class="help">Up to 600 characters</p>
+      <div class="chips" data-suggest="about" hidden></div>
     </div>
     <div class="field">
       <label for="looking_for">What you're looking for</label>
       <textarea id="looking_for" name="looking_for" maxlength="400"></textarea>
       <p class="help">Up to 400 characters</p>
+      <div class="chips" data-suggest="looking_for" hidden></div>
     </div>
     <div class="field">
       <label for="stub">Your link</label>
       <div class="link-field"><span id="link-prefix" class="prefix"></span><input id="stub" name="stub" type="text" maxlength="30" autocapitalize="none" autocomplete="off" spellcheck="false"></div>
       <p class="help">Lowercase letters, numbers and hyphens. First name and an initial work well, like sam-t.</p>
+      <div class="chips" data-suggest-stub hidden></div>
     </div>
     <div id="form-message" class="msg" role="alert" hidden></div>
     <div class="actions">

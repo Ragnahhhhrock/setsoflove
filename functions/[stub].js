@@ -43,6 +43,15 @@ const notFound = (env) =>
     { status: 404 }
   );
 
+// "Subiaco, Perth, Australia". Blank parts are skipped and repeats (a suburb named for its city) are dropped.
+const place = (profile) => {
+  const seen = new Set();
+  return [profile.suburb, profile.city, profile.country]
+    .map((part) => String(part || "").trim())
+    .filter((part) => part && !seen.has(part.toLowerCase()) && seen.add(part.toLowerCase()))
+    .join(", ");
+};
+
 const section = (label, text) =>
   text ? `<section class="profile-section"><h2 class="h3">${escapeHtml(label)}</h2><p>${escapeHtml(text).replace(/\n/g, "<br>")}</p></section>` : "";
 
@@ -146,7 +155,7 @@ export async function onRequestGet(context) {
     <div class="gallery" tabindex="0" aria-label="Photos of ${name}">${gallery}</div>
     <div class="profile-body">
       <h1>${name}, ${escapeHtml(profile.age)}</h1>
-      <p class="muted">${escapeHtml(profile.suburb)}</p>
+      <p class="muted">${escapeHtml(place(profile))}</p>
       ${section(`What ${profile.first_name} does`, profile.occupation)}
       ${section(`How ${profile.first_name} trains`, profile.training)}
       ${liftsSection(profile)}

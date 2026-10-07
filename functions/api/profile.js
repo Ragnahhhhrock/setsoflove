@@ -17,6 +17,11 @@ export async function onRequestPut({ request, env }) {
   if (fields.first_name && !/^[\p{L}][\p{L} '’-]*$/u.test(fields.first_name)) {
     return fail("Use letters only in your first name.");
   }
+  for (const place of ["city", "country"]) {
+    if (fields[place] && !/^[\p{L}][\p{L} .'’-]*$/u.test(fields[place])) {
+      return fail(`Use letters only in your ${place}.`);
+    }
+  }
 
   let age = null;
   if (body.age !== "" && body.age != null) {
@@ -50,12 +55,12 @@ export async function onRequestPut({ request, env }) {
 
   const now = Math.floor(Date.now() / 1000);
   await env.DB.prepare(
-    `UPDATE profiles SET stub = ?, first_name = ?, age = ?, suburb = ?, occupation = ?, training = ?,
+    `UPDATE profiles SET stub = ?, first_name = ?, age = ?, suburb = ?, city = ?, country = ?, occupation = ?, training = ?,
        about = ?, looking_for = ?, bench_kg = ?, squat_kg = ?, deadlift_kg = ?, ohp_kg = ?, weight_unit = ?,
        status = 'draft', updated_at = ? WHERE user_id = ?`
   )
     .bind(
-      stub, fields.first_name, age, fields.suburb, fields.occupation, fields.training, fields.about, fields.looking_for,
+      stub, fields.first_name, age, fields.suburb, fields.city, fields.country, fields.occupation, fields.training, fields.about, fields.looking_for,
       lifts.bench_kg, lifts.squat_kg, lifts.deadlift_kg, lifts.ohp_kg, unit, now, user.id
     )
     .run();
