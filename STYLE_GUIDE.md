@@ -27,6 +27,7 @@ Gym puns are welcome in small doses, and only where they help (one per screen at
 - **Contractions** are fine ("you're", "we'll").
 - **No emoji, no exclamation marks** in interface copy, except at most one exclamation mark on a success moment.
 - **Punctuation:** no full stop on buttons, labels or single-sentence helper text. Use full stops in multi-sentence messages. Use the Oxford comma only when it prevents ambiguity.
+- **Everyone:** write for all genders and all kinds of connection. Say "people", "someone" or "gym-goers", not "men" or "women" as the default.
 - **Avoid:** "hot", "babe", "hunk", "swipe", "match" (there's no matching algorithm here), "bro", "thirst", innuendo about bodies or lifting.
 
 ## 3. Words we use
@@ -77,6 +78,12 @@ Profiles are reviewed and approved by the admin before they go live. Keep these 
 - Written in the member's own voice, in plain language.
 - Positive framing: say what you're looking for, not what you can't stand.
 - Not allowed: anything obscene, discriminatory, hateful, political rants, contact details such as phone numbers or social handles in public text fields, or anything controversial.
+
+**Who you are and who you'd like to meet**
+
+- Gender: Man, Woman, Non-binary. Interests: Men, Women, Non-binary people. What you're after: Dates, A relationship, Marriage, Friendship, Just fun.
+- Show them exactly as the member chose them, in a short line such as "Woman. Interested in men and women. After dates and friendship."
+- Keep the tone welcoming to every gender. Never assume who someone is looking for, and never use "guys", "ladies" or "his or her" in interface copy. Use "they" or the member's first name.
 
 **Quick picks**
 

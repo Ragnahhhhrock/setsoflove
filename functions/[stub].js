@@ -1,4 +1,4 @@
-import { getUser, escapeHtml, RESERVED_STUBS, LIFTS, formatLift } from "../lib/util.js";
+import { getUser, escapeHtml, RESERVED_STUBS, LIFTS, formatLift, GENDERS, INTERESTS, SEEKING, labelsFor } from "../lib/util.js";
 
 const page = (title, body, { robots = "noindex, nofollow", status = 200, head = "" } = {}) =>
   new Response(
@@ -50,6 +50,17 @@ const place = (profile) => {
     .map((part) => String(part || "").trim())
     .filter((part) => part && !seen.has(part.toLowerCase()) && seen.add(part.toLowerCase()))
     .join(", ");
+};
+
+// "Man. Interested in women. After dates and a relationship."
+const list = (items) => (items.length > 1 ? `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}` : items[0] || "");
+const whoLine = (profile) => {
+  const who = labelsFor(profile.gender, GENDERS)[0];
+  const into = labelsFor(profile.interested_in, INTERESTS).map((l) => l.toLowerCase());
+  const after = labelsFor(profile.seeking, SEEKING).map((l) => l.toLowerCase());
+  return [who, into.length ? `interested in ${list(into)}` : "", after.length ? `after ${list(after)}` : ""]
+    .filter(Boolean)
+    .join(". ");
 };
 
 const section = (label, text) =>
@@ -156,11 +167,12 @@ export async function onRequestGet(context) {
     <div class="profile-body">
       <h1>${name}, ${escapeHtml(profile.age)}</h1>
       <p class="muted">${escapeHtml(place(profile))}</p>
+      <p class="small">${escapeHtml(whoLine(profile))}</p>
       ${section(`What ${profile.first_name} does`, profile.occupation)}
       ${section(`How ${profile.first_name} trains`, profile.training)}
       ${liftsSection(profile)}
       ${section(`About ${profile.first_name}`, profile.about)}
-      ${section("Looking for", profile.looking_for)}
+      ${section(`Who ${profile.first_name} would like to meet`, profile.looking_for)}
     </div>
   </article>
   ${sharing}

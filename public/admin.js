@@ -39,6 +39,9 @@ function card(p) {
   const add = (k, v) => v && facts.append(el("dt", {}, k), el("dd", {}, v));
   add("Email", p.email);
   add("Link", p.stub ? `/${p.stub}` : "");
+  add("Gender", p.gender);
+  add("Interested in", p.interested_in && p.interested_in.split(",").join(", "));
+  add("After", p.seeking && p.seeking.split(",").join(", "));
   add("Suburb", p.suburb);
   add("City", p.city);
   add("Country", p.country);
@@ -50,7 +53,7 @@ function card(p) {
     .join(", ");
   add("Lifts", lifts);
   add("About", p.about);
-  add("Looking for", p.looking_for);
+  add("Would like to meet", p.looking_for);
 
   return el(
     "article",

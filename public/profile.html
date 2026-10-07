@@ -42,7 +42,7 @@
 
   <form id="form" class="card" novalidate>
     <h2>About you</h2>
-    <p class="small muted">Write it in your own voice. Say what you're looking for, not what you can't stand. Leave out phone numbers, links and social handles. Tap a quick pick to add it, then change it however you like.</p>
+    <p class="small muted">Write it in your own voice. Say what you're after, not what you can't stand. Leave out phone numbers, links and social handles. Tap a quick pick to add it, then change it however you like.</p>
     <div class="field">
       <label for="first_name">First name</label>
       <input id="first_name" name="first_name" type="text" autocomplete="given-name" maxlength="30">
@@ -51,6 +51,34 @@
       <label for="age">Age</label>
       <input id="age" name="age" type="number" inputmode="numeric" min="18" max="99">
     </div>
+    <fieldset class="field choices">
+      <legend class="label">You are</legend>
+      <div class="choice-list">
+        <label class="choice"><input type="radio" name="gender" value="man"><span>Man</span></label>
+        <label class="choice"><input type="radio" name="gender" value="woman"><span>Woman</span></label>
+        <label class="choice"><input type="radio" name="gender" value="non-binary"><span>Non-binary</span></label>
+      </div>
+    </fieldset>
+    <fieldset class="field choices">
+      <legend class="label">You'd like to meet</legend>
+      <p class="help">Pick as many as you like</p>
+      <div class="choice-list">
+        <label class="choice"><input type="checkbox" name="interested_in" value="men"><span>Men</span></label>
+        <label class="choice"><input type="checkbox" name="interested_in" value="women"><span>Women</span></label>
+        <label class="choice"><input type="checkbox" name="interested_in" value="non-binary"><span>Non-binary people</span></label>
+      </div>
+    </fieldset>
+    <fieldset class="field choices">
+      <legend class="label">What you're after</legend>
+      <p class="help">Pick as many as you like</p>
+      <div class="choice-list">
+        <label class="choice"><input type="checkbox" name="seeking" value="dates"><span>Dates</span></label>
+        <label class="choice"><input type="checkbox" name="seeking" value="relationship"><span>A relationship</span></label>
+        <label class="choice"><input type="checkbox" name="seeking" value="marriage"><span>Marriage</span></label>
+        <label class="choice"><input type="checkbox" name="seeking" value="friendship"><span>Friendship</span></label>
+        <label class="choice"><input type="checkbox" name="seeking" value="fun"><span>Just fun</span></label>
+      </div>
+    </fieldset>
     <div class="field">
       <label for="suburb">Suburb</label>
       <input id="suburb" name="suburb" type="text" maxlength="40">
@@ -109,7 +137,7 @@
       <div class="chips" data-suggest="about" hidden></div>
     </div>
     <div class="field">
-      <label for="looking_for">What you're looking for</label>
+      <label for="looking_for">Who you'd like to meet</label>
       <textarea id="looking_for" name="looking_for" maxlength="400"></textarea>
       <p class="help">Up to 400 characters</p>
       <div class="chips" data-suggest="looking_for" hidden></div>

@@ -1,4 +1,4 @@
-import { json, fail, readJson, getUser, cleanText, validStub, hasContactDetails, LIMITS, LIFTS, LIFT_MIN_KG, LIFT_MAX_KG, liftToKg, kgToLb } from "../../lib/util.js";
+import { json, fail, readJson, getUser, cleanText, validStub, hasContactDetails, pickKeys, GENDERS, INTERESTS, SEEKING, LIMITS, LIFTS, LIFT_MIN_KG, LIFT_MAX_KG, liftToKg, kgToLb } from "../../lib/util.js";
 
 // Saves the member's profile. Any edit takes a live profile offline until it is approved again.
 export async function onRequestPut({ request, env }) {
@@ -22,6 +22,10 @@ export async function onRequestPut({ request, env }) {
       return fail(`Use letters only in your ${place}.`);
     }
   }
+
+  const gender = pickKeys(body.gender, GENDERS).split(",")[0] || "";
+  const interestedIn = pickKeys(body.interested_in, INTERESTS);
+  const seeking = pickKeys(body.seeking, SEEKING);
 
   let age = null;
   if (body.age !== "" && body.age != null) {
@@ -55,12 +59,12 @@ export async function onRequestPut({ request, env }) {
 
   const now = Math.floor(Date.now() / 1000);
   await env.DB.prepare(
-    `UPDATE profiles SET stub = ?, first_name = ?, age = ?, suburb = ?, city = ?, country = ?, occupation = ?, training = ?,
+    `UPDATE profiles SET stub = ?, first_name = ?, gender = ?, interested_in = ?, seeking = ?, age = ?, suburb = ?, city = ?, country = ?, occupation = ?, training = ?,
        about = ?, looking_for = ?, bench_kg = ?, squat_kg = ?, deadlift_kg = ?, ohp_kg = ?, weight_unit = ?,
        status = 'draft', updated_at = ? WHERE user_id = ?`
   )
     .bind(
-      stub, fields.first_name, age, fields.suburb, fields.city, fields.country, fields.occupation, fields.training, fields.about, fields.looking_for,
+      stub, fields.first_name, gender, interestedIn, seeking, age, fields.suburb, fields.city, fields.country, fields.occupation, fields.training, fields.about, fields.looking_for,
       lifts.bench_kg, lifts.squat_kg, lifts.deadlift_kg, lifts.ohp_kg, unit, now, user.id
     )
     .run();

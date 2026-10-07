@@ -10,6 +10,8 @@ const fileInput = document.getElementById("photo-input");
 const addPhoto = document.getElementById("add-photo");
 const saveBtn = document.getElementById("save");
 const sendBtn = document.getElementById("send");
+// Radio and checkbox groups, saved as keys.
+const CHOICES = { gender: "radio", interested_in: "checkbox", seeking: "checkbox" };
 const FIELDS = ["first_name", "age", "suburb", "city", "country", "occupation", "training", "about", "looking_for", "stub"];
 // Lifts are saved in kg. The form shows them in the member's chosen unit.
 const LIFTS = [["bench", "bench_kg"], ["squat", "squat_kg"], ["deadlift", "deadlift_kg"], ["ohp", "ohp_kg"]];
@@ -80,6 +82,10 @@ function render() {
     // Don't overwrite what the member is typing.
     if (document.activeElement !== form[f]) form[f].value = profile[f] ?? "";
   }
+  for (const name of Object.keys(CHOICES)) {
+    const chosen = String(profile[name] || "").split(",");
+    for (const input of form.querySelectorAll(`input[name="${name}"]`)) input.checked = chosen.includes(input.value);
+  }
   setUnit(profile.weight_unit === "lb" ? "lb" : "kg");
   for (const [key, column] of LIFTS) {
     if (document.activeElement !== form[key]) form[key].value = profile[column] == null ? "" : toUnit(profile[column], unit);
@@ -146,6 +152,10 @@ function formBody() {
   const body = {};
   for (const f of FIELDS) body[f] = form[f].value;
   body.weight_unit = unit;
+  for (const name of Object.keys(CHOICES)) {
+    const picked = [...form.querySelectorAll(`input[name="${name}"]:checked`)].map((i) => i.value);
+    body[name] = CHOICES[name] === "radio" ? picked[0] || "" : picked;
+  }
   for (const [key] of LIFTS) body[key] = form[key].value;
   return body;
 }
