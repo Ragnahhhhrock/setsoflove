@@ -40,8 +40,8 @@ The voice stays friendly and dry. Keep the humour in the product, not in the bod
 - Contact details are kept out of public text fields, so introductions happen through mutual friends or at the gym
 - If reactions are ever added, they should be opt-in, with a block and report option from day one
 
-## Open decisions
+## Decisions
 
-- How the admin confirms a member actually belongs to the gym
-- Whether lifts should be self-reported only, or whether the admin can ask for proof
-- Whether a "photo of a lift" label is worth adding to photos later
+- Gym membership is not checked. The admin approves profiles but does not confirm membership
+- Lifts are self-reported, with no proof needed
+- A "photo of a lift" label is left for a later version
