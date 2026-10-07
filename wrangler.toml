@@ -1,0 +1,15 @@
+name = "setsoflove"
+compatibility_date = "2026-10-01"
+pages_build_output_dir = "public"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "setsoflove"
+database_id = "REPLACE_WITH_D1_ID"
+
+[[r2_buckets]]
+binding = "PHOTOS"
+bucket_name = "setsoflove-photos"
+
+[vars]
+SITE_NAME = "SetsOfLove"
