@@ -188,3 +188,9 @@ dl.facts dd { margin: 0; overflow-wrap: anywhere; }
 .space-top { margin-top: var(--sol-space-5); }
 .site-header nav a, .site-header nav .btn-link { white-space: nowrap; }
 .site-header img { display: block; height: 32px; width: auto; }
+
+/* Landing page */
+.section { margin-top: var(--sol-space-7); }
+.checklist { list-style: none; margin: 0 0 var(--sol-space-4); padding: 0; }
+.checklist li { position: relative; padding: var(--sol-space-2) 0 var(--sol-space-2) var(--sol-space-6); }
+.checklist li::before { content: ""; position: absolute; left: var(--sol-space-2); top: var(--sol-space-3); width: 6px; height: 12px; border: solid var(--sol-colour-coral-deep); border-width: 0 2px 2px 0; transform: rotate(45deg); }
