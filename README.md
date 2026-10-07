@@ -24,3 +24,7 @@ python3 scripts/check_conformance.py   # must pass before every commit
 ```
 
 Assets live in `assets/logo/` and `assets/icons/`. A new asset type must be added to `DESIGN_GUIDE.md` and the checker first.
+
+## The app
+
+Cloudflare Pages (`public/` and `functions/`) with D1 and R2. See [`DEPLOY.md`](DEPLOY.md) for setup. Brand files in `public/` (`tokens.css`, `brand/`, icons) are copies of `tokens/` and `assets/`; recopy them after rebuilding assets.

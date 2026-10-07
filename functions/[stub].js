@@ -21,7 +21,7 @@ ${body}
     { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "private, no-cache" } }
   );
 
-const header = `<header class="site-header"><a href="/" aria-label="SetsOfLove home"><img src="/brand/logo-lockup.svg" alt="SetsOfLove" height="40"></a></header>`;
+const header = `<header class="site-header"><a href="/" aria-label="SetsOfLove home"><img src="/brand/logo-lockup.svg" alt="SetsOfLove" height="32"></a></header>`;
 
 const notFound = () =>
   page(

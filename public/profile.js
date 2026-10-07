@@ -41,7 +41,6 @@ function render() {
   const link = profile.stub ? `${location.origin}/${profile.stub}` : null;
   if (profile.status === "approved") {
     const box = notice("success", "Your profile is live. Anyone with your link can see it.");
-    box.append(el("div", { class: "actions" }));
     statusBox.append(box);
     if (link) statusBox.append(linkRow(link));
     statusBox.append(notice("warning", "Saving changes takes your profile offline until we approve it again."));

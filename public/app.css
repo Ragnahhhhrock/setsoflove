@@ -137,3 +137,5 @@ dl.facts dd { margin: 0; overflow-wrap: anywhere; }
 .page > section.stack { margin-top: var(--sol-space-7); }
 .page > p.small.muted:last-child { margin-top: var(--sol-space-6); }
 .space-top { margin-top: var(--sol-space-5); }
+.site-header nav a, .site-header nav .btn-link { white-space: nowrap; }
+.site-header img { display: block; height: 32px; width: auto; }
