@@ -24,6 +24,7 @@ def footer() -> str:
   <ul>
     <li><a href="/terms/">Terms of use</a></li>
     <li><a href="/privacy/">Privacy policy</a></li>
+    <li><a href="/contact">Contact</a></li>
     {contact}
   </ul>
   <p class="small">SetsOfLove is for adults aged 18 and over. We approve every profile before it goes live.</p>

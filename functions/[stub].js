@@ -26,7 +26,8 @@ const header = `<header class="site-header"><a href="/" aria-label="SetsOfLove h
 const footer = (env) => `<footer class="site-footer">
   <ul>
     <li><a href="/terms/">Terms of use</a></li>
-    <li><a href="/privacy/">Privacy policy</a></li>${env.CONTACT_EMAIL ? `\n    <li><a href="mailto:${escapeHtml(env.CONTACT_EMAIL)}">${escapeHtml(env.CONTACT_EMAIL)}</a></li>` : ""}
+    <li><a href="/privacy/">Privacy policy</a></li>
+    <li><a href="/contact">Contact</a></li>${env.CONTACT_EMAIL ? `\n    <li><a href="mailto:${escapeHtml(env.CONTACT_EMAIL)}">${escapeHtml(env.CONTACT_EMAIL)}</a></li>` : ""}
   </ul>
   <p class="small">SetsOfLove is for adults aged 18 and over. We approve every profile before it goes live.</p>
 </footer>`;

@@ -18,6 +18,20 @@ Run these on your computer (needs Node 20+). Log in once with `npx wrangler logi
 6. **Check the bindings.** Pages project, Settings, Bindings should show `DB` (D1 `setsoflove`) and `PHOTOS` (R2 `setsoflove-photos`). They come from `wrangler.toml`.
 7. **Add your domain.** Pages project, Custom domains.
 
+## Contact form and email
+
+All site email goes to `contact@setsoflove.com` (`CONTACT_EMAIL` in `wrangler.toml`). It's used in every footer, the "Report this profile" link and the legal pages.
+
+1. **Receive mail.** Cloudflare dashboard, your domain, Email, Email Routing. Enable it, then add a rule that forwards `contact@setsoflove.com` to your own inbox.
+2. **Send form messages to that address.** Create a free Resend account, verify `setsoflove.com`, and create an API key. In the Pages project, Settings, Variables and Secrets, add a secret named `RESEND_API_KEY`. Redeploy.
+3. **Add the table.** Run `npm run migrate:remote` (migration 0003).
+
+Every message is saved in D1 even if email delivery fails. Read them with:
+
+```
+npx wrangler d1 execute setsoflove --remote --command "SELECT created_at, name, email, message, emailed FROM contact_messages ORDER BY id DESC LIMIT 20"
+```
+
 ## Make yourself the admin
 
 Create your own account on the site first, then run:

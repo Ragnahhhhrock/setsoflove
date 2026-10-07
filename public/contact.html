@@ -4,24 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Sign in – SetsOfLove</title>
-<meta name="description" content="Sign in to your SetsOfLove account to edit your profile.">
+<title>Contact – SetsOfLove</title>
+<meta name="description" content="Get in touch with SetsOfLove. Questions, feedback or a profile to report.">
 <meta name="theme-color" content="#F7F3EC">
-<link rel="canonical" href="https://setsoflove.com/signin">
+<link rel="canonical" href="https://setsoflove.com/contact">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SetsOfLove">
 <meta property="og:locale" content="en_AU">
-<meta property="og:url" content="https://setsoflove.com/signin">
-<meta property="og:title" content="Sign in – SetsOfLove">
-<meta property="og:description" content="Sign in to your SetsOfLove account to edit your profile.">
+<meta property="og:url" content="https://setsoflove.com/contact">
+<meta property="og:title" content="Contact – SetsOfLove">
+<meta property="og:description" content="Get in touch with SetsOfLove. Questions, feedback or a profile to report.">
 <meta property="og:image" content="https://setsoflove.com/og-image.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="SetsOfLove. Find someone who gets the early alarm.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sign in – SetsOfLove">
-<meta name="twitter:description" content="Sign in to your SetsOfLove account to edit your profile.">
+<meta name="twitter:title" content="Contact – SetsOfLove">
+<meta name="twitter:description" content="Get in touch with SetsOfLove. Questions, feedback or a profile to report.">
 <meta name="twitter:image" content="https://setsoflove.com/twitter-card.png">
 <meta name="twitter:image:alt" content="SetsOfLove. Find someone who gets the early alarm.">
 <link rel="manifest" href="/site.webmanifest">
@@ -34,25 +34,31 @@
 <body>
 <header class="site-header">
   <a href="/" aria-label="SetsOfLove home"><img src="/brand/logo-lockup.svg" alt="SetsOfLove" height="32"></a>
-  <nav><a href="/signup">Create account</a></nav>
+  <nav><a href="/signin">Sign in</a></nav>
 </header>
-<main class="page">
-  <h1>Sign in</h1>
+<main class="page narrow">
+  <h1>Contact us</h1>
+  <p>Questions, feedback or a profile to report? Send us a message and we'll reply by email.</p>
   <form id="form" novalidate>
     <div class="field">
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" autocomplete="name" maxlength="80" required>
     </div>
     <div class="field">
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required>
     </div>
+    <div class="field">
+      <label for="msg">Message</label>
+      <textarea id="msg" name="message" maxlength="2000" required></textarea>
+      <p class="help">If you're reporting a profile, include its link</p>
+    </div>
+    <div hidden><label for="website">Leave this empty</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
     <div id="message" class="msg" role="alert" hidden></div>
-    <button id="submit" class="btn btn-block" type="submit" data-label="Sign in">Sign in</button>
+    <button id="submit" class="btn btn-block" type="submit" data-label="Send message">Send message</button>
   </form>
-  <p class="small muted space-top">New here? <a href="/signup">Create account</a></p>
 </main>
-<script type="module" src="/signin.js"></script>
+<script type="module" src="/contact.js"></script>
 <footer class="site-footer">
   <ul>
     <li><a href="/terms/">Terms of use</a></li>
