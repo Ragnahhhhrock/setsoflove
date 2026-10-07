@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Your profile – SetsOfLove</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="/" aria-label="SetsOfLove home"><img src="/brand/logo-lockup.svg" alt="SetsOfLove" height="40"></a>
+  <nav><a id="admin-link" href="/admin" hidden>Admin</a><button id="signout" class="btn-link" type="button">Sign out</button></nav>
+</header>
+<main class="page">
+  <h1>Your profile</h1>
+  <div id="status"></div>
+
+  <section class="card" aria-labelledby="photos-title">
+    <h2 id="photos-title">Photos</h2>
+    <p class="help small muted">Add 1 to 4 clear, recent photos. The first one is your main photo, and the face should be easy to see.</p>
+    <div id="photos" class="photo-grid"></div>
+    <div id="photo-message" class="msg" role="alert" hidden></div>
+    <input id="photo-input" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" hidden>
+    <button id="add-photo" class="btn btn-secondary btn-block" type="button">Add photos</button>
+    <details class="space-top">
+      <summary class="label">Photo guidelines</summary>
+      <ul class="small">
+        <li>Clothed, in a gym or everyday setting. Nothing sexual or obscene.</li>
+        <li>No sunglasses or hats shading your face in your main photo.</li>
+        <li>Only photos you have the right to share. No photos of other people as the main image.</li>
+        <li>No screenshots, memes, or images with text or logos on them.</li>
+      </ul>
+    </details>
+  </section>
+
+  <form id="form" class="card" novalidate>
+    <h2>About you</h2>
+    <p class="small muted">Write it in your own voice. Say what you're looking for, not what you can't stand. Leave out phone numbers, links and social handles.</p>
+    <div class="field">
+      <label for="first_name">First name</label>
+      <input id="first_name" name="first_name" type="text" autocomplete="given-name" maxlength="30">
+    </div>
+    <div class="field">
+      <label for="age">Age</label>
+      <input id="age" name="age" type="number" inputmode="numeric" min="18" max="99">
+    </div>
+    <div class="field">
+      <label for="suburb">Suburb</label>
+      <input id="suburb" name="suburb" type="text" maxlength="40">
+    </div>
+    <div class="field">
+      <label for="occupation">What you do</label>
+      <input id="occupation" name="occupation" type="text" maxlength="60">
+      <p class="help">Your work, or what fills your week</p>
+    </div>
+    <div class="field">
+      <label for="training">How you train</label>
+      <input id="training" name="training" type="text" maxlength="200">
+      <p class="help">For example, early weights and a Sunday swim</p>
+    </div>
+    <div class="field">
+      <label for="about">About you</label>
+      <textarea id="about" name="about" maxlength="600"></textarea>
+      <p class="help">Up to 600 characters</p>
+    </div>
+    <div class="field">
+      <label for="looking_for">What you're looking for</label>
+      <textarea id="looking_for" name="looking_for" maxlength="400"></textarea>
+      <p class="help">Up to 400 characters</p>
+    </div>
+    <div class="field">
+      <label for="stub">Your link</label>
+      <div class="link-field"><span id="link-prefix" class="prefix"></span><input id="stub" name="stub" type="text" maxlength="30" autocapitalize="none" autocomplete="off" spellcheck="false"></div>
+      <p class="help">Lowercase letters, numbers and hyphens. First name and an initial work well, like sam-t.</p>
+    </div>
+    <div id="form-message" class="msg" role="alert" hidden></div>
+    <div class="actions">
+      <button id="save" class="btn btn-secondary btn-block" type="submit" data-label="Save profile">Save profile</button>
+      <button id="send" class="btn btn-block" type="button" data-label="Send for approval">Send for approval</button>
+    </div>
+  </form>
+
+  <section class="card">
+    <h2>Delete profile</h2>
+    <p class="small muted">This removes your account, photos and profile for good.</p>
+    <button id="delete" class="btn btn-danger btn-block" type="button">Delete profile</button>
+  </section>
+</main>
+<script type="module" src="/profile.js"></script>
+</body>
+</html>
