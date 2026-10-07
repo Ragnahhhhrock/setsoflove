@@ -1,4 +1,4 @@
-import { getUser, escapeHtml, RESERVED_STUBS } from "../lib/util.js";
+import { getUser, escapeHtml, RESERVED_STUBS, LIFTS, formatLift } from "../lib/util.js";
 
 const page = (title, body, { robots = "noindex, nofollow", status = 200, head = "" } = {}) =>
   new Response(
@@ -45,6 +45,15 @@ const notFound = (env) =>
 
 const section = (label, text) =>
   text ? `<section class="profile-section"><h2 class="h3">${escapeHtml(label)}</h2><p>${escapeHtml(text).replace(/\n/g, "<br>")}</p></section>` : "";
+
+const liftsSection = (profile) => {
+  const rows = LIFTS.filter((l) => profile[l.column] != null)
+    .map((l) => `<div><dt>${escapeHtml(l.label)}</dt><dd>${escapeHtml(formatLift(profile[l.column], profile.weight_unit))}</dd></div>`)
+    .join("");
+  return rows
+    ? `<section class="profile-section"><h2 class="h3">${escapeHtml(profile.first_name)}'s lifts</h2><dl class="lift-stats">${rows}</dl></section>`
+    : "";
+};
 
 // Profile pages live at the root: setsoflove.com/sam-t
 export async function onRequestGet(context) {
@@ -140,6 +149,7 @@ export async function onRequestGet(context) {
       <p class="muted">${escapeHtml(profile.suburb)}</p>
       ${section(`What ${profile.first_name} does`, profile.occupation)}
       ${section(`How ${profile.first_name} trains`, profile.training)}
+      ${liftsSection(profile)}
       ${section(`About ${profile.first_name}`, profile.about)}
       ${section("Looking for", profile.looking_for)}
     </div>

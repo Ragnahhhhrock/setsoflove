@@ -68,7 +68,7 @@ Profiles are reviewed and approved by the admin before they go live. Keep these 
 
 - Clear, recent, well lit, and the member is easy to recognise.
 - At least one photo where the face is clearly visible, with no sunglasses or hat shading it.
-- Clothed, and gym or everyday settings are fine. Nothing sexual, nothing obscene.
+- Gym and workout photos are encouraged: training shots, gym kit, a post-session mirror pic. No nudity, nothing sexual, nothing obscene.
 - Only photos the member has the right to share. No photos of other people without their consent.
 - Not allowed: photos of other people as the main image, screenshots, memes, or images with overlaid text or logos.
 
@@ -77,6 +77,12 @@ Profiles are reviewed and approved by the admin before they go live. Keep these 
 - Written in the member's own voice, in plain language.
 - Positive framing: say what you're looking for, not what you can't stand.
 - Not allowed: anything obscene, discriminatory, hateful, political rants, contact details such as phone numbers or social handles in public text fields, or anything controversial.
+
+**Lifts**
+
+- Optional. Bench press, squat, deadlift and overhead press, entered in kg or lb.
+- Stored in kg and shown in both units, with the member's chosen unit first. Example: "100 kg (220 lb)".
+- Real numbers only. The admin can ask for changes if a figure looks off.
 
 **Link stubs (profile URLs)**
 

@@ -32,7 +32,7 @@
     <details class="space-top">
       <summary class="label">Photo guidelines</summary>
       <ul class="small">
-        <li>Clothed, in a gym or everyday setting. Nothing sexual or obscene.</li>
+        <li>Gym and workout photos are welcome. No nudity, and nothing sexual or obscene.</li>
         <li>No sunglasses or hats shading your face in your main photo.</li>
         <li>Only photos you have the right to share. No photos of other people as the main image.</li>
         <li>No screenshots, memes, or images with text or logos on them.</li>
@@ -65,6 +65,32 @@
       <input id="training" name="training" type="text" maxlength="200">
       <p class="help">For example, early weights and a Sunday swim</p>
     </div>
+    <fieldset class="field lifts">
+      <legend class="label">Your lifts</legend>
+      <p class="help">Optional. Your best recent lifts. Leave blank any you'd rather skip.</p>
+      <div class="unit-toggle" role="radiogroup" aria-label="Weight units">
+        <label><input type="radio" name="weight_unit" value="kg" checked> Kilograms (kg)</label>
+        <label><input type="radio" name="weight_unit" value="lb"> Pounds (lb)</label>
+      </div>
+      <div class="lift-grid">
+        <div class="field">
+          <label for="bench">Bench press</label>
+          <input id="bench" name="bench" type="number" inputmode="decimal" min="0" step="any">
+        </div>
+        <div class="field">
+          <label for="squat">Squat</label>
+          <input id="squat" name="squat" type="number" inputmode="decimal" min="0" step="any">
+        </div>
+        <div class="field">
+          <label for="deadlift">Deadlift</label>
+          <input id="deadlift" name="deadlift" type="number" inputmode="decimal" min="0" step="any">
+        </div>
+        <div class="field">
+          <label for="ohp">Overhead press</label>
+          <input id="ohp" name="ohp" type="number" inputmode="decimal" min="0" step="any">
+        </div>
+      </div>
+    </fieldset>
     <div class="field">
       <label for="about">About you</label>
       <textarea id="about" name="about" maxlength="600"></textarea>

@@ -42,6 +42,11 @@ function card(p) {
   add("Suburb", p.suburb);
   add("What they do", p.occupation);
   add("How they train", p.training);
+  const lifts = [["Bench", p.bench_kg], ["Squat", p.squat_kg], ["Deadlift", p.deadlift_kg], ["Overhead press", p.ohp_kg]]
+    .filter(([, kg]) => kg != null)
+    .map(([name, kg]) => `${name} ${kg} kg (${Math.round(kg / 0.45359237)} lb)`)
+    .join(", ");
+  add("Lifts", lifts);
   add("About", p.about);
   add("Looking for", p.looking_for);
 

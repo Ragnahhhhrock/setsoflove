@@ -82,6 +82,15 @@ textarea:focus { padding: 11px; }
 .checkbox { display: flex; gap: var(--sol-space-3); align-items: flex-start; margin-bottom: var(--sol-space-4); }
 .checkbox input { width: 24px; height: 24px; margin: var(--sol-space-2) 0 0; flex: none; accent-color: var(--sol-colour-coral-deep); }
 .checkbox label { padding: var(--sol-space-2) 0; min-height: var(--sol-touch-target-min); }
+fieldset.field { border: 0; padding: 0; margin-left: 0; margin-right: 0; min-width: 0; }
+.unit-toggle { display: flex; flex-wrap: wrap; gap: var(--sol-space-2) var(--sol-space-4); margin: var(--sol-space-3) 0; }
+.unit-toggle label { display: flex; align-items: center; gap: var(--sol-space-2); min-height: var(--sol-touch-target-min); font-size: var(--sol-text-body-size); }
+.unit-toggle input { width: 24px; height: 24px; margin: 0; accent-color: var(--sol-colour-coral-deep); }
+.lift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--sol-space-3); }
+.lift-stats { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sol-space-3); margin: var(--sol-space-2) 0 0; }
+.lift-stats div { padding: var(--sol-space-3); background: var(--sol-colour-white); border: 1px solid var(--sol-colour-plate); border-radius: var(--sol-radius-sm); }
+.lift-stats dt { font-size: var(--sol-text-caption-size); line-height: var(--sol-text-caption-line); color: var(--sol-colour-iron); }
+.lift-stats dd { margin: 0; font-weight: 600; }
 .link-field { display: flex; align-items: center; gap: var(--sol-space-2); }
 .link-field .prefix { color: var(--sol-colour-iron); font-size: var(--sol-text-small-size); white-space: nowrap; }
 

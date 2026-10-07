@@ -10,7 +10,39 @@ const addPhoto = document.getElementById("add-photo");
 const saveBtn = document.getElementById("save");
 const sendBtn = document.getElementById("send");
 const FIELDS = ["first_name", "age", "suburb", "occupation", "training", "about", "looking_for", "stub"];
+// Lifts are saved in kg. The form shows them in the member's chosen unit.
+const LIFTS = [["bench", "bench_kg"], ["squat", "squat_kg"], ["deadlift", "deadlift_kg"], ["ohp", "ohp_kg"]];
+const KG_PER_LB = 0.45359237;
 let state = null;
+let unit = "kg";
+
+const toUnit = (kg, u) => (u === "lb" ? Math.round(kg / KG_PER_LB) : Math.round(kg * 10) / 10);
+
+function setUnit(u) {
+  unit = u;
+  form.weight_unit.value = u;
+  for (const [key] of LIFTS) {
+    const input = form[key];
+    input.placeholder = u;
+    const label = form.querySelector(`label[for="${key}"]`);
+    label.dataset.base ||= label.textContent;
+    label.textContent = `${label.dataset.base} (${u})`;
+  }
+}
+
+// Switching units converts what's already typed.
+form.addEventListener("change", (e) => {
+  if (e.target.name !== "weight_unit" || e.target.value === unit) return;
+  const next = e.target.value;
+  for (const [key] of LIFTS) {
+    const n = Number(form[key].value);
+    if (form[key].value !== "" && Number.isFinite(n)) {
+      const kg = unit === "lb" ? n * KG_PER_LB : n;
+      form[key].value = toUnit(kg, next);
+    }
+  }
+  setUnit(next);
+});
 
 document.getElementById("link-prefix").textContent = `${location.host}/`;
 document.getElementById("signout").addEventListener("click", signOut);
@@ -35,6 +67,10 @@ function render() {
   for (const f of FIELDS) {
     // Don't overwrite what the member is typing.
     if (document.activeElement !== form[f]) form[f].value = profile[f] ?? "";
+  }
+  setUnit(profile.weight_unit === "lb" ? "lb" : "kg");
+  for (const [key, column] of LIFTS) {
+    if (document.activeElement !== form[key]) form[key].value = profile[column] == null ? "" : toUnit(profile[column], unit);
   }
 
   statusBox.replaceChildren();
@@ -95,6 +131,8 @@ function linkRow(link, label = "Copy your link") {
 function formBody() {
   const body = {};
   for (const f of FIELDS) body[f] = form[f].value;
+  body.weight_unit = unit;
+  for (const [key] of LIFTS) body[key] = form[key].value;
   return body;
 }
 

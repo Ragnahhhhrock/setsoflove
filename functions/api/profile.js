@@ -1,4 +1,4 @@
-import { json, fail, readJson, getUser, cleanText, validStub, hasContactDetails, LIMITS } from "../../lib/util.js";
+import { json, fail, readJson, getUser, cleanText, validStub, hasContactDetails, LIMITS, LIFTS, LIFT_MIN_KG, LIFT_MAX_KG, liftToKg, kgToLb } from "../../lib/util.js";
 
 // Saves the member's profile. Any edit takes a live profile offline until it is approved again.
 export async function onRequestPut({ request, env }) {
@@ -24,6 +24,17 @@ export async function onRequestPut({ request, env }) {
     if (!Number.isInteger(age) || age < 18 || age > 99) return fail("Enter an age between 18 and 99.");
   }
 
+  const unit = body.weight_unit === "lb" ? "lb" : "kg";
+  const lifts = {};
+  for (const lift of LIFTS) {
+    const kg = liftToKg(body[lift.key], unit);
+    if (kg === undefined) {
+      const range = unit === "lb" ? `${kgToLb(LIFT_MIN_KG)} and ${kgToLb(LIFT_MAX_KG)} lb` : `${LIFT_MIN_KG} and ${LIFT_MAX_KG} kg`;
+      return fail(`Enter a ${lift.label.toLowerCase()} between ${range}, or leave it blank.`);
+    }
+    lifts[lift.column] = kg;
+  }
+
   let stub = null;
   const rawStub = String(body.stub || "").trim().toLowerCase();
   if (rawStub) {
@@ -40,9 +51,13 @@ export async function onRequestPut({ request, env }) {
   const now = Math.floor(Date.now() / 1000);
   await env.DB.prepare(
     `UPDATE profiles SET stub = ?, first_name = ?, age = ?, suburb = ?, occupation = ?, training = ?,
-       about = ?, looking_for = ?, status = 'draft', updated_at = ? WHERE user_id = ?`
+       about = ?, looking_for = ?, bench_kg = ?, squat_kg = ?, deadlift_kg = ?, ohp_kg = ?, weight_unit = ?,
+       status = 'draft', updated_at = ? WHERE user_id = ?`
   )
-    .bind(stub, fields.first_name, age, fields.suburb, fields.occupation, fields.training, fields.about, fields.looking_for, now, user.id)
+    .bind(
+      stub, fields.first_name, age, fields.suburb, fields.occupation, fields.training, fields.about, fields.looking_for,
+      lifts.bench_kg, lifts.squat_kg, lifts.deadlift_kg, lifts.ohp_kg, unit, now, user.id
+    )
     .run();
   return json({ ok: true });
 }
