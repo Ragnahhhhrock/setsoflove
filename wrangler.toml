@@ -5,7 +5,7 @@ pages_build_output_dir = "public"
 [[d1_databases]]
 binding = "DB"
 database_name = "setsoflove"
-database_id = "REPLACE_WITH_D1_ID"
+database_id = "898c0e75-26fb-4c3f-ac31-e62b69abd907"
 
 [[r2_buckets]]
 binding = "PHOTOS"
