@@ -1,8 +1,9 @@
 /* SetsOfLove app styles. Built only from tokens.css values; see DESIGN_GUIDE.md. */
-@font-face { font-family: 'Inter'; font-weight: 400; font-style: normal; font-display: swap; src: url('/fonts/inter-latin-400-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Inter'; font-weight: 500; font-style: normal; font-display: swap; src: url('/fonts/inter-latin-500-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Inter'; font-weight: 600; font-style: normal; font-display: swap; src: url('/fonts/inter-latin-600-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Inter'; font-weight: 700; font-style: normal; font-display: swap; src: url('/fonts/inter-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans'; font-weight: 400; font-style: normal; font-display: swap; src: url('/fonts/dm-sans-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans'; font-weight: 500; font-style: normal; font-display: swap; src: url('/fonts/dm-sans-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans'; font-weight: 600; font-style: normal; font-display: swap; src: url('/fonts/dm-sans-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Bricolage Grotesque'; font-weight: 700; font-style: normal; font-display: swap; src: url('/fonts/bricolage-grotesque-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Bricolage Grotesque'; font-weight: 800; font-style: normal; font-display: swap; src: url('/fonts/bricolage-grotesque-latin-800-normal.woff2') format('woff2'); }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -16,6 +17,7 @@ body {
   font-weight: var(--sol-text-body-weight);
 }
 
+h1, h2, h3, .h3, .display { font-family: var(--sol-font-display); }
 h1, h2, h3 { margin: 0 0 var(--sol-space-3); }
 h1 { font-size: var(--sol-text-h1-size); line-height: var(--sol-text-h1-line); font-weight: var(--sol-text-h1-weight); }
 h2 { font-size: var(--sol-text-h2-size); line-height: var(--sol-text-h2-line); font-weight: var(--sol-text-h2-weight); }
@@ -208,3 +210,5 @@ dl.facts dd { margin: 0; overflow-wrap: anywhere; }
 .checklist { list-style: none; margin: 0 0 var(--sol-space-4); padding: 0; }
 .checklist li { position: relative; padding: var(--sol-space-2) 0 var(--sol-space-2) var(--sol-space-6); }
 .checklist li::before { content: ""; position: absolute; left: var(--sol-space-2); top: var(--sol-space-3); width: 6px; height: 12px; border: solid var(--sol-colour-coral-deep); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+.hero-mark { display: block; width: 96px; height: auto; margin: 0 auto var(--sol-space-4); }

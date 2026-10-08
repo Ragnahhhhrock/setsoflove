@@ -20,7 +20,7 @@ Gym puns are welcome in small doses, and only where they help (one per screen at
 
 - **Australian English:** colour, favourite, organise, centre, programme only for a TV programme (use "program" for software).
 - **Sentence case** for everything: headings, buttons, labels, menu items. Proper nouns keep their capitals.
-- **Product name:** SetsOfLove in running text (capital S, O, L). The wordmark in the logo is the only place it appears as "setsoflove".
+- **Product name:** SetsOfLove in running text (capital S, O, L). The wordmark in the logo is set the same way.
 - **Short:** sentences under 20 words. One idea per sentence. Active voice.
 - **Plain words:** "Sign in", not "Authenticate". "Photo", not "Media asset".
 - **Numbers:** numerals for everything except "one" in running prose. Dates as 7 Oct 2026. Times as 6:30 am.
@@ -109,8 +109,7 @@ Profiles are reviewed and approved by the admin before they go live. Keep these 
 
 - The logo is never retyped. Use the supplied files.
 - Alt text for the logo: "SetsOfLove". For the mark alone: "SetsOfLove logo".
-- File names are lowercase, hyphen-separated, descriptive: `logo-lockup-reversed.svg`, `icon-512.png`.
-- Every SVG carries a `<title>` matching its alt text.
+- File names are lowercase, hyphen-separated, descriptive: `logo-lockup-reversed.png`, `icon-512.png`.
 
 ## 7. Style checklist for new copy
 

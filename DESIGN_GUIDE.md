@@ -8,20 +8,22 @@ The visual rules for everything SetsOfLove ships. Values come from `tokens/token
 
 A grown-up, friendly place for single gym-goers to be found by someone worth meeting. Warm, confident, a bit cheeky. Never sleazy, never frat.
 
-The idea behind the mark: a barbell with a heart where the weight would be. Sets, then love.
+The idea behind the mark: a love heart with a flexed bicep inside it. Strength, then love.
 
 ## 2. Colour
 
-Nine colours. No others, no tints, no gradients, no opacity tricks.
+Eleven colours. No others, no tints, no gradients, no opacity tricks in the interface. (The mark itself is the 3D emoji artwork, which carries its own shading.)
 
 | Token | Hex | Use |
 |---|---|---|
-| ink | `#1B1F2A` | Primary text, dark surfaces, logo body |
-| chalk | `#F7F3EC` | Default page background, reversed logo body |
-| iron | `#4A5060` | Secondary text, icons |
-| plate | `#E4DED3` | Borders, dividers, disabled fills. Never for text |
-| coral | `#C8323A` | Brand accent, primary buttons, the heart |
-| coral-deep | `#A32630` | Pressed state, error text and borders |
+| ink | `#1B1D26` | Primary text, dark surfaces, app icon ground |
+| chalk | `#FFF6EC` | Default page background, reversed wordmark |
+| iron | `#4A4D5A` | Secondary text, icons |
+| plate | `#E8DCCD` | Borders, dividers, disabled fills. Never for text |
+| coral | `#CC233B` | Primary buttons, links and small red text |
+| coral-deep | `#A3182C` | Pressed state, error text and borders |
+| heart | `#FF2C4A` | The heart in the logo. Graphics and large text (24px+) only |
+| yellow | `#FFC139` | The flex in the logo. Highlights and fills, never text |
 | white | `#FFFFFF` | Text on coral or ink, card surfaces |
 | sage | `#2F6B4F` | Success only |
 | amber | `#8A5A00` | Warning only |
@@ -30,21 +32,23 @@ Nine colours. No others, no tints, no gradients, no opacity tricks.
 
 | Text / graphic | On | Ratio | Allowed for |
 |---|---|---|---|
-| ink | chalk | 14.88 | All text |
-| ink | white | 16.46 | All text |
-| iron | chalk | 7.28 | All text |
-| iron | white | 8.05 | All text |
-| white | coral | 5.29 | All text (buttons) |
-| white | coral-deep | 7.30 | All text |
-| chalk | ink | 14.88 | All text (dark mode, reversed logo) |
-| coral | chalk | 4.78 | Text 14px and up, graphics |
-| coral | white | 5.29 | Text 14px and up, graphics |
-| coral-deep | chalk | 6.60 | All text, error messages |
+| ink | chalk | 15.71 | All text |
+| ink | white | 16.80 | All text |
+| ink | yellow | 10.35 | All text |
+| ink | plate | 12.44 | All text |
+| iron | chalk | 7.86 | All text |
+| iron | white | 8.40 | All text |
+| white | coral | 5.42 | All text (buttons) |
+| white | coral-deep | 7.71 | All text |
+| chalk | ink | 15.71 | All text (dark surfaces, reversed wordmark) |
+| coral | chalk | 5.08 | All text |
+| coral | white | 5.42 | All text |
+| coral-deep | chalk | 7.21 | All text, error messages |
 | sage | white | 6.29 | Success text |
 | amber | white | 5.93 | Warning text |
-| coral | ink | 3.11 | **Graphics and large text (24px+) only.** Never body text |
-| ink | plate | 12.29 | All text |
-| coral | plate | 3.95 | Graphics only |
+| amber | chalk | 5.54 | Warning text |
+| heart | ink | 4.57 | Large text (24px+) and graphics only |
+| heart | chalk | 3.44 | Graphics and large text (24px+) only |
 
 Any pairing not in this table is not allowed. Plate on chalk is 1.21:1, so plate is for borders and fills only.
 
@@ -52,14 +56,14 @@ Colour is never the only signal. Errors get an icon and a message as well as cor
 
 ## 3. Typography
 
-One family: **Inter**, weights 400, 500, 600, 700. Fallback: `system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif`.
+Two families, both self-hosted: **Bricolage Grotesque** (700, 800) for the wordmark, display and headings, and **DM Sans** (400, 500, 600) for everything else. Fallback: `system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif`.
 
 | Style | Size / line | Weight |
 |---|---|---|
-| display | 40 / 48 | 700 |
+| display | 40 / 48 | 800 |
 | h1 | 32 / 40 | 700 |
 | h2 | 24 / 32 | 700 |
-| h3 | 20 / 28 | 600 |
+| h3 | 20 / 28 | 700 |
 | body | 16 / 24 | 400 |
 | label | 14 / 20 | 600 |
 | small | 14 / 20 | 400 |
@@ -88,23 +92,23 @@ One family: **Inter**, weights 400, 500, 600, 700. Fallback: `system-ui, -apple-
 
 ## 6. Logo
 
-The mark is a heart on a barbell: a coral heart sitting on an ink bar, flanked by two weight plates either side.
+The mark is the standard red love-heart emoji with the flexed-biceps emoji centred in it. Artwork: Microsoft Fluent Emoji 3D (MIT licence, `brand-src/FLUENT-EMOJI-LICENSE.txt`). Source glyphs are in `brand-src/`; every logo file is built from them by `scripts/build_assets.py`.
 
-Files in `assets/logo/`:
+Files in `assets/logo/` (PNG with transparent background):
 
 | File | Use |
 |---|---|
-| `logo-mark.svg` | Mark alone, on chalk or white |
-| `logo-mark-reversed.svg` | Mark alone, on ink |
-| `logo-lockup.svg` | Mark plus wordmark, on chalk or white |
-| `logo-lockup-reversed.svg` | Mark plus wordmark, on ink |
+| `logo-mark.png` | Mark alone, 512px, on any approved surface |
+| `logo-mark-small.png` | Mark alone, 128px, larger flex for small sizes |
+| `logo-lockup.png` | Mark plus wordmark, for chalk or white |
+| `logo-lockup-reversed.png` | Mark plus wordmark, for ink |
 
 Rules:
 
 - Use only these files. Don't redraw, recolour, rotate, stretch, outline or add effects.
+- Wordmark is "SetsOfLove" in Bricolage Grotesque 800, with "Love" in the heart colour. Never retype it in another font.
 - Clear space on every side equals one quarter of the mark's height.
-- Minimum size: mark 24px tall, lockup 32px tall. Below 32px use the small-size mark (heart on ink tile, section 7).
-- Wordmark is "setsoflove", all lowercase, Inter Bold, set as outlines with the mark. Never retype it in a font.
+- Minimum size: mark 24px tall, lockup 32px tall. Below 48px use `logo-mark-small.png`.
 - Place on chalk, white or ink only. Never on photos or coral.
 
 ## 7. App icon and favicon
@@ -113,13 +117,11 @@ Files in `assets/icons/`:
 
 | File | Size | Notes |
 |---|---|---|
-| `app-icon.svg` | 1024 | Master. Ink square, chalk and coral mark |
 | `icon-1024.png`, `icon-512.png`, `icon-192.png` | 1024, 512, 192 | Opaque, square, no rounded corners (the platform masks them) |
 | `apple-touch-icon.png` | 180 | Opaque |
-| `favicon.svg` | scalable | Small-size mark: coral heart on an ink tile, no plates |
-| `favicon.ico` | 16, 32, 48 | Same small-size mark |
+| `favicon.ico` | 16, 32, 48 | Small-size mark on an ink tile |
 
-- The mark fills 60% of the icon canvas, centred, so it sits inside the 80% maskable safe zone.
+- The mark is 62% of the icon width on an ink ground, centred, inside the 80% maskable safe zone.
 - Icons are never transparent.
 
 ## 8. Social images
@@ -133,17 +135,16 @@ Files in `assets/social/`:
 | `og-image.png` | 1200 x 630 | Open Graph image. Ink background, reversed lockup |
 | `twitter-card.png` | 1200 x 600 | Twitter (X) large summary card, 2:1. Chalk background, standard lockup |
 
-- Built at 2x the interface scale: type sizes and spacing steps are doubled (display 80 / 96, body 32 / 48, page padding 64). Use only the colours, Inter weights and logo files from sections 2, 3 and 6.
-- Layout: lockup top left (80px tall), headline in display style, one line of body text under it. Left-aligned, sentence case.
-- Headline and body copy follow `STYLE_GUIDE.md`. On ink, the coral phrase is large text (24px+) so the coral on ink pairing is allowed. On chalk, body text is iron.
-- Opaque PNG, no transparency, no photos, no member content. Profile pages use these same images, never a member's photo.
+- Built at 2x the interface scale (display 80 / 96, body 32 / 48, page padding 64), with Bricolage Grotesque for the headline and DM Sans for body text.
+- Layout: lockup top left, headline in display style with the second line in the heart colour (large text), one line of body text under it. Left-aligned, sentence case.
+- Opaque PNG, no photos, no member content. Profile pages use these same images, never a member's photo.
 - Corner pixel must match the background colour (ink for `og-image.png`, chalk for `twitter-card.png`).
 
 ## 9. Imagery and iconography
 
 - Icons: outline style, 2px stroke at 24px, round caps and joins, colour `iron` (or `ink` when active, `coral` for the primary action). Draw from one set only; don't mix styles.
 - Photography guidance for profile content lives in `STYLE_GUIDE.md`.
-- No stock photos, no illustrations of people, no emoji in the interface.
+- No stock photos, no illustrations of people, no emoji in the interface copy (the logo is the one exception).
 
 ## 10. Accessibility
 

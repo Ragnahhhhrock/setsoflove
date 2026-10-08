@@ -13,6 +13,7 @@ lines = [
 for name, c in tokens["colour"].items():
     lines.append(f"  --sol-colour-{name}: {c['hex']};")
 lines.append(f"  --sol-font-family: '{tokens['type']['family']}', {tokens['type']['fallback']};")
+lines.append(f"  --sol-font-display: '{tokens['type']['display_family']}', {tokens['type']['fallback']};")
 for name, t in tokens["type"]["scale"].items():
     lines.append(f"  --sol-text-{name}-size: {t['size']}px;")
     lines.append(f"  --sol-text-{name}-line: {t['line']}px;")

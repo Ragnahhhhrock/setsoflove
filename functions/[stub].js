@@ -9,7 +9,6 @@ const page = (title, body, { robots = "noindex, nofollow", status = 200, head = 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="${robots}">
 <title>${escapeHtml(title)}</title>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/app.css">
@@ -21,7 +20,7 @@ ${body}
     { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "private, no-cache" } }
   );
 
-const header = `<header class="site-header"><a href="/" aria-label="SetsOfLove home"><img src="/brand/logo-lockup.svg" alt="SetsOfLove" height="32"></a></header>`;
+const header = `<header class="site-header"><a href="/" aria-label="SetsOfLove home"><img src="/brand/logo-lockup.png" alt="SetsOfLove" height="32"></a></header>`;
 
 const footer = (env) => `<footer class="site-footer">
   <ul>
