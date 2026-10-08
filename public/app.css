@@ -213,8 +213,4 @@ dl.facts dd { margin: 0; overflow-wrap: anywhere; }
 
 .hero-mark { display: block; width: 96px; height: auto; margin: 0 auto var(--sol-space-4); }
 
-.hero-caption { margin: 0 0 var(--sol-space-4); }
-@media (min-width: 640px) { 
-.hero-scene, .members-strip { display: block; width: 100%; height: auto; border-radius: var(--sol-radius-lg); border: 1px solid var(--sol-colour-plate); }
-.hero-scene { margin: var(--sol-space-5) 0 var(--sol-space-2); }
-.members-strip { margin: var(--sol-space-6) 0 0; }
+.members-strip { display: block; width: 100%; max-width: 100%; height: auto; border-radius: var(--sol-radius-lg); border: 1px solid var(--sol-colour-plate); margin: var(--sol-space-6) 0 0; }

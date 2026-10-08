@@ -348,7 +348,7 @@ def check_avatars():
         check(root.get("viewBox") == vb, f"{rel}: viewBox must be {vb}")
         check(root.get("role") == "img" and root.find(f"{SVG_NS}title") is not None, f"{rel}: needs role=img and a title")
     page = (ROOT / "public" / "index.html").read_text()
-    for name in views:
+    for name in ("members-strip.svg",):  # hero-gym.svg is no longer shown on the landing page
         check(re.search(rf'<img[^>]+src="/img/{name}"[^>]+alt="[^"]{{10,}}"', page) is not None, f"public/index.html: {name} needs descriptive alt text")
 
 
