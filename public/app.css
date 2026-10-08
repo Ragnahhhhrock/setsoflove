@@ -213,7 +213,8 @@ dl.facts dd { margin: 0; overflow-wrap: anywhere; }
 
 .hero-mark { display: block; width: 96px; height: auto; margin: 0 auto var(--sol-space-4); }
 
-.hero-avatars { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sol-space-3); margin: var(--sol-space-5) 0 var(--sol-space-2); }
-.hero-avatars img { display: block; width: 100%; height: auto; border-radius: var(--sol-radius-lg); border: 1px solid var(--sol-colour-plate); }
 .hero-caption { margin: 0 0 var(--sol-space-4); }
-@media (min-width: 640px) { .hero-avatars { gap: var(--sol-space-4); } }
+@media (min-width: 640px) { 
+.hero-scene, .members-strip { display: block; width: 100%; height: auto; border-radius: var(--sol-radius-lg); border: 1px solid var(--sol-colour-plate); }
+.hero-scene { margin: var(--sol-space-5) 0 var(--sol-space-2); }
+.members-strip { margin: var(--sol-space-6) 0 0; }

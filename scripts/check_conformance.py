@@ -329,11 +329,12 @@ def check_avatars():
     """DESIGN_GUIDE.md section 12: landing-page character illustrations."""
     allowed = PALETTE | {v["hex"].upper() for v in TOKENS["illustration"].values()}
     tags_ok = {"svg", "title", "rect", "path", "g", "circle", "ellipse"}
-    subprocess.run([sys.executable, str(ROOT / "scripts" / "build_avatars.py")], check=True, capture_output=True)
-    for name in ("avatar-man.svg", "avatar-woman.svg"):
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "build_hero.py")], check=True, capture_output=True)
+    views = {"hero-gym.svg": "0 0 800 500", "members-strip.svg": "0 0 600 250"}
+    for name, vb in views.items():
         path = ROOT / "public" / "img" / name
         rel = path.relative_to(ROOT)
-        check(path.exists(), f"{rel} is missing (run scripts/build_avatars.py)")
+        check(path.exists(), f"{rel} is missing (run scripts/build_hero.py)")
         if not path.exists():
             continue
         root = ET.parse(path).getroot()
@@ -344,10 +345,10 @@ def check_avatars():
                 check(banned not in node.attrib, f"{rel}: forbidden attribute '{banned}'")
         cols = colours_in(root)
         check(cols <= allowed, f"{rel}: colours outside the palette: {sorted(cols - allowed)}")
-        check(root.get("viewBox") == "0 0 400 500", f"{rel}: must be 400 x 500 (4:5)")
+        check(root.get("viewBox") == vb, f"{rel}: viewBox must be {vb}")
         check(root.get("role") == "img" and root.find(f"{SVG_NS}title") is not None, f"{rel}: needs role=img and a title")
     page = (ROOT / "public" / "index.html").read_text()
-    for name in ("avatar-man.svg", "avatar-woman.svg"):
+    for name in views:
         check(re.search(rf'<img[^>]+src="/img/{name}"[^>]+alt="[^"]{{10,}}"', page) is not None, f"public/index.html: {name} needs descriptive alt text")
 
 
