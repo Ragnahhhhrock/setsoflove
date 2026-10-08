@@ -181,12 +181,13 @@ Files in `public/img/` (SVG, built by `python3 scripts/build_avatars.py`):
 
 | File | Use |
 |---|---|
-| `avatar-man.svg` | Landing page, smiling man holding a phone and flexing |
-| `avatar-woman.svg` | Landing page, smiling woman holding a phone and waving |
+| `avatar-man.svg` | Landing page, smiling square-jawed man holding a phone, one hand on his hip |
+| `avatar-woman.svg` | Landing page, smiling slender young woman holding a phone, one hand on her hip |
 
 - 4:5 portrait, 400 x 500 units, shown at 16px radius with a 1px plate border like a profile photo.
+- Style: classic fairytale animation, as an original look rather than any existing character. Men are square-jawed and broad-shouldered. Women are slender and young, with large eyes. Everyone is an adult.
 - Colours: the 11 brand colours plus the illustration tones in `tokens/tokens.json` under `illustration` (skin, skin-light, skin-deep, hair, hair-light). The illustration tones are for these characters only and never for interface elements.
-- No gradients, filters, opacity, text or logos. Flat shapes with simple shading.
-- Build: athletic and well conditioned, with shoulders about 1.6 times the waist, capped delts, trapezius slope and a trim midsection. Always smiling, always holding a phone showing the heart mark, in everyday gym kit.
+- No gradients, filters, opacity, text or logos. Flat shapes with soft skin-deep outlines and simple shading.
+- Build: athletic and fit. The man has shoulders about 1.5 times the waist and a strong jaw; the woman is slim with toned arms. Always smiling, always holding a phone showing the heart mark, in everyday gym kit.
 - Tone: friendly and light. Never sexualised, never exaggerated into a bodybuilder caricature.
 - Every image carries descriptive alt text. Landing page only; never on profile pages or in social images.

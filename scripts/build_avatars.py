@@ -2,8 +2,8 @@
 """Build the two landing-page character avatars into public/img/ (DESIGN_GUIDE.md section 12).
 
 Colours come from tokens/tokens.json: the 11 brand colours plus the illustration tones.
-Proportions follow a well-conditioned athletic build: shoulders about 1.6x the waist,
-capped delts, trapezius slope, lat flare and a trim midsection.
+Original fairytale-animation style characters: a square-jawed, heroic young man and a slender,
+large-eyed young woman. Athletic build, flat colour with soft outlines.
 """
 import json
 from pathlib import Path
@@ -50,25 +50,31 @@ def phone(cx, cy, rot):
   </g>"""
 
 
-def eye(cx, cy, lashes=False, side=1):
-    out = (f'<ellipse cx="{cx}" cy="{cy}" rx="9" ry="8.5" fill="{WHITE}"/>'
-           f'<circle cx="{cx}" cy="{cy+0.5}" r="5.6" fill="{HR}"/>'
-           f'<circle cx="{cx}" cy="{cy+0.5}" r="2.8" fill="{INK}"/>'
-           f'<circle cx="{cx+2}" cy="{cy-2}" r="1.8" fill="{WHITE}"/>'
-           f'<path d="M{cx-10} {cy-1} Q{cx} {cy-11} {cx+10} {cy-1}" fill="none" stroke="{INK}" stroke-width="3" stroke-linecap="round"/>'
-           f'<path d="M{cx-9} {cy+8} Q{cx} {cy+14} {cx+9} {cy+8}" fill="none" stroke="{SKD}" stroke-width="2.5" stroke-linecap="round"/>')
+OUT = f'stroke="{SKD}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"'
+
+
+def eye(cx, cy, rx, ry, ir, wing=0, lashes=False, side=1):
+    o = (f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="{WHITE}"/>'
+         f'<circle cx="{cx}" cy="{cy+1}" r="{ir}" fill="{HR}"/>'
+         f'<circle cx="{cx}" cy="{cy+1}" r="{ir*0.5}" fill="{INK}"/>'
+         f'<circle cx="{cx+ir*0.4}" cy="{cy-ir*0.35}" r="{ir*0.32}" fill="{WHITE}"/>'
+         f'<circle cx="{cx-ir*0.35}" cy="{cy+ir*0.45}" r="{ir*0.16}" fill="{WHITE}"/>'
+         f'<path d="M{cx-rx-1} {cy+1} Q{cx} {cy-ry-5} {cx+rx+1} {cy+1}" fill="none" stroke="{INK}" stroke-width="3.6" stroke-linecap="round"/>')
     if lashes:
-        ox = cx + 10 * side
-        out += (f'<path d="M{ox} {cy-2} L{ox+7*side} {cy-7} M{ox-1*side} {cy-5} L{ox+4*side} {cy-12}" fill="none" stroke="{INK}" stroke-width="2.5" stroke-linecap="round"/>')
-    return out
+        ox = cx + (rx + 1) * side
+        o += (f'<path d="M{ox} {cy+1} Q{ox+6*side} {cy-2} {ox+10*side} {cy-8} Q{ox+4*side} {cy-5} {ox-2*side} {cy-6} Z" fill="{INK}"/>'
+              f'<path d="M{cx-rx} {cy+ry-1} Q{cx} {cy+ry+4} {cx+rx} {cy+ry-1}" fill="none" stroke="{INK}" stroke-width="1.6" stroke-linecap="round"/>'
+              f'<path d="M{cx-rx-2} {cy-ry-6} Q{cx} {cy-ry-12} {cx+rx+2} {cy-ry-6}" fill="none" stroke="{SKD}" stroke-width="3" stroke-linecap="round"/>')
+    return o
 
 
-def mouth(lips=SKD):
+def mouth_smile(cx, w, depth, lips):
+    l, r = cx - w, cx + w
     return f"""
-  <path d="M172 192 Q200 199 228 192 Q224 224 200 224 Q176 224 172 192 Z" fill="{INK}" stroke="{lips}" stroke-width="3.5" stroke-linejoin="round"/>
-  <path d="M175 194 Q200 200 225 194 Q222 206 200 207 Q178 206 175 194 Z" fill="{WHITE}"/>
-  <path d="M187 220 Q200 210 213 220 Q200 227 187 220 Z" fill="{CORAL}"/>
-  <path d="M168 188 Q164 195 169 201 M232 188 Q236 195 231 201" fill="none" stroke="{SKD}" stroke-width="2.5" stroke-linecap="round"/>"""
+  <path d="M{l} 199 Q{cx} 206 {r} 199 Q{r-4} {199+depth} {cx} {199+depth} Q{l+4} {199+depth} {l} 199 Z" fill="{INK}" stroke="{lips}" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M{l+3} 201 Q{cx} 207 {r-3} 201 Q{r-6} {201+depth*0.38} {cx} {201+depth*0.4} Q{l+6} {201+depth*0.38} {l+3} 201 Z" fill="{WHITE}"/>
+  <path d="M{cx-w*0.45} {197+depth*0.92} Q{cx} {197+depth*0.5} {cx+w*0.45} {197+depth*0.92} Q{cx} {197+depth*1.05} {cx-w*0.45} {197+depth*0.92} Z" fill="{CORAL}"/>
+  <path d="M{l-4} 193 Q{l-8} 201 {l-2} 207 M{r+4} 193 Q{r+8} 201 {r+2} 207" fill="none" stroke="{SKD}" stroke-width="2.4" stroke-linecap="round"/>"""
 
 
 def earbud(cx, cy, side):
@@ -76,171 +82,167 @@ def earbud(cx, cy, side):
             f'<path d="M{cx+side} {cy+5} L{cx+side*1.5} {cy+24}" stroke="{WHITE}" stroke-width="4" stroke-linecap="round"/>')
 
 
-def hand_fist(cx, cy):
-    return (f'<circle cx="{cx}" cy="{cy}" r="22" fill="{SK}"/>'
-            f'<path d="M{cx-14} {cy-4} L{cx+14} {cy-4} M{cx-14} {cy+5} L{cx+14} {cy+5} M{cx-12} {cy+14} L{cx+12} {cy+14}" fill="none" stroke="{SKD}" stroke-width="2.5" stroke-linecap="round"/>'
-            f'<ellipse cx="{cx-18}" cy="{cy+9}" rx="7" ry="11" fill="{SK}" stroke="{SKD}" stroke-width="2"/>')
+def hand_on_hip(cx, cy, flip=1):
+    return (f'<g transform="translate({cx} {cy}) scale({flip} 1)">'
+            f'<path d="M-4 -14 C10 -20 26 -12 26 0 C26 12 12 18 -4 14 Z" fill="{SK}" {OUT}/>'
+            f'<path d="M-22 -10 L-4 -12 M-24 -1 L-4 -1 M-22 8 L-4 8" fill="none" stroke="{SK}" stroke-width="10" stroke-linecap="round"/>'
+            f'<path d="M-24 -1 L-6 -1 M-22 8 L-6 8" fill="none" stroke="{SKD}" stroke-width="1.8"/></g>')
+
+
+def phone_hand(cx, cy, rot, side):
+    """Phone with the hand gripping it. side=-1: thumb on the right of the phone, fingers on the left."""
+    fx = cx - 36 * side * -1 if False else cx + (-36 if side == -1 else 36)
+    tx = cx + (36 if side == -1 else -36)
+    return (phone(cx, cy, rot) +
+            f'<g transform="rotate({rot} {cx} {cy})">'
+            + "".join(f'<ellipse cx="{fx}" cy="{cy+dy}" rx="9" ry="11" fill="{SK}" {OUT}/>' for dy in (-18, 2, 22)) +
+            f'<circle cx="{cx}" cy="{cy+52}" r="22" fill="{SK}" {OUT}/>'
+            f'<ellipse cx="{tx}" cy="{cy+30}" rx="10" ry="19" fill="{SK}" {OUT}/></g>')
 
 
 def man():
-    face_shape = "M142 140 C142 100 168 90 200 90 C232 90 258 100 258 140 C258 190 240 224 200 232 C160 224 142 190 142 140 Z"
-    hair_top = ("M140 138 C128 84 160 54 204 52 C246 50 274 86 260 138 C254 118 240 106 222 100 "
-                "C204 108 178 108 160 120 C152 124 144 130 140 138 Z")
+    face = ("M146 132 C146 98 170 86 200 86 C230 86 254 98 254 132 L254 176 Q252 200 236 218 L222 236 "
+            "Q200 244 178 236 L164 218 Q148 200 146 176 Z")
+    hair = ("M142 134 C130 82 158 48 204 44 C252 42 280 80 262 134 C258 120 250 112 238 108 "
+            "C218 98 186 98 166 108 C152 114 146 124 142 134 Z")
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img">
-  <title>Smiling man holding a phone</title>
+  <title>Smiling prince-style man holding a phone</title>
   <rect width="400" height="500" fill="{YEL}"/>
   <circle cx="200" cy="170" r="152" fill="{WHITE}"/>
-  {dumbbell(58, 70, -24)}
-  {heart(338, 62, 0.8)} {heart(40, 150, 0.55)}
-  {star(310, 120, 0.9)} {star(96, 120, 0.6)}
-
+  {dumbbell(344, 62, 24)}
+  {heart(52, 86, 0.8)} {heart(354, 160, 0.55)}
+  {star(318, 112, 0.9)} {star(60, 190, 0.6)}
   <g transform="translate(28 64) scale(0.86)">
   <!-- torso, neck, traps -->
-  <path d="M96 296 C120 276 160 268 200 268 C240 268 280 276 304 296 L324 372 C318 420 310 460 306 560 L94 560 C90 460 82 420 76 372 Z" fill="{SK}"/>
-  <path d="M170 212 L170 262 C170 278 230 278 230 262 L230 212 Z" fill="{SK}"/>
-  <path d="M170 212 C180 242 220 242 230 212 L230 234 C220 254 180 254 170 234 Z" fill="{SKD}"/>
-  <path d="M168 250 C150 268 112 274 84 292 L316 292 C288 274 250 268 232 250 C220 262 180 262 168 250 Z" fill="{SK}"/>
-  <path d="M168 254 C146 272 118 280 94 290 M232 254 C254 272 282 280 306 290" fill="none" stroke="{SKD}" stroke-width="4" stroke-linecap="round"/>
-  <path d="M156 276 C174 268 188 270 198 276 M244 276 C226 268 212 270 202 276" fill="none" stroke="{SKD}" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M96 296 C120 276 160 268 200 268 C240 268 280 276 304 296 L324 372 C318 420 310 460 306 560 L94 560 C90 460 82 420 76 372 Z" fill="{SK}" {OUT}/>
+  <path d="M168 214 L168 266 C168 282 232 282 232 266 L232 214 Z" fill="{SK}"/>
+  <path d="M168 214 C180 252 220 252 232 214 L232 240 C220 260 180 260 168 240 Z" fill="{SKD}"/>
+  <path d="M166 252 C148 268 112 274 84 292 L316 292 C288 274 252 268 234 252 C220 264 180 264 166 252 Z" fill="{SK}"/>
+  <path d="M166 256 C146 272 118 280 94 290 M234 256 C254 272 282 280 306 290 M156 278 C174 270 188 272 198 278 M244 278 C226 270 212 272 202 278" fill="none" stroke="{SKD}" stroke-width="3.5" stroke-linecap="round"/>
+  <ellipse cx="78" cy="322" rx="38" ry="44" fill="{SK}" {OUT}/>
+  <path d="M66 304 C78 300 92 304 100 314" fill="none" stroke="{SKL}" stroke-width="4" stroke-linecap="round"/>
 
-  <!-- delts -->
-  <ellipse cx="78" cy="322" rx="38" ry="44" fill="{SK}"/>
-  <ellipse cx="322" cy="322" rx="38" ry="44" fill="{SK}"/>
-  <path d="M62 298 C74 318 74 342 66 360 M338 298 C326 318 326 342 334 360" fill="none" stroke="{SKD}" stroke-width="4" stroke-linecap="round"/>
-  <path d="M66 304 C78 300 92 304 100 314 M334 304 C322 300 308 304 300 314" fill="none" stroke="{SKL}" stroke-width="4" stroke-linecap="round"/>
-
-  <!-- phone arm (left) -->
-  <path d="M44 334 C38 372 44 406 52 434 L92 434 C98 404 100 366 112 334 Z" fill="{SK}"/>
-  <path d="M86 354 C90 382 88 406 80 426" fill="none" stroke="{SKD}" stroke-width="4" stroke-linecap="round"/>
-  <path d="M54 352 C60 366 62 384 58 402" fill="none" stroke="{SKL}" stroke-width="4" stroke-linecap="round"/>
-  <path d="M70 432 L128 382" fill="none" stroke="{SK}" stroke-width="40" stroke-linecap="round"/>
-  <path d="M66 424 L112 380" fill="none" stroke="{SKD}" stroke-width="3" stroke-linecap="round"/>
-  <path d="M104 396 L120 382" stroke="{INK}" stroke-width="16"/>
-  <circle cx="111" cy="389" r="5.5" fill="{WHITE}"/>
-
-  <!-- flexing arm (right) -->
-  <path d="M326 338 L394 358" fill="none" stroke="{SK}" stroke-width="44" stroke-linecap="round"/>
-  <path d="M394 358 L386 280" fill="none" stroke="{SK}" stroke-width="34" stroke-linecap="round"/>
-  <ellipse cx="362" cy="338" rx="32" ry="21" transform="rotate(-8 362 338)" fill="{SK}"/>
-  <path d="M338 330 Q362 308 388 330" fill="none" stroke="{SKL}" stroke-width="5" stroke-linecap="round"/>
-  <path d="M340 358 Q364 372 388 362" fill="none" stroke="{SKD}" stroke-width="4" stroke-linecap="round"/>
-  <path d="M372 346 C364 352 360 360 362 368 M392 326 C388 312 388 300 390 290" fill="none" stroke="{SKD}" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M378 322 L406 330" stroke="{YEL}" stroke-width="10"/>
-  {hand_fist(384, 262)}
+  <!-- raised arm (left) -->
+  <path d="M44 334 C38 372 44 410 56 440 L98 440 C102 406 102 366 112 334 Z" fill="{SK}" {OUT}/>
+  <ellipse cx="86" cy="388" rx="24" ry="30" fill="{SK}" {OUT}/>
+  <path d="M72 372 Q86 360 100 372" fill="none" stroke="{SKL}" stroke-width="4" stroke-linecap="round"/>
+  <path d="M78 410 Q88 418 98 410" fill="none" stroke="{SKD}" stroke-width="3" stroke-linecap="round"/>
+  <path d="M74 442 L90 352" fill="none" stroke="{SKD}" stroke-width="42" stroke-linecap="round"/>
+  <path d="M74 442 L90 352" fill="none" stroke="{SK}" stroke-width="37" stroke-linecap="round"/>
+  <path d="M82 420 L88 380" fill="none" stroke="{SKD}" stroke-width="2.5" stroke-linecap="round"/>
 
   <!-- tank top -->
   <path d="M120 280 L146 262 Q200 338 254 262 L280 280 C276 330 290 362 300 402 L318 560 L82 560 L100 402 C110 362 124 330 120 280 Z" fill="{CORAL}"/>
   <path d="M120 280 L146 262 Q200 338 254 262 L280 280 M120 280 C124 330 110 362 100 402 M280 280 C276 330 290 362 300 402" fill="none" stroke="{WHITE}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M150 348 Q172 376 198 364 M250 348 Q228 376 202 364 M150 470 Q160 500 156 540 M250 470 Q240 500 244 540" fill="none" stroke="{CDEEP}" stroke-width="4" stroke-linecap="round"/>
-  {heart(200, 410, 1.5, WHITE)}
+  <path d="M148 348 Q172 378 198 366 M252 348 Q228 378 202 366 M150 470 Q160 500 156 540 M250 470 Q240 500 244 540" fill="none" stroke="{CDEEP}" stroke-width="4" stroke-linecap="round"/>
+  {heart(200, 412, 1.5, WHITE)}
+
+  <!-- hand-on-hip arm (right) -->
+  <path d="M332 338 L376 412" fill="none" stroke="{SKD}" stroke-width="48" stroke-linecap="round"/>
+  <path d="M332 338 L376 412" fill="none" stroke="{SK}" stroke-width="43" stroke-linecap="round"/>
+  <path d="M376 412 L326 462" fill="none" stroke="{SKD}" stroke-width="38" stroke-linecap="round"/>
+  <path d="M376 412 L326 462" fill="none" stroke="{SK}" stroke-width="33" stroke-linecap="round"/>
+  <path d="M338 352 Q352 372 356 392 M356 420 Q344 436 338 448" fill="none" stroke="{SKD}" stroke-width="3" stroke-linecap="round"/>
+  <path d="M340 342 Q356 340 366 358" fill="none" stroke="{SKL}" stroke-width="4" stroke-linecap="round"/>
+  {hand_on_hip(318, 466, -1)}
 
   <!-- head -->
-  <circle cx="143" cy="168" r="12" fill="{SK}"/><circle cx="257" cy="168" r="12" fill="{SK}"/>
-  <ellipse cx="143" cy="168" rx="5" ry="7" fill="{SKD}"/><ellipse cx="257" cy="168" rx="5" ry="7" fill="{SKD}"/>
-  {earbud(142, 168, -1)}
-  <path d="{face_shape}" fill="{SK}"/>
-  <ellipse cx="200" cy="112" rx="26" ry="7" fill="{SKL}"/>
-  <path d="{hair_top}" fill="{HR}"/>
-  <path d="M166 98 Q198 66 242 84 M182 80 Q208 62 238 72 M150 112 Q160 92 176 84" fill="none" stroke="{HRL}" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M164 140 Q180 128 196 136 M204 136 Q220 128 236 140" fill="none" stroke="{HR}" stroke-width="7" stroke-linecap="round"/>
-  {eye(180, 154)} {eye(220, 154)}
-  <path d="M200 156 C198 170 192 178 192 182 Q200 189 208 182" fill="none" stroke="{SKD}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="160" cy="184" r="9" fill="{SKD}"/><circle cx="240" cy="184" r="9" fill="{SKD}"/>
-  {mouth()}
-  <path d="M248 116 Q254 126 248 132 Q242 126 248 116 Z" fill="{WHITE}" stroke="{SKD}" stroke-width="1.5"/>
+  <circle cx="146" cy="164" r="12" fill="{SK}" {OUT}/><circle cx="254" cy="164" r="12" fill="{SK}" {OUT}/>
+  <ellipse cx="146" cy="164" rx="4.5" ry="7" fill="{SKD}"/><ellipse cx="254" cy="164" rx="4.5" ry="7" fill="{SKD}"/>
+  {earbud(145, 165, -1)}
+  <path d="{face}" fill="{SK}" {OUT}/>
+  <path d="M250 134 L254 176 Q252 200 236 218 L222 236 Q238 228 244 212 Q252 190 250 134 Z" fill="{SKD}"/>
+  <path d="M200 232 L200 240" stroke="{SKD}" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="196" cy="108" rx="26" ry="6.5" fill="{SKL}"/>
+  <path d="M150 124 L150 158 Q148 150 146 140 Z M250 124 L250 158 Q252 150 254 140 Z" fill="{HR}"/>
+  <path d="{hair}" fill="{HR}"/>
+  <path d="M164 100 Q196 62 246 82 M182 78 Q210 58 240 68 M154 116 Q162 94 180 84 " fill="none" stroke="{HRL}" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M160 140 Q176 118 197 130 L197 137 Q178 130 162 147 Z M240 140 Q224 118 203 130 L203 137 Q222 130 238 147 Z" fill="{HR}"/>
+  {eye(178, 154, 11, 9, 7)} {eye(222, 154, 11, 9, 7)}
+  <path d="M201 156 L200 180 M193 184 Q200 190 207 184" fill="none" stroke="{SKD}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M206 160 Q211 176 208 183" fill="none" stroke="{SKD}" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="162" cy="186" r="8" fill="{SKD}"/><circle cx="238" cy="186" r="8" fill="{SKD}"/>
+  {mouth_smile(200, 27, 24, SKD)}
+  <path d="M190 232 Q200 236 210 232" fill="none" stroke="{SKD}" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M246 112 Q252 122 246 128 Q240 122 246 112 Z" fill="{WHITE}" stroke="{SKD}" stroke-width="1.5"/>
 
   <!-- phone and hand -->
-  {phone(158, 346, -12)}
-  <ellipse cx="119" cy="324" rx="9" ry="11" fill="{SK}" stroke="{SKD}" stroke-width="2"/>
-  <ellipse cx="116" cy="344" rx="9" ry="11" fill="{SK}" stroke="{SKD}" stroke-width="2"/>
-  <ellipse cx="115" cy="364" rx="9" ry="11" fill="{SK}" stroke="{SKD}" stroke-width="2"/>
-  <circle cx="140" cy="394" r="22" fill="{SK}"/>
-  <ellipse cx="190" cy="372" rx="10" ry="19" transform="rotate(-14 190 372)" fill="{SK}" stroke="{SKD}" stroke-width="2"/>
+  {phone_hand(92, 296, -8, -1)}
   </g>
 </svg>
 """
 
 
 def woman():
-    face_shape = "M146 142 C146 102 170 92 200 92 C230 92 254 102 254 142 C254 192 232 226 200 234 C168 226 146 192 146 142 Z"
-    cap = ("M148 152 C134 90 164 58 204 56 C246 54 270 88 254 144 C246 122 232 108 214 102 "
-           "C196 124 168 138 148 152 Z")
-    ponytail = ("M178 72 C132 38 82 58 72 112 C68 142 86 168 108 176 C100 148 112 118 142 100 "
-                "C154 92 166 84 178 72 Z")
+    face = ("M150 130 C150 98 172 86 200 86 C228 86 250 98 250 130 C250 170 240 206 222 226 "
+            "Q200 246 178 226 C160 206 150 170 150 130 Z")
+    back = ("M150 112 C108 150 98 262 118 336 C128 366 152 356 160 332 L164 298 L236 298 L242 332 "
+            "C250 356 274 366 284 336 C304 262 292 150 250 112 Z")
+    front = ("M148 134 C138 82 166 50 206 48 C246 46 268 84 254 138 C250 114 240 98 224 90 "
+             "C206 112 176 126 148 134 Z")
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img">
-  <title>Smiling woman holding a phone</title>
+  <title>Smiling princess-style woman holding a phone</title>
   <rect width="400" height="500" fill="{PLATE}"/>
   <circle cx="200" cy="170" r="152" fill="{WHITE}"/>
-  {dumbbell(342, 66, 24)}
-  {heart(344, 140, 0.8)} {heart(46, 214, 0.55)}
-  {star(70, 300, 0.9)} {star(318, 214, 0.6)}
-
+  {dumbbell(60, 62, -24)}
+  {heart(350, 92, 0.8)} {heart(46, 176, 0.55)}
+  {star(82, 120, 0.9)} {star(336, 190, 0.6)}
   <g transform="translate(28 64) scale(0.86)">
-  <!-- ponytail (behind) -->
-  <path d="{ponytail}" fill="{HRL}"/>
-  <path d="M168 78 C128 52 90 70 82 116 M160 92 C124 78 100 100 100 132 M150 100 C122 100 110 126 114 156" fill="none" stroke="{HR}" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- hair behind -->
+  <path d="{back}" fill="{HRL}" {OUT}/>
+  <path d="M130 200 C120 250 126 300 140 336 M270 200 C280 250 274 300 260 336 M146 150 C134 200 134 250 146 300 M254 150 C266 200 266 250 254 300" fill="none" stroke="{HR}" stroke-width="3.5" stroke-linecap="round"/>
 
   <!-- torso, neck, traps -->
-  <path d="M110 300 C132 284 164 276 200 276 C236 276 268 284 290 300 L306 372 C302 420 298 460 298 560 L102 560 C102 460 98 420 94 372 Z" fill="{SK}"/>
-  <path d="M174 214 L174 268 C174 282 226 282 226 268 L226 214 Z" fill="{SK}"/>
-  <path d="M174 214 C182 242 218 242 226 214 L226 236 C218 254 182 254 174 236 Z" fill="{SKD}"/>
-  <path d="M172 258 C154 272 124 278 98 296 L302 296 C276 278 246 272 228 258 C218 268 182 268 172 258 Z" fill="{SK}"/>
-  <path d="M172 262 C152 276 126 284 106 294 M228 262 C248 276 274 284 294 294" fill="none" stroke="{SKD}" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M160 282 C176 274 188 276 198 281 M240 282 C224 274 212 276 202 281" fill="none" stroke="{SKD}" stroke-width="3" stroke-linecap="round"/>
+  <path d="M118 304 C138 290 168 284 200 284 C232 284 262 290 282 304 L292 372 C290 420 286 460 286 560 L114 560 C114 460 110 420 108 372 Z" fill="{SK}" {OUT}/>
+  <path d="M180 222 L180 278 C180 290 220 290 220 278 L220 222 Z" fill="{SK}"/>
+  <path d="M180 222 C186 250 214 250 220 222 L220 240 C214 258 186 258 180 240 Z" fill="{SKD}"/>
+  <path d="M178 266 C164 278 138 284 116 302 L284 302 C262 284 236 278 222 266 C214 274 186 274 178 266 Z" fill="{SK}"/>
+  <path d="M178 270 C160 280 136 288 120 300 M222 270 C240 280 264 288 280 300 M164 286 C178 278 190 280 198 285 M236 286 C222 278 210 280 202 285" fill="none" stroke="{SKD}" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="106" cy="326" rx="26" ry="29" fill="{SK}" {OUT}/>
+  <ellipse cx="294" cy="326" rx="26" ry="29" fill="{SK}" {OUT}/>
+  <path d="M98 308 C108 304 118 308 124 316 M302 308 C292 304 282 308 276 316" fill="none" stroke="{SKL}" stroke-width="3.5" stroke-linecap="round"/>
 
-  <!-- delts -->
-  <ellipse cx="90" cy="326" rx="32" ry="40" fill="{SK}"/>
-  <ellipse cx="310" cy="326" rx="32" ry="40" fill="{SK}"/>
-  <path d="M68 300 C80 320 80 346 72 364 M332 300 C320 320 320 346 328 364" fill="none" stroke="{SKD}" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M74 304 C86 300 98 304 106 314 M326 304 C314 300 302 304 294 314" fill="none" stroke="{SKL}" stroke-width="4" stroke-linecap="round"/>
-
-  <!-- waving arm (left) -->
-  <path d="M60 338 C56 368 60 398 66 420 L98 420 C102 396 104 364 112 338 Z" fill="{SK}"/>
-  <path d="M90 352 C94 378 92 400 86 416" fill="none" stroke="{SKD}" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M72 424 L44 326" fill="none" stroke="{SK}" stroke-width="32" stroke-linecap="round"/>
-  <path d="M58 392 Q54 360 50 336" fill="none" stroke="{SKD}" stroke-width="3" stroke-linecap="round"/>
-  <path d="M46 342 L74 332" stroke="{YEL}" stroke-width="10"/>
-  <circle cx="38" cy="296" r="22" fill="{SK}"/>
-  <path d="M22 282 L16 252 M34 276 L30 244 M46 276 L48 246 M58 284 L66 256" fill="none" stroke="{SK}" stroke-width="12" stroke-linecap="round"/>
-  <ellipse cx="62" cy="304" rx="7" ry="13" transform="rotate(-40 62 304)" fill="{SK}"/>
-  <path d="M26 300 L50 300" fill="none" stroke="{SKD}" stroke-width="2.5" stroke-linecap="round"/>
-
-  <!-- phone arm (right) -->
-  <path d="M340 338 C344 368 340 398 334 420 L302 420 C298 396 296 364 288 338 Z" fill="{SK}"/>
-  <path d="M310 352 C306 378 308 400 314 416" fill="none" stroke="{SKD}" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M330 426 L276 382" fill="none" stroke="{SK}" stroke-width="36" stroke-linecap="round"/>
-  <path d="M290 392 L274 380" stroke="{YEL}" stroke-width="12"/>
-  <circle cx="283" cy="386" r="5" fill="{INK}"/>
+  <!-- raised arm (right) -->
+  <path d="M274 340 C280 374 286 410 296 440 L338 440 C342 408 336 372 324 340 Z" fill="{SK}" {OUT}/>
+  <path d="M312 440 L304 356" fill="none" stroke="{SKD}" stroke-width="36" stroke-linecap="round"/>
+  <path d="M312 440 L304 356" fill="none" stroke="{SK}" stroke-width="31" stroke-linecap="round"/>
+  <path d="M300 372 Q310 366 318 374" fill="none" stroke="{SKL}" stroke-width="3" stroke-linecap="round"/>
 
   <!-- sports top -->
-  <path d="M130 288 L154 272 Q200 334 246 272 L270 288 C268 330 278 362 284 402 L294 560 L106 560 L116 402 C122 362 132 330 130 288 Z" fill="{INK}"/>
-  <path d="M130 288 L154 272 Q200 334 246 272 L270 288" fill="none" stroke="{YEL}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M130 288 C132 330 122 362 116 402 M270 288 C268 330 278 362 284 402" fill="none" stroke="{YEL}" stroke-width="4" stroke-linecap="round"/>
-  <path d="M158 344 Q178 366 198 358 M242 344 Q222 366 202 358" fill="none" stroke="{IRON}" stroke-width="4" stroke-linecap="round"/>
-  {heart(200, 408, 1.4, YEL)}
+  <path d="M134 296 L158 280 Q200 340 242 280 L266 296 C264 332 272 362 276 402 L282 560 L118 560 L124 402 C128 362 136 332 134 296 Z" fill="{YEL}"/>
+  <path d="M134 296 L158 280 Q200 340 242 280 L266 296 M134 296 C136 332 128 362 124 402 M266 296 C264 332 272 362 276 402" fill="none" stroke="{INK}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M162 350 Q180 370 198 362 M238 350 Q220 370 202 362" fill="none" stroke="{SKD}" stroke-width="3" stroke-linecap="round"/>
+  {heart(200, 412, 1.3, CORAL)}
 
-  <!-- head -->
-  <circle cx="148" cy="168" r="11" fill="{SK}"/><circle cx="252" cy="168" r="11" fill="{SK}"/>
-  <ellipse cx="148" cy="168" rx="4.5" ry="6.5" fill="{SKD}"/><ellipse cx="252" cy="168" rx="4.5" ry="6.5" fill="{SKD}"/>
-  {earbud(148, 168, -1)}
-  <path d="{face_shape}" fill="{SK}"/>
-  <ellipse cx="206" cy="114" rx="24" ry="6.5" fill="{SKL}"/>
-  <path d="{cap}" fill="{HRL}"/>
-  <path d="M164 92 Q198 66 242 82 M176 78 Q206 62 236 70" fill="none" stroke="{HR}" stroke-width="3.5" stroke-linecap="round"/>
-  <ellipse cx="172" cy="76" rx="9" ry="15" transform="rotate(-52 172 76)" fill="{YEL}" stroke="{SKD}" stroke-width="1.5"/>
-  <path d="M166 140 Q180 130 196 138 M204 138 Q220 130 234 140" fill="none" stroke="{HR}" stroke-width="4.5" stroke-linecap="round"/>
-  {eye(181, 154, True, -1)} {eye(219, 154, True, 1)}
-  <path d="M200 158 C198 170 193 177 193 181 Q200 187 207 181" fill="none" stroke="{SKD}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="163" cy="184" r="9" fill="{SKD}"/><circle cx="237" cy="184" r="9" fill="{SKD}"/>
-  {mouth(CDEEP)}
+  <!-- hand-on-hip arm (left) -->
+  <path d="M98 344 L62 410" fill="none" stroke="{SKD}" stroke-width="40" stroke-linecap="round"/>
+  <path d="M98 344 L62 410" fill="none" stroke="{SK}" stroke-width="35" stroke-linecap="round"/>
+  <path d="M62 410 L112 462" fill="none" stroke="{SKD}" stroke-width="34" stroke-linecap="round"/>
+  <path d="M62 410 L112 462" fill="none" stroke="{SK}" stroke-width="29" stroke-linecap="round"/>
+  <path d="M92 356 Q80 374 78 394" fill="none" stroke="{SKL}" stroke-width="3" stroke-linecap="round"/>
+  {hand_on_hip(122, 468, 1)}
+
+  <!-- head (tilted) -->
+  <g transform="rotate(-5 200 250)">
+  <circle cx="150" cy="166" r="10" fill="{SK}" {OUT}/><ellipse cx="150" cy="166" rx="4" ry="6" fill="{SKD}"/>
+  {earbud(149, 167, -1)}
+  <path d="{face}" fill="{SK}" {OUT}/>
+  <path d="M246 134 C246 170 238 204 222 224 Q236 214 244 194 Q250 164 246 134 Z" fill="{SKD}"/>
+  <ellipse cx="202" cy="110" rx="22" ry="6" fill="{SKL}"/>
+  <path d="M250 112 C268 148 268 190 252 228 C262 200 258 150 244 118 Z" fill="{HRL}" {OUT}/>
+  <path d="{front}" fill="{HRL}"/>
+  <path d="M160 96 Q196 62 246 80 M172 78 Q204 56 238 64 M150 124 Q158 100 178 88 M214 94 Q198 116 168 128" fill="none" stroke="{HR}" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M150 104 Q200 76 252 108" fill="none" stroke="{YEL}" stroke-width="8" stroke-linecap="round"/>
+  {heart(200, 86, 0.55)}
+  <path d="M164 138 Q178 124 194 134 M206 134 Q222 124 236 138" fill="none" stroke="{HR}" stroke-width="3.5" stroke-linecap="round"/>
+  {eye(178, 154, 12, 11, 8.5, lashes=True, side=-1)} {eye(222, 154, 12, 11, 8.5, lashes=True, side=1)}
+  <path d="M199 172 Q195 180 200 182 Q205 182 205 178" fill="none" stroke="{SKD}" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="162" cy="186" r="8" fill="{SKD}"/><circle cx="238" cy="186" r="8" fill="{SKD}"/>
+  {mouth_smile(200, 21, 19, CDEEP)}
+  </g>
 
   <!-- phone and hand -->
-  {phone(244, 346, 12)}
-  <ellipse cx="281" cy="324" rx="9" ry="11" fill="{SK}" stroke="{SKD}" stroke-width="2"/>
-  <ellipse cx="284" cy="344" rx="9" ry="11" fill="{SK}" stroke="{SKD}" stroke-width="2"/>
-  <ellipse cx="285" cy="364" rx="9" ry="11" fill="{SK}" stroke="{SKD}" stroke-width="2"/>
-  <circle cx="260" cy="394" r="21" fill="{SK}"/>
-  <ellipse cx="210" cy="372" rx="10" ry="19" transform="rotate(14 210 372)" fill="{SK}" stroke="{SKD}" stroke-width="2"/>
+  {phone_hand(308, 300, 8, 1)}
   </g>
 </svg>
 """
