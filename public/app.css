@@ -6,7 +6,10 @@
 @font-face { font-family: 'Bricolage Grotesque'; font-weight: 800; font-style: normal; font-display: swap; src: url('/fonts/bricolage-grotesque-latin-800-normal.woff2') format('woff2'); }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+*, *::before, *::after { box-sizing: border-box; }
+img, svg { max-width: 100%; }
+.page { overflow-x: clip; }
 body {
   margin: 0;
   background: var(--sol-colour-chalk);
