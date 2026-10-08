@@ -325,6 +325,32 @@ def check_metadata():
         check(prop.get("og:image:width") == str(spec[0]) and prop.get("og:image:height") == str(spec[1]), f"{rel}: og:image size must be {spec[0]}x{spec[1]}")
 
 
+def check_avatars():
+    """DESIGN_GUIDE.md section 12: landing-page character illustrations."""
+    allowed = PALETTE | {v["hex"].upper() for v in TOKENS["illustration"].values()}
+    tags_ok = {"svg", "title", "rect", "path", "g", "circle", "ellipse"}
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "build_avatars.py")], check=True, capture_output=True)
+    for name in ("avatar-man.svg", "avatar-woman.svg"):
+        path = ROOT / "public" / "img" / name
+        rel = path.relative_to(ROOT)
+        check(path.exists(), f"{rel} is missing (run scripts/build_avatars.py)")
+        if not path.exists():
+            continue
+        root = ET.parse(path).getroot()
+        tags = {el.tag.replace(SVG_NS, "") for el in root.iter()}
+        check(tags <= tags_ok, f"{rel}: disallowed elements {sorted(tags - tags_ok)}")
+        for node in root.iter():
+            for banned in ("style", "opacity", "fill-opacity", "stroke-opacity", "filter", "mask", "clip-path", "font-family"):
+                check(banned not in node.attrib, f"{rel}: forbidden attribute '{banned}'")
+        cols = colours_in(root)
+        check(cols <= allowed, f"{rel}: colours outside the palette: {sorted(cols - allowed)}")
+        check(root.get("viewBox") == "0 0 400 500", f"{rel}: must be 400 x 500 (4:5)")
+        check(root.get("role") == "img" and root.find(f"{SVG_NS}title") is not None, f"{rel}: needs role=img and a title")
+    page = (ROOT / "public" / "index.html").read_text()
+    for name in ("avatar-man.svg", "avatar-woman.svg"):
+        check(re.search(rf'<img[^>]+src="/img/{name}"[^>]+alt="[^"]{{10,}}"', page) is not None, f"public/index.html: {name} needs descriptive alt text")
+
+
 def main():
     # 1. tokens.css is generated from tokens.json and must be current
     css = ROOT / "tokens" / "tokens.css"
@@ -364,6 +390,7 @@ def main():
             d = ROOT / 'public' / 'brand' / p.name
             check(d.exists() and d.read_bytes() == p.read_bytes(), f'public/brand/{p.name} differs from assets/logo/{p.name}')
     check_web()
+    check_avatars()
     # 5. page metadata and share cards
     check_metadata()
 

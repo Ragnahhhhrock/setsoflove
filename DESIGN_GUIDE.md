@@ -144,7 +144,7 @@ Files in `assets/social/`:
 
 - Icons: outline style, 2px stroke at 24px, round caps and joins, colour `iron` (or `ink` when active, `coral` for the primary action). Draw from one set only; don't mix styles.
 - Photography guidance for profile content lives in `STYLE_GUIDE.md`.
-- No stock photos, no illustrations of people, no emoji in the interface copy (the logo is the one exception).
+- No stock photos, no emoji in the interface copy (the logo is the one exception), and no illustrations of people except the landing-page characters in section 12.
 
 ## 10. Accessibility
 
@@ -172,3 +172,21 @@ The Cloudflare Pages app (`public/`, `functions/`) is an asset type too. Legal p
 - Share buttons are secondary buttons with text labels. They are plain links: no third-party scripts, logos or tracking.
 - Sign-up requires the member to accept the terms and privacy policy and to confirm that their approved profile is visible to anyone with their link. The accepted version and time are stored (`lib/legal.js`, `users.terms_version`).
 - Copy follows `STYLE_GUIDE.md`: no banned words, no exclamation marks, no emoji.
+
+## 12. Character illustrations
+
+Two cartoon characters, a man and a woman, sit on the landing page. They are the only illustrations of people in the product. They are original characters, not portraits of real people.
+
+Files in `public/img/` (SVG, built by `python3 scripts/build_avatars.py`):
+
+| File | Use |
+|---|---|
+| `avatar-man.svg` | Landing page, smiling man holding a phone and flexing |
+| `avatar-woman.svg` | Landing page, smiling woman holding a phone and waving |
+
+- 4:5 portrait, 400 x 500 units, shown at 16px radius with a 1px plate border like a profile photo.
+- Colours: the 11 brand colours plus the illustration tones in `tokens/tokens.json` under `illustration` (skin, skin-light, skin-deep, hair, hair-light). The illustration tones are for these characters only and never for interface elements.
+- No gradients, filters, opacity, text or logos. Flat shapes with simple shading.
+- Build: athletic and well conditioned, with shoulders about 1.6 times the waist, capped delts, trapezius slope and a trim midsection. Always smiling, always holding a phone showing the heart mark, in everyday gym kit.
+- Tone: friendly and light. Never sexualised, never exaggerated into a bodybuilder caricature.
+- Every image carries descriptive alt text. Landing page only; never on profile pages or in social images.

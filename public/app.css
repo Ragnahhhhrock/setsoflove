@@ -212,3 +212,8 @@ dl.facts dd { margin: 0; overflow-wrap: anywhere; }
 .checklist li::before { content: ""; position: absolute; left: var(--sol-space-2); top: var(--sol-space-3); width: 6px; height: 12px; border: solid var(--sol-colour-coral-deep); border-width: 0 2px 2px 0; transform: rotate(45deg); }
 
 .hero-mark { display: block; width: 96px; height: auto; margin: 0 auto var(--sol-space-4); }
+
+.hero-avatars { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sol-space-3); margin: var(--sol-space-5) 0 var(--sol-space-2); }
+.hero-avatars img { display: block; width: 100%; height: auto; border-radius: var(--sol-radius-lg); border: 1px solid var(--sol-colour-plate); }
+.hero-caption { margin: 0 0 var(--sol-space-4); }
+@media (min-width: 640px) { .hero-avatars { gap: var(--sol-space-4); } }
