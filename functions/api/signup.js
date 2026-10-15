@@ -1,14 +1,10 @@
-import { json, fail, readJson, hashPassword, safeEqual, createSession } from "../../lib/util.js";
+import { json, fail, readJson, hashPassword, createSession } from "../../lib/util.js";
 import { TERMS_VERSION } from "../../lib/legal.js";
 
 export async function onRequestPost({ request, env }) {
   const body = await readJson(request);
   if (!body) return fail("Something was missing. Check the form and try again.");
 
-  if (!env.SIGNUP_CODE) return fail("Sign-ups are closed right now.", 403);
-  if (!safeEqual(String(body.code || "").trim().toLowerCase(), env.SIGNUP_CODE.trim().toLowerCase())) {
-    return fail("That invite code doesn't match. Check it with whoever invited you.", 403);
-  }
   if (body.confirm !== true) return fail("Please confirm you go to a gym, you're single and you're looking to meet people.");
 
   if (body.accept_terms !== true) return fail("Tick the box to accept the terms of use and privacy policy.");

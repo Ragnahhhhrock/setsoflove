@@ -2,7 +2,7 @@
 
 ## What it is
 
-A simple profile app for single gym-goers of any gender: men, women and non-binary people looking for dates, a relationship, marriage, friendship or just fun. Members create a profile, the admin approves it, and each approved profile lives at its own link (`setsoflove.com/sam-t`). Sign-up is by invitation.
+A simple profile app for single gym-goers of any gender: men, women and non-binary people looking for dates, a relationship, marriage, friendship or just fun. Members create a profile, the admin approves it, and each approved profile lives at its own link (`setsoflove.com/sam-t`). Anyone can create an account, no invitation needed.
 
 ## Who it's for
 

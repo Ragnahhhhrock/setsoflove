@@ -13,7 +13,6 @@ form.addEventListener("submit", async (e) => {
     body: {
       email: form.email.value,
       password: form.password.value,
-      code: form.code.value,
       confirm: document.getElementById("confirm").checked,
       accept_terms: document.getElementById("accept_terms").checked,
       consent_public: document.getElementById("consent_public").checked,

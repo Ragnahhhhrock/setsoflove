@@ -14,7 +14,7 @@ Run these on your computer (needs Node 20+). Log in once with `npx wrangler logi
    - Framework preset: None
    - Build command: leave empty
    - Build output directory: `public`
-5. **Set the invite code.** Pages project, Settings, Variables and Secrets, add a secret named `SIGNUP_CODE` (for example `sets-and-reps`). Share it only with the gym-goers you invite. Sign-ups stay closed until this is set. Redeploy after adding it.
+5. **Sign-ups are open.** No invite code is needed. If an old `SIGNUP_CODE` secret is set, you can delete it.
 6. **Check the bindings.** Pages project, Settings, Bindings should show `DB` (D1 `setsoflove`) and `PHOTOS` (R2 `setsoflove-photos`). They come from `wrangler.toml`.
 7. **Add your domain.** Pages project, Custom domains.
 
