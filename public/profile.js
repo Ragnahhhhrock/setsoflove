@@ -11,8 +11,8 @@ const addPhoto = document.getElementById("add-photo");
 const saveBtn = document.getElementById("save");
 const sendBtn = document.getElementById("send");
 // Radio and checkbox groups, saved as keys.
-const CHOICES = { gender: "radio", interested_in: "checkbox", seeking: "checkbox" };
-const FIELDS = ["first_name", "age", "zodiac", "suburb", "city", "country", "occupation", "training", "about", "looking_for", "stub"];
+const CHOICES = { gender: "radio", zodiac: "radio", interested_in: "checkbox", seeking: "checkbox" };
+const FIELDS = ["first_name", "age", "suburb", "city", "country", "occupation", "training", "about", "looking_for", "stub"];
 // Lifts are saved in kg. The form shows them in the member's chosen unit.
 const LIFTS = [["bench", "bench_kg"], ["squat", "squat_kg"], ["deadlift", "deadlift_kg"], ["ohp", "ohp_kg"]];
 const KG_PER_LB = 0.45359237;
