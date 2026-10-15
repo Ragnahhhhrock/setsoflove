@@ -1,4 +1,4 @@
-import { getUser, escapeHtml, RESERVED_STUBS, LIFTS, formatLift, GENDERS, INTERESTS, SEEKING, labelsFor } from "../lib/util.js";
+import { getUser, escapeHtml, RESERVED_STUBS, LIFTS, formatLift, GENDERS, ZODIAC, INTERESTS, SEEKING, labelsFor } from "../lib/util.js";
 
 const page = (title, body, { robots = "noindex, nofollow", status = 200, head = "" } = {}) =>
   new Response(
@@ -57,7 +57,8 @@ const whoLine = (profile) => {
   const who = labelsFor(profile.gender, GENDERS)[0];
   const into = labelsFor(profile.interested_in, INTERESTS).map((l) => l.toLowerCase());
   const after = labelsFor(profile.seeking, SEEKING).map((l) => l.toLowerCase());
-  return [who, into.length ? `interested in ${list(into)}` : "", after.length ? `after ${list(after)}` : ""]
+  const sign = labelsFor(profile.zodiac, ZODIAC)[0];
+  return [who, sign ? `${sign} sun sign` : "", into.length ? `interested in ${list(into)}` : "", after.length ? `after ${list(after)}` : ""]
     .filter(Boolean)
     .join(". ");
 };

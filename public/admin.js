@@ -40,6 +40,7 @@ function card(p) {
   add("Email", p.email);
   add("Link", p.stub ? `/${p.stub}` : "");
   add("Gender", p.gender);
+  add("Star sign", p.zodiac);
   add("Interested in", p.interested_in && p.interested_in.split(",").join(", "));
   add("After", p.seeking && p.seeking.split(",").join(", "));
   add("Suburb", p.suburb);
