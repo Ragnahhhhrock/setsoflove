@@ -1,11 +1,12 @@
-import { json, fail, getUser } from "../../../lib/util.js";
+import { json, fail, getUser, hasProfileColumn } from "../../../lib/util.js";
 
 export async function onRequestGet({ request, env }) {
   const user = await getUser(env, request);
   if (!user?.isAdmin) return fail("Not found.", 404);
 
+  const zodiac = (await hasProfileColumn(env, "zodiac")) ? "pr.zodiac" : "'' AS zodiac";
   const rows = await env.DB.prepare(
-    `SELECT pr.user_id, pr.stub, pr.first_name, pr.gender, pr.zodiac, pr.interested_in, pr.seeking, pr.age, pr.suburb, pr.city, pr.country, pr.occupation, pr.training, pr.about,
+    `SELECT pr.user_id, pr.stub, pr.first_name, pr.gender, ${zodiac}, pr.interested_in, pr.seeking, pr.age, pr.suburb, pr.city, pr.country, pr.occupation, pr.training, pr.about,
             pr.bench_kg, pr.squat_kg, pr.deadlift_kg, pr.ohp_kg, pr.weight_unit, pr.looking_for, pr.status, pr.admin_note, pr.submitted_at, u.email
      FROM profiles pr JOIN users u ON u.id = pr.user_id
      WHERE pr.status IN ('pending','approved','rejected')
