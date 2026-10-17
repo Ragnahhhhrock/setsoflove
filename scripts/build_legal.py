@@ -28,6 +28,7 @@ def footer() -> str:
     {contact}
   </ul>
   <p class="small">SetsOfLove is for adults aged 18 and over. We approve every profile before it goes live.</p>
+  <p class="small">Another <a href="https://malgordon.com/">Mal Gordon</a> creation</p>
 </footer>"""
 
 
