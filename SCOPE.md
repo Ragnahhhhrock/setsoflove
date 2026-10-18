@@ -16,6 +16,37 @@ Most dating apps treat gym photos as a side note. SetsOfLove makes them the main
 
 The voice stays friendly and dry. Keep the humour in the product, not in the body. See `STYLE_GUIDE.md` for the words we avoid.
 
+## Tagline and homepage copy
+
+The philosophy: SetsOfLove is where gym selfies are encouraged and welcomed on a dating app. It's for people who take pride in how they look, work hard at it and live healthy, fit lifestyles.
+
+**Tagline:** Mirror selfies welcome.
+
+Backup lines: "You put in the work. Show it off." and "Dating for people who train."
+
+**Homepage hero**
+
+> **Mirror selfies welcome.**
+>
+> SetsOfLove is a profile app for single gym-goers. Show off the work you put in, share your link, and let people get to know you.
+>
+> [Create your profile]
+
+**Who it's for:** Single people aged 18+ who train, at any gym. Men, women and non-binary members are all welcome, looking for dates, a relationship, marriage, friendship or just fun. You choose who you'd like to meet and what you're after.
+
+**What it is**
+
+- Your own profile page, like setsoflove.com/sam-t
+- Up to 4 photos, and gym selfies are encouraged
+- Optional lift stats (bench press, squat, deadlift, overhead press) shown in kg and lb
+- A few words about you and who you'd like to meet
+
+**How it works:** Create your profile. We approve it. Share your link.
+
+**Good to know:** No messages, no comments, no algorithm. You decide where to share your link, and introductions happen through friends or at the gym. We approve every profile before it goes live.
+
+Copy rule: "healthy, fit lifestyle" describes who the app is for, not a requirement to join. Gym membership and fitness aren't checked.
+
 ## Profile contents
 
 - 1 to 4 photos, with the main photo showing the member's face clearly
