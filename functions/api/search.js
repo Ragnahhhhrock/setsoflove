@@ -1,4 +1,4 @@
-import { json, fail, getUser } from "../../lib/util.js";
+import { json, fail, getUser, SAMPLE_EMAIL_PATTERN, samplesAllowed } from "../../lib/util.js";
 
 const MIN_QUERY = 2;
 const MAX_QUERY = 40;
@@ -19,12 +19,13 @@ export async function onRequestGet({ request, env }) {
             (SELECT p.id FROM photos p WHERE p.user_id = pr.user_id ORDER BY p.position, p.created_at LIMIT 1) AS photo
      FROM profiles pr
      WHERE pr.status = 'approved' AND pr.stub IS NOT NULL
+       AND (?3 = 1 OR pr.user_id NOT IN (SELECT id FROM users WHERE email LIKE ?4))
        AND (lower(pr.first_name) LIKE ?1 ESCAPE '\\' OR pr.stub LIKE ?1 ESCAPE '\\' OR lower(pr.suburb) LIKE ?1 ESCAPE '\\'
             OR lower(pr.city) LIKE ?1 ESCAPE '\\' OR lower(pr.country) LIKE ?1 ESCAPE '\\')
      ORDER BY lower(pr.first_name), pr.stub
      LIMIT ?2`
   )
-    .bind(like, MAX_RESULTS + 1)
+    .bind(like, MAX_RESULTS + 1, samplesAllowed(env) ? 1 : 0, SAMPLE_EMAIL_PATTERN)
     .all();
 
   const results = rows.results.slice(0, MAX_RESULTS).map((r) => ({

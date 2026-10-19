@@ -1,15 +1,15 @@
-import { json, fail, getUser } from "../../../lib/util.js";
+import { json, fail, getUser, isSampleEmail, samplesAllowed } from "../../../lib/util.js";
 
 // Public only while the owner's profile is approved. Owners and admins can always see them.
 export async function onRequestGet({ request, env, params }) {
   const photo = await env.DB.prepare(
-    `SELECT p.id, p.user_id, p.content_type, pr.status, pr.is_sample FROM photos p
-     JOIN profiles pr ON pr.user_id = p.user_id WHERE p.id = ?`
+    `SELECT p.id, p.user_id, p.content_type, pr.status, u.email AS owner_email FROM photos p
+     JOIN profiles pr ON pr.user_id = p.user_id JOIN users u ON u.id = p.user_id WHERE p.id = ?`
   )
     .bind(params.id)
     .first();
   if (!photo) return new Response("Not found", { status: 404 });
-  if (photo.is_sample && env.ALLOW_SAMPLES !== "1") return new Response("Not found", { status: 404 }); // sample profiles never show on the live site
+  if (isSampleEmail(photo.owner_email) && !samplesAllowed(env)) return new Response("Not found", { status: 404 }); // sample profiles never show on the live site
 
   let cache = "public, max-age=600";
   if (photo.status !== "approved") {

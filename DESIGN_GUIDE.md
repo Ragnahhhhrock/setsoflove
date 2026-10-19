@@ -203,7 +203,7 @@ Twenty illustrated avatars stand in for made-up members, so the app can be desig
 
 - 10 men and 10 women, every skin tone, hair style and kit drawn from the illustration tones. Everyone is an adult and always smiling.
 - Landing page: shown in the "Meet some example members" strip, introduced as made-up characters, never as real members. Alt text reads "Illustrated avatar of [first name], [look]".
-- Sample profiles (`seed/`) are for local and staging databases only. The live site refuses to show them (see `is_sample` in migration 0008 and `ALLOW_SAMPLES`). When shown locally, a notice says they are made up.
+- Sample profiles (`seed/`) are for local and staging databases only. The live site refuses to show or count them (their accounts use an `@sample.invalid` email, and only `ALLOW_SAMPLES=1` lets them appear). When shown locally, a notice says they are made up.
 - Never use these avatars as a stand-in for a real member's photo, and never generate realistic fake people.
 
 ## 13. Analytics and landing-page stats

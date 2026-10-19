@@ -378,8 +378,10 @@ def check_avatars():
         check(root.get("viewBox") == "0 0 200 250", f"{rel}: viewBox must be 0 0 200 250")
         check(root.get("role") == "img" and root.find(f"{SVG_NS}title") is not None, f"{rel}: needs role=img and a title")
         check(re.search(rf'<img[^>]+src="/img/avatars/{stub}\.svg"[^>]+alt="Illustrated avatar of [^"]{{10,}}"', page) is not None, f"public/index.html: avatar for {stub} needs descriptive alt text")
-    for fn in ("functions/[stub].js", "functions/api/photos/[id].js"):
-        check("ALLOW_SAMPLES" in (ROOT / fn).read_text(), f"{fn}: must refuse sample profiles unless ALLOW_SAMPLES is set")
+    for fn in ("functions/[stub].js", "functions/api/photos/[id].js", "functions/api/search.js"):
+        text = (ROOT / fn).read_text()
+        check("samplesAllowed" in text and ("isSampleEmail" in text or "SAMPLE_EMAIL_PATTERN" in text), f"{fn}: must hide sample profiles unless ALLOW_SAMPLES is set")
+    check("SAMPLE_EMAIL_PATTERN" in (ROOT / "functions" / "api" / "stats.js").read_text(), "functions/api/stats.js: sample accounts must not count towards public totals")
     check("--remote" not in (ROOT / "scripts" / "seed_samples.sh").read_text().replace("# Never run this against the live site: there is no --remote here on purpose.", ""), "scripts/seed_samples.sh must only touch the local database")
     for name in ("members-strip.svg",):  # hero-gym.svg is no longer shown on the landing page
         check(re.search(rf'<img[^>]+src="/img/{name}"[^>]+alt="[^"]{{10,}}"', page) is not None, f"public/index.html: {name} needs descriptive alt text")

@@ -1,4 +1,4 @@
-import { getUser, escapeHtml, RESERVED_STUBS, LIFTS, formatLift, GENDERS, ZODIAC, INTERESTS, SEEKING, labelsFor } from "../lib/util.js";
+import { getUser, escapeHtml, RESERVED_STUBS, isSampleEmail, samplesAllowed, LIFTS, formatLift, GENDERS, ZODIAC, INTERESTS, SEEKING, labelsFor } from "../lib/util.js";
 
 const page = (title, body, { robots = "noindex, nofollow", status = 200, head = "", analyticsPage = "member-profile" } = {}) =>
   new Response(
@@ -87,12 +87,12 @@ export async function onRequestGet(context) {
   // Not a profile link (static pages like /signin, files like /app.css): let static assets answer.
   if (RESERVED_STUBS.has(stub) || stub.includes(".") || !/^[a-z0-9-]{3,30}$/.test(stub)) return context.next();
 
-  const profile = await env.DB.prepare("SELECT * FROM profiles WHERE stub = ?").bind(stub).first();
+  const profile = await env.DB.prepare("SELECT pr.*, u.email AS owner_email FROM profiles pr JOIN users u ON u.id = pr.user_id WHERE pr.stub = ?").bind(stub).first();
   if (!profile) return notFound(env);
 
   // Sample profiles are made-up characters for local and staging use. They never show on the live site.
-  const sample = !!profile.is_sample;
-  if (sample && env.ALLOW_SAMPLES !== "1") return notFound(env);
+  const sample = isSampleEmail(profile.owner_email);
+  if (sample && !samplesAllowed(env)) return notFound(env);
 
   let preview = false;
   if (profile.status !== "approved") {

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Turn seed/sample-profiles.json into seed/sample-profiles.sql for the LOCAL database only.
 
-Sample profiles are made-up characters. They are marked is_sample = 1, use @sample.invalid emails that can't sign in,
-and the live site refuses to show them unless ALLOW_SAMPLES=1. Never run the SQL with --remote.
+Sample profiles are made-up characters. They use @sample.invalid emails that can't sign in or receive mail,
+and the live site refuses to show them (or count them) unless ALLOW_SAMPLES=1. Never run the SQL with --remote.
 """
 import json
 from pathlib import Path
@@ -31,11 +31,11 @@ for p in DATA:
     out.append(f"INSERT INTO users (email, pass_hash, pass_salt, is_admin, created_at, terms_version, terms_accepted_at) VALUES ({q(email)}, 'sample-account-cannot-sign-in', '00', 0, {NOW}, 'sample', {NOW});")
     lifts = p["lifts"]
     cols = ["user_id", "stub", "first_name", "age", "suburb", "occupation", "training", "about", "looking_for", "status", "admin_note", "submitted_at", "updated_at",
-            "bench_kg", "squat_kg", "deadlift_kg", "ohp_kg", "weight_unit", "city", "country", "gender", "interested_in", "seeking", "zodiac", "is_sample"]
+            "bench_kg", "squat_kg", "deadlift_kg", "ohp_kg", "weight_unit", "city", "country", "gender", "interested_in", "seeking", "zodiac"]
     vals = ["id", q(p["stub"]), q(p["first_name"]), p["age"], q(p["suburb"]), q(p["occupation"]), q(p["training"]), q(p["about"]), q(p["looking_for"]),
             "'approved'", "'Sample profile'", NOW, NOW,
             *[q(lifts.get(k)) for k in KEYS], q(p["unit"]), q(p["city"]), q(p["country"]), q(p["gender"]),
-            q(",".join(p["interested_in"])), q(",".join(p["seeking"])), q(p["zodiac"]), 1]
+            q(",".join(p["interested_in"])), q(",".join(p["seeking"])), q(p["zodiac"])]
     out.append(f"INSERT INTO profiles ({', '.join(cols)}) SELECT {', '.join(str(v) for v in vals)} FROM users WHERE email = {q(email)};")
     out.append(f"INSERT INTO photos (id, user_id, content_type, position, created_at) SELECT {q('sample-' + p['stub'])}, id, 'image/svg+xml', 0, {NOW} FROM users WHERE email = {q(email)};")
     out.append("")
