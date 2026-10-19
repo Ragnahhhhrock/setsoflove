@@ -1,0 +1,862 @@
+{
+  "site": "https://setsoflove.com",
+  "start": "2026-10-20",
+  "pillars": {
+    "meeting-people": {
+      "title": "Meeting people at the gym",
+      "description": "Respectful ways to talk to people, make friends and meet someone through training, from the weights floor to group classes.",
+      "intro": "Training puts you in the same room as people who share your habits. These articles cover how to say hello, read the room, take a no well and turn a familiar face into a friend, or something more, without making anyone's workout uncomfortable."
+    },
+    "profiles-and-photos": {
+      "title": "Profiles and photos",
+      "description": "How to take good gym photos, write a clear profile and share your link, plus how SetsOfLove works.",
+      "intro": "A good profile is clear, honest and easy to read. These articles cover mirror selfies, lighting, what to write, whether to show your lifts and how to share your link, along with plain explanations of how SetsOfLove works."
+    },
+    "dating-and-training": {
+      "title": "Dating around training",
+      "description": "Date ideas, scheduling and honest conversations for people whose week is built around training.",
+      "intro": "Early alarms, shift work, rest days and events all shape your week. These articles cover how to date around a training routine: date ideas that suit active people, how to explain your schedule and how to keep both your routine and your relationship in good shape."
+    },
+    "dating-safely": {
+      "title": "Dating safely",
+      "description": "Practical safety, privacy and consent advice for meeting people online and in person, with Australian resources.",
+      "intro": "Meeting someone new should feel good, and a few habits make it safer. These articles cover scam warning signs, first-date checks, privacy, consent around photos and what to do when something feels wrong."
+    },
+    "lifts-and-gym-life": {
+      "title": "Lifts and gym life",
+      "description": "Beginner-friendly guides to the big four lifts, tracking progress, building a routine and finding training partners.",
+      "intro": "Training is the thing members have in common. These articles cover the bench press, squat, deadlift and overhead press, how to track your numbers, how to build a routine that lasts and how to feel at home on the gym floor."
+    },
+    "connection-and-intent": {
+      "title": "Connection and intent",
+      "description": "Knowing what you want, from dates to marriage to friendship, and handling the conversations that come with it.",
+      "intro": "People join for different reasons: dates, a relationship, marriage, friendship or just fun. These articles cover how to work out what you want, say it kindly, start again after a long relationship and handle the harder moments with grace."
+    },
+    "perth-and-australia": {
+      "title": "Perth and Australia",
+      "description": "Active date ideas and training tips for Perth and the Australian climate, from river walks to beach mornings.",
+      "intro": "A lot of the best dates in Perth and across Australia are outdoors. These articles cover parks, trails, beaches and a day trip, plus common-sense tips for training in an Australian summer."
+    }
+  },
+  "posts": [
+    {
+      "slug": "what-is-setsoflove",
+      "title": "What is SetsOfLove? A profile app for single gym-goers",
+      "pillar": "profiles-and-photos",
+      "persona": "kai",
+      "keyword": "gym dating profile app",
+      "angle": "Plain explanation: profile page at your own link, up to 4 photos, optional lifts in kg and lb, no messages, we approve every profile, who it is for. Use SetsOfLove product facts only.",
+      "publish_at": "2026-10-20T17:31:00+08:00"
+    },
+    {
+      "slug": "how-to-talk-to-someone-at-the-gym",
+      "title": "How to talk to someone at the gym without being awkward",
+      "pillar": "meeting-people",
+      "persona": "dave",
+      "keyword": "how to talk to someone at the gym",
+      "angle": "Timing (never mid-set), headphones as a signal, keep it short, offer an easy exit, accept a quiet reply, works for any gender. Practical scripts that are not lines.",
+      "publish_at": "2026-10-21T07:48:00+08:00"
+    },
+    {
+      "slug": "the-big-four-lifts-explained",
+      "title": "The big four lifts explained for beginners",
+      "pillar": "lifts-and-gym-life",
+      "persona": "mia",
+      "keyword": "bench press squat deadlift overhead press",
+      "angle": "What each lift trains, why they are popular, why SetsOfLove lets you show them, beginner cautions, get coaching.",
+      "publish_at": "2026-10-22T05:37:00+08:00"
+    },
+    {
+      "slug": "dating-when-you-train-at-5am",
+      "title": "Dating when you train at 5 am",
+      "pillar": "dating-and-training",
+      "persona": "jess",
+      "keyword": "dating when you train early",
+      "angle": "Evening energy, early nights, honest scheduling, morning-friendly dates, protecting sleep without being rigid.",
+      "publish_at": "2026-10-23T11:01:00+08:00"
+    },
+    {
+      "slug": "online-dating-safety-tips-for-australians",
+      "title": "Online dating safety tips for Australians",
+      "pillar": "dating-safely",
+      "persona": "dave",
+      "keyword": "online dating safety tips australia",
+      "angle": "Core habits: slow pace, video call before meeting, public place, tell a friend, own transport, never send money. Link Scamwatch and ReportCyber.",
+      "publish_at": "2026-10-24T19:00:00+08:00"
+    },
+    {
+      "slug": "what-are-you-looking-for",
+      "title": "Dates, a relationship, marriage or friendship: know what you're after",
+      "pillar": "connection-and-intent",
+      "persona": "marcus",
+      "keyword": "what are you looking for in a relationship",
+      "angle": "Work out what you want, say it plainly, SetsOfLove lets you choose any mix, respecting other people's answers.",
+      "publish_at": "2026-10-25T12:09:00+08:00"
+    },
+    {
+      "slug": "is-it-okay-to-ask-someone-out-at-the-gym",
+      "title": "Is it okay to ask someone out at the gym?",
+      "pillar": "meeting-people",
+      "persona": "mia",
+      "keyword": "ask someone out at the gym",
+      "angle": "Honest answer: sometimes, with conditions. Build a friendly nod first, never corner anyone, accept a no, and consider lower-pressure routes such as a mutual friend or sharing a profile link.",
+      "publish_at": "2026-10-26T17:09:00+08:00"
+    },
+    {
+      "slug": "mirror-selfie-tips-for-your-profile",
+      "title": "How to take a good mirror selfie for your profile",
+      "pillar": "profiles-and-photos",
+      "persona": "mia",
+      "keyword": "mirror selfie tips",
+      "angle": "Clean mirror, phone position, framing, lighting, background, no bystanders, kit. Mirror selfies are welcome here.",
+      "publish_at": "2026-10-27T08:14:00+08:00"
+    },
+    {
+      "slug": "active-date-ideas-in-perth",
+      "title": "Active date ideas in Perth",
+      "pillar": "perth-and-australia",
+      "persona": "mia",
+      "keyword": "active date ideas perth",
+      "angle": "River walks, Kings Park, beaches, a paddle, markets; check opening times and weather.",
+      "publish_at": "2026-10-28T07:25:00+08:00"
+    },
+    {
+      "slug": "active-first-date-ideas",
+      "title": "Active first date ideas for people who train",
+      "pillar": "dating-and-training",
+      "persona": "mia",
+      "keyword": "active first date ideas",
+      "angle": "Walks, a climbing session, a class, a paddle, a markets walk; why low-pressure beats high-intensity, accessibility and comfort levels.",
+      "publish_at": "2026-10-29T19:23:00+08:00"
+    },
+    {
+      "slug": "bench-press-basics",
+      "title": "Bench press basics: setup, safety and common mistakes",
+      "pillar": "lifts-and-gym-life",
+      "persona": "dave",
+      "keyword": "bench press form",
+      "angle": "Setup, grip, bar path, safety bars or a spotter, common mistakes. Recommend learning from a qualified coach.",
+      "publish_at": "2026-10-30T07:51:00+08:00"
+    },
+    {
+      "slug": "romance-scam-warning-signs",
+      "title": "Romance scam warning signs and what to do",
+      "pillar": "dating-safely",
+      "persona": "marcus",
+      "keyword": "romance scam warning signs",
+      "angle": "Pressure to move off-platform, emergencies, money requests, investment pitches, avoidance of meeting. What to do and where to report (Scamwatch, ReportCyber, your bank).",
+      "publish_at": "2026-10-31T19:21:00+08:00"
+    },
+    {
+      "slug": "gym-etiquette-for-singles",
+      "title": "Gym etiquette for single people: 12 unwritten rules",
+      "pillar": "meeting-people",
+      "persona": "alex",
+      "keyword": "gym etiquette",
+      "angle": "Twelve respectful habits: wipe down, no filming others, no unasked coaching, headphones mean busy, share equipment fairly. Framed around making everyone comfortable.",
+      "publish_at": "2026-11-01T06:17:00+08:00"
+    },
+    {
+      "slug": "best-gym-photos-for-a-dating-profile",
+      "title": "Best gym photos for a dating profile (and which to skip)",
+      "pillar": "profiles-and-photos",
+      "persona": "dave",
+      "keyword": "gym photos dating profile",
+      "angle": "Which gym shots work: training, kit, post-session; which to skip: bystanders, screenshots, text overlays. Mix with one clear face photo.",
+      "publish_at": "2026-11-02T19:38:00+08:00"
+    },
+    {
+      "slug": "best-exercises-to-do-as-a-couple",
+      "title": "The best exercises to do as a couple",
+      "pillar": "dating-and-training",
+      "persona": "marcus",
+      "keyword": "couples workout exercises",
+      "angle": "Low-risk, genuinely better-together exercises: partner-paced walks and hill hikes, rowing or paddling, swimming laps side by side, climbing with a belay partner, spotting a bench press, partner stretching, rep-for-rep circuits with separate loads. What to skip (partner carries, anything loaded on a person). Keep it consent-based, scale to each person, separate weights are fine.",
+      "publish_at": "2026-11-03T21:28:00+08:00"
+    },
+    {
+      "slug": "rest-day-date-ideas",
+      "title": "Rest day date ideas that aren't just dinner",
+      "pillar": "dating-and-training",
+      "persona": "jess",
+      "keyword": "rest day date ideas",
+      "angle": "Gentle options: a long walk, a market, a gallery, a cooking class, board games, a picnic.",
+      "publish_at": "2026-11-04T12:30:00+08:00"
+    },
+    {
+      "slug": "squat-basics",
+      "title": "Squat basics: setup, depth and common mistakes",
+      "pillar": "lifts-and-gym-life",
+      "persona": "mia",
+      "keyword": "squat form",
+      "angle": "Stance, bracing, depth, common mistakes, learn with light loads, coaching.",
+      "publish_at": "2026-11-05T19:17:00+08:00"
+    },
+    {
+      "slug": "first-date-safety-checklist",
+      "title": "A first date safety checklist",
+      "pillar": "dating-safely",
+      "persona": "jess",
+      "keyword": "first date safety",
+      "angle": "Before, during and after: public place, tell a friend, charge your phone, own transport, trust your gut, leave if uncomfortable.",
+      "publish_at": "2026-11-06T13:59:00+08:00"
+    },
+    {
+      "slug": "dating-over-40-when-you-train",
+      "title": "Dating over 40 when you train",
+      "pillar": "connection-and-intent",
+      "persona": "marcus",
+      "keyword": "dating over 40",
+      "angle": "Confidence, honesty, shared values, avoid age-based assumptions, treat profiles with respect.",
+      "publish_at": "2026-11-07T06:47:00+08:00"
+    },
+    {
+      "slug": "how-to-tell-if-someone-wants-to-chat-at-the-gym",
+      "title": "How to tell if someone wants to talk at the gym",
+      "pillar": "meeting-people",
+      "persona": "priya",
+      "keyword": "does someone want to talk at the gym",
+      "angle": "Body language and context cues, between sets versus mid-set, brief replies, headphones. When unsure, default to leaving them alone.",
+      "publish_at": "2026-11-08T13:35:00+08:00"
+    },
+    {
+      "slug": "how-to-write-a-profile-bio-when-you-train",
+      "title": "How to write a profile bio when you train",
+      "pillar": "profiles-and-photos",
+      "persona": "jess",
+      "keyword": "dating profile bio fitness",
+      "angle": "Voice, specifics over clichés, one detail about training, one about life outside it, positive framing.",
+      "publish_at": "2026-11-09T08:29:00+08:00"
+    },
+    {
+      "slug": "dating-with-shift-work-and-training",
+      "title": "Dating when you work shifts and still train",
+      "pillar": "dating-and-training",
+      "persona": "jess",
+      "keyword": "dating shift worker",
+      "angle": "Flexible planning, honest availability, sleep, recurring slots, short dates that count.",
+      "publish_at": "2026-11-10T07:30:00+08:00"
+    },
+    {
+      "slug": "deadlift-basics",
+      "title": "Deadlift basics: setup, bracing and common mistakes",
+      "pillar": "lifts-and-gym-life",
+      "persona": "dave",
+      "keyword": "deadlift form",
+      "angle": "Setup, hinge pattern, bar close to the body, common mistakes, progression, coaching.",
+      "publish_at": "2026-11-11T06:24:00+08:00"
+    },
+    {
+      "slug": "is-it-safe-to-share-your-profile-link",
+      "title": "Is it safe to share your profile link?",
+      "pillar": "dating-safely",
+      "persona": "kai",
+      "keyword": "is it safe to share dating profile",
+      "angle": "What a profile shows (first name, age, suburb, city), what it doesn't, who you share with, how to remove it, report links. Be accurate to SetsOfLove facts.",
+      "publish_at": "2026-11-12T12:29:00+08:00"
+    },
+    {
+      "slug": "when-someone-at-the-gym-isnt-interested",
+      "title": "What to do when someone at the gym isn't interested",
+      "pillar": "meeting-people",
+      "persona": "dave",
+      "keyword": "gym rejection",
+      "angle": "Graceful exit, no lingering, never change training times to follow someone, feeling awkward is normal, how to return to a normal routine.",
+      "publish_at": "2026-11-13T13:31:00+08:00"
+    },
+    {
+      "slug": "about-you-ideas",
+      "title": "'About you' ideas when you're stuck for words",
+      "pillar": "profiles-and-photos",
+      "persona": "dave",
+      "keyword": "what to write about yourself on a dating profile",
+      "angle": "Prompts and structures, before-and-after of weak versus strong lines, quick picks as a starting point.",
+      "publish_at": "2026-11-14T16:51:00+08:00"
+    },
+    {
+      "slug": "explaining-your-routine-to-a-date",
+      "title": "How to explain your training routine to someone new",
+      "pillar": "dating-and-training",
+      "persona": "dave",
+      "keyword": "explain gym routine to partner",
+      "angle": "Be clear without apologising, share what it means to you, ask about their routine, find the overlap.",
+      "publish_at": "2026-11-15T18:33:00+08:00"
+    },
+    {
+      "slug": "overhead-press-basics",
+      "title": "Overhead press basics: setup and common mistakes",
+      "pillar": "lifts-and-gym-life",
+      "persona": "dave",
+      "keyword": "overhead press form",
+      "angle": "Grip, stance, brace, bar path, shoulder mobility, common mistakes.",
+      "publish_at": "2026-11-16T13:58:00+08:00"
+    },
+    {
+      "slug": "dating-again-after-a-long-relationship",
+      "title": "Dating again after a long relationship",
+      "pillar": "connection-and-intent",
+      "persona": "dave",
+      "keyword": "dating after long relationship",
+      "angle": "Take your time, update your profile and photos, talk about the past briefly, new routines.",
+      "publish_at": "2026-11-17T06:51:00+08:00"
+    },
+    {
+      "slug": "summer-dates-by-the-water-in-perth",
+      "title": "Summer dates by the water in Perth",
+      "pillar": "perth-and-australia",
+      "persona": "priya",
+      "keyword": "summer date ideas perth",
+      "angle": "Beach mornings, swims, sunset walks, shade, sun safety, early starts.",
+      "publish_at": "2026-11-18T21:23:00+08:00"
+    },
+    {
+      "slug": "what-not-to-put-on-your-profile",
+      "title": "What not to put on a dating profile",
+      "pillar": "dating-safely",
+      "persona": "alex",
+      "keyword": "what not to put on dating profile",
+      "angle": "Contact details, workplace specifics, daily routine, full surname, other people's photos; SetsOfLove blocks contact details in public text.",
+      "publish_at": "2026-11-19T18:48:00+08:00"
+    },
+    {
+      "slug": "how-to-make-friends-at-the-gym",
+      "title": "How to make friends at the gym as an adult",
+      "pillar": "meeting-people",
+      "persona": "priya",
+      "keyword": "make friends at the gym",
+      "angle": "Be a regular, small repeat interactions, share equipment, ask for a spot politely, join a class, give it weeks not days.",
+      "publish_at": "2026-11-20T11:16:00+08:00"
+    },
+    {
+      "slug": "should-you-put-lifts-on-your-profile",
+      "title": "Should you put your lifts on your profile?",
+      "pillar": "profiles-and-photos",
+      "persona": "dave",
+      "keyword": "lift stats dating profile",
+      "angle": "Pros and cons, honesty, kg and lb, how SetsOfLove shows lifts, optional, self-reported.",
+      "publish_at": "2026-11-21T19:03:00+08:00"
+    },
+    {
+      "slug": "dating-someone-who-doesnt-train",
+      "title": "Dating someone who doesn't train: what works",
+      "pillar": "dating-and-training",
+      "persona": "marcus",
+      "keyword": "dating someone who doesn't work out",
+      "angle": "Respect, no pressure to join, shared interests beyond training, how to talk about it.",
+      "publish_at": "2026-11-22T06:56:00+08:00"
+    },
+    {
+      "slug": "kg-to-lb-converting-your-lifts",
+      "title": "kg to lb: converting your lifts",
+      "pillar": "lifts-and-gym-life",
+      "persona": "dave",
+      "keyword": "kg to lbs gym conversion",
+      "angle": "Formula (1 kg = 2.20462 lb), a quick table for common plate weights, rounding, how SetsOfLove shows both units.",
+      "publish_at": "2026-11-23T11:25:00+08:00"
+    },
+    {
+      "slug": "consent-and-gym-photos",
+      "title": "Consent and gym photos: why bystanders stay out",
+      "pillar": "dating-safely",
+      "persona": "alex",
+      "keyword": "gym photos consent",
+      "angle": "Respect for people in the background, no filming others, how to take selfies without catching others, gym rules.",
+      "publish_at": "2026-11-24T13:27:00+08:00"
+    },
+    {
+      "slug": "meeting-people-in-group-fitness-classes",
+      "title": "Meeting people in group fitness classes: what actually works",
+      "pillar": "meeting-people",
+      "persona": "priya",
+      "keyword": "meet people group fitness classes",
+      "angle": "Arrive early, partner drills, post-class chats, regular time slots, instructors as connectors, keep expectations modest.",
+      "publish_at": "2026-11-25T12:07:00+08:00"
+    },
+    {
+      "slug": "training-in-an-australian-summer",
+      "title": "Training in an Australian summer: heat and common sense",
+      "pillar": "perth-and-australia",
+      "persona": "marcus",
+      "keyword": "training in summer heat australia",
+      "angle": "Train early or late, hydrate, sun safety, recognise heat illness signs, general advice and see a health professional.",
+      "publish_at": "2026-11-26T19:44:00+08:00"
+    },
+    {
+      "slug": "gym-photo-lighting-tips",
+      "title": "Lighting tips for gym photos",
+      "pillar": "profiles-and-photos",
+      "persona": "mia",
+      "keyword": "gym photo lighting",
+      "angle": "Gym lighting problems, windows, avoiding overhead glare, phone settings, time of day.",
+      "publish_at": "2026-11-27T05:42:00+08:00"
+    },
+    {
+      "slug": "eating-out-on-a-first-date-when-you-train",
+      "title": "Eating out on a first date when you train",
+      "pillar": "dating-and-training",
+      "persona": "jess",
+      "keyword": "first date food fitness",
+      "angle": "Order what you enjoy, don't make food a topic, no moralising, flexible planning. Keep it relaxed and non-judgemental about food and bodies.",
+      "publish_at": "2026-11-28T13:23:00+08:00"
+    },
+    {
+      "slug": "perth-trails-and-parks-for-a-walking-date",
+      "title": "Perth trails and parks for a walking date",
+      "pillar": "perth-and-australia",
+      "persona": "jess",
+      "keyword": "walking trails perth date",
+      "angle": "Parks and bushland walks, bring water, sun safety, tell a friend, check conditions.",
+      "publish_at": "2026-11-29T19:12:00+08:00"
+    },
+    {
+      "slug": "friendship-first-letting-things-build-slowly",
+      "title": "Friendship first: letting things build slowly",
+      "pillar": "connection-and-intent",
+      "persona": "priya",
+      "keyword": "friends first dating",
+      "angle": "Benefits of a slow start, shared activities, honesty about hopes, no pressure.",
+      "publish_at": "2026-11-30T20:18:00+08:00"
+    },
+    {
+      "slug": "how-to-track-your-lifts",
+      "title": "How to track your lifts",
+      "pillar": "lifts-and-gym-life",
+      "persona": "dave",
+      "keyword": "how to track workouts",
+      "angle": "Notebook, notes app, spreadsheet; what to record; reviewing monthly; honest numbers.",
+      "publish_at": "2026-12-01T07:43:00+08:00"
+    },
+    {
+      "slug": "gym-crush-low-pressure-plan",
+      "title": "Got a gym crush? A low-pressure plan",
+      "pillar": "meeting-people",
+      "persona": "mia",
+      "keyword": "gym crush",
+      "angle": "A calm step-by-step: nod, short hello, a few weeks of friendly regularity, then a simple invitation or a mutual-friend route. Includes when to stop.",
+      "publish_at": "2026-12-02T11:52:00+08:00"
+    },
+    {
+      "slug": "main-photo-show-your-face",
+      "title": "Why your main photo should clearly show your face",
+      "pillar": "profiles-and-photos",
+      "persona": "alex",
+      "keyword": "dating profile main photo",
+      "angle": "Recognition, trust, sunglasses and hats, the member must be the person in the main photo.",
+      "publish_at": "2026-12-03T18:45:00+08:00"
+    },
+    {
+      "slug": "how-to-report-a-profile",
+      "title": "How to report a profile on SetsOfLove",
+      "pillar": "dating-safely",
+      "persona": "kai",
+      "keyword": "report dating profile",
+      "angle": "Report this profile link goes to contact address, what to include, what happens next in general terms, takedown notes.",
+      "publish_at": "2026-12-04T06:24:00+08:00"
+    },
+    {
+      "slug": "balancing-training-and-a-relationship",
+      "title": "Balancing training and a relationship",
+      "pillar": "dating-and-training",
+      "persona": "marcus",
+      "keyword": "balance gym and relationship",
+      "angle": "Calendar conversations, flexibility, shared time, recognising when training is avoiding something.",
+      "publish_at": "2026-12-05T18:38:00+08:00"
+    },
+    {
+      "slug": "how-to-introduce-friends-who-train",
+      "title": "How to introduce two friends who both train",
+      "pillar": "meeting-people",
+      "persona": "kai",
+      "keyword": "introduce friends dating",
+      "angle": "For the connector: check both are open to it, introduce lightly, share a profile link rather than push, no pressure either way, step back.",
+      "publish_at": "2026-12-06T06:23:00+08:00"
+    },
+    {
+      "slug": "profile-link-name-ideas",
+      "title": "How to choose your profile link: ideas and rules",
+      "pillar": "profiles-and-photos",
+      "persona": "kai",
+      "keyword": "profile link name ideas",
+      "angle": "Lowercase letters, numbers and hyphens, 3 to 30 characters, first name plus initial or number, avoid surnames and phone numbers, reserved words.",
+      "publish_at": "2026-12-07T19:25:00+08:00"
+    },
+    {
+      "slug": "how-to-start-strength-training",
+      "title": "How to start strength training: a calm beginner's guide",
+      "pillar": "lifts-and-gym-life",
+      "persona": "mia",
+      "keyword": "how to start strength training",
+      "angle": "Start simple, two or three sessions a week, learn the movements, rest, get advice from a coach or health professional if you have concerns.",
+      "publish_at": "2026-12-08T18:01:00+08:00"
+    },
+    {
+      "slug": "dating-while-training-for-an-event",
+      "title": "Dating while you train for an event",
+      "pillar": "dating-and-training",
+      "persona": "dave",
+      "keyword": "dating while training for marathon",
+      "angle": "Event blocks (a race, a meet), telling your date upfront, taper weeks, dates that fit the plan.",
+      "publish_at": "2026-12-09T07:27:00+08:00"
+    },
+    {
+      "slug": "how-to-check-if-someones-photos-are-real",
+      "title": "How to check if someone's photos are real",
+      "pillar": "dating-safely",
+      "persona": "priya",
+      "keyword": "check if dating photos are real",
+      "angle": "Reverse image search, inconsistencies, video call, a lack of recent photos, trust your instincts.",
+      "publish_at": "2026-12-10T16:39:00+08:00"
+    },
+    {
+      "slug": "how-to-handle-rejection-gracefully",
+      "title": "How to handle rejection gracefully",
+      "pillar": "connection-and-intent",
+      "persona": "dave",
+      "keyword": "how to handle rejection",
+      "angle": "Reframe, respond kindly, take space, look after yourself, try again later.",
+      "publish_at": "2026-12-11T18:01:00+08:00"
+    },
+    {
+      "slug": "meeting-people-at-a-new-gym",
+      "title": "Joined a new gym? How to meet people without forcing it",
+      "pillar": "meeting-people",
+      "persona": "jess",
+      "keyword": "new gym meet people",
+      "angle": "Learn the quiet hours, ask staff, try a class, be consistent with a time slot, small talk about equipment and routines.",
+      "publish_at": "2026-12-12T19:35:00+08:00"
+    },
+    {
+      "slug": "how-to-share-your-profile-link",
+      "title": "How to share your profile link without it being awkward",
+      "pillar": "profiles-and-photos",
+      "persona": "kai",
+      "keyword": "share dating profile link",
+      "angle": "Where to share (friends, training groups you trust), what to say, how to avoid pressure, no obligation.",
+      "publish_at": "2026-12-13T05:43:00+08:00"
+    },
+    {
+      "slug": "perth-first-dates-coffee-a-walk-and-nothing-fancy",
+      "title": "Perth first dates: coffee, a walk and nothing fancy",
+      "pillar": "perth-and-australia",
+      "persona": "dave",
+      "keyword": "first date ideas perth",
+      "angle": "Why simple works, coffee then a walk, easy to end or extend.",
+      "publish_at": "2026-12-14T17:04:00+08:00"
+    },
+    {
+      "slug": "keeping-your-routine-through-the-holiday-season",
+      "title": "Keeping your routine through the holiday season",
+      "pillar": "dating-and-training",
+      "persona": "jess",
+      "keyword": "gym routine over christmas",
+      "angle": "Gym hours change, social calendar, plan a minimum routine, flexibility, dates over summer holidays in Australia.",
+      "publish_at": "2026-12-15T07:33:00+08:00"
+    },
+    {
+      "slug": "gym-anxiety-how-to-walk-in-with-confidence",
+      "title": "Gym anxiety: how to walk in with more confidence",
+      "pillar": "lifts-and-gym-life",
+      "persona": "mia",
+      "keyword": "gym anxiety",
+      "angle": "Plan the session, go at quiet times, familiarise with the space, remind yourself everyone is busy, professional support if anxiety is persistent.",
+      "publish_at": "2026-12-16T17:47:00+08:00"
+    },
+    {
+      "slug": "low-key-first-dates-for-introverts",
+      "title": "Low-key first dates for introverts who train",
+      "pillar": "dating-and-training",
+      "persona": "mia",
+      "keyword": "first date ideas introverts",
+      "angle": "Quiet venues, walking dates, structured activities, short and sweet, exit options.",
+      "publish_at": "2026-12-17T07:33:00+08:00"
+    },
+    {
+      "slug": "setting-boundaries-early-when-you-start-dating",
+      "title": "Setting boundaries early when you start dating",
+      "pillar": "dating-safely",
+      "persona": "jess",
+      "keyword": "setting boundaries dating",
+      "angle": "What boundaries are, how to say them kindly, examples, what to do if someone ignores them.",
+      "publish_at": "2026-12-18T13:34:00+08:00"
+    },
+    {
+      "slug": "gym-small-talk-starters",
+      "title": "Gym small talk: 15 easy openers that don't sound like lines",
+      "pillar": "meeting-people",
+      "persona": "mia",
+      "keyword": "gym conversation starters",
+      "angle": "Fifteen low-key, situational openers (equipment, a class, a routine, a local tip), plus how to read the reply and wrap up kindly.",
+      "publish_at": "2026-12-19T21:01:00+08:00"
+    },
+    {
+      "slug": "why-setsoflove-has-no-messages",
+      "title": "Why SetsOfLove has no messages, comments or algorithm",
+      "pillar": "profiles-and-photos",
+      "persona": "alex",
+      "keyword": "dating app no messages",
+      "angle": "The reasoning: no unsolicited remarks on photos, introductions through friends or at the gym, you choose where your link goes. Be honest about the trade-offs.",
+      "publish_at": "2026-12-20T06:12:00+08:00"
+    },
+    {
+      "slug": "second-date-ideas-for-active-people",
+      "title": "Second date ideas for active people",
+      "pillar": "dating-and-training",
+      "persona": "priya",
+      "keyword": "second date ideas active",
+      "angle": "Building on the first date, a bit more adventurous, shared learning, outdoors.",
+      "publish_at": "2026-12-21T12:32:00+08:00"
+    },
+    {
+      "slug": "how-to-find-a-training-partner",
+      "title": "How to find a training partner",
+      "pillar": "lifts-and-gym-life",
+      "persona": "priya",
+      "keyword": "find a training partner",
+      "angle": "Where to look, what to ask, compatibility on schedule and goals, accountability, being a good partner.",
+      "publish_at": "2026-12-22T06:16:00+08:00"
+    },
+    {
+      "slug": "introductions-through-mutual-friends",
+      "title": "Why introductions through mutual friends can feel safer",
+      "pillar": "dating-safely",
+      "persona": "kai",
+      "keyword": "meeting through mutual friends",
+      "angle": "Social context, accountability, a shared friend to ask about; it is not a guarantee, so keep safety habits.",
+      "publish_at": "2026-12-23T13:59:00+08:00"
+    },
+    {
+      "slug": "first-date-conversation-topics-beyond-training",
+      "title": "First date conversation topics beyond training",
+      "pillar": "connection-and-intent",
+      "persona": "jess",
+      "keyword": "first date conversation topics",
+      "angle": "Curiosity-based questions, travel, work, food, favourites, listening, avoid interview mode.",
+      "publish_at": "2026-12-24T19:27:00+08:00"
+    },
+    {
+      "slug": "training-partner-or-date",
+      "title": "Training partner or date? How to tell the difference",
+      "pillar": "meeting-people",
+      "persona": "alex",
+      "keyword": "training partner or date",
+      "angle": "Clear signals, asking plainly and kindly, protecting a good training partnership, what to do if feelings are not mutual.",
+      "publish_at": "2026-12-25T17:19:00+08:00"
+    },
+    {
+      "slug": "how-profile-approval-works",
+      "title": "How profile approval works on SetsOfLove",
+      "pillar": "profiles-and-photos",
+      "persona": "jess",
+      "keyword": "dating profile approval",
+      "angle": "Every profile is approved before it goes live, edits take it offline until re-approved, rejections include a note, what reviewers look for.",
+      "publish_at": "2026-12-26T05:37:00+08:00"
+    },
+    {
+      "slug": "keeping-your-routine-when-you-start-seeing-someone",
+      "title": "Keeping your routine when you start seeing someone",
+      "pillar": "dating-and-training",
+      "persona": "jess",
+      "keyword": "keep gym routine new relationship",
+      "angle": "Protect two or three non-negotiable sessions, be flexible on the rest, communicate early.",
+      "publish_at": "2026-12-27T18:33:00+08:00"
+    },
+    {
+      "slug": "consistency-over-motivation",
+      "title": "Consistency over motivation: a routine that lasts",
+      "pillar": "lifts-and-gym-life",
+      "persona": "jess",
+      "keyword": "build a gym routine",
+      "angle": "Tiny habits, fixed days, flexible minimums, review monthly.",
+      "publish_at": "2026-12-28T06:55:00+08:00"
+    },
+    {
+      "slug": "keeping-your-gym-and-routine-private",
+      "title": "Keeping your gym and routine private when you date",
+      "pillar": "dating-safely",
+      "persona": "alex",
+      "keyword": "dating privacy routine",
+      "angle": "Don't share exact schedule early, share your gym later, public first meetings, privacy settings.",
+      "publish_at": "2026-12-29T12:00:00+08:00"
+    },
+    {
+      "slug": "dating-someone-from-your-own-gym",
+      "title": "Dating someone from your own gym: pros and cons",
+      "pillar": "meeting-people",
+      "persona": "marcus",
+      "keyword": "dating someone from your gym",
+      "angle": "Shared routine and values versus awkward endings, shared space, mutual friends, setting expectations early.",
+      "publish_at": "2026-12-30T16:59:00+08:00"
+    },
+    {
+      "slug": "setsoflove-photo-rules",
+      "title": "Photo rules: what's welcome and what isn't",
+      "pillar": "profiles-and-photos",
+      "persona": "alex",
+      "keyword": "dating profile photo rules",
+      "angle": "Gym photos welcome; no nudity, nothing sexual; member must be the main person; no bystanders; no screenshots, memes or logos.",
+      "publish_at": "2026-12-31T13:27:00+08:00"
+    },
+    {
+      "slug": "date-ideas-that-dont-revolve-around-drinking",
+      "title": "Date ideas that don't revolve around drinking",
+      "pillar": "dating-and-training",
+      "persona": "alex",
+      "keyword": "date ideas without alcohol",
+      "angle": "Daytime, coffee, food, activities, markets, nature, how to say you're not drinking without making it a thing.",
+      "publish_at": "2027-01-01T08:19:00+08:00"
+    },
+    {
+      "slug": "rest-sleep-and-recovery-for-lifters",
+      "title": "Rest, sleep and recovery for people who lift",
+      "pillar": "lifts-and-gym-life",
+      "persona": "marcus",
+      "keyword": "recovery for lifters",
+      "angle": "General recovery habits: sleep, rest days, easier weeks, listening to pain versus effort; see a health professional for persistent pain.",
+      "publish_at": "2027-01-02T05:39:00+08:00"
+    },
+    {
+      "slug": "handling-unwanted-attention-at-the-gym",
+      "title": "Handling unwanted attention at the gym",
+      "pillar": "dating-safely",
+      "persona": "jess",
+      "keyword": "unwanted attention at the gym",
+      "angle": "Short, firm lines, moving, telling staff, documenting, support options. Never your fault.",
+      "publish_at": "2027-01-03T11:43:00+08:00"
+    },
+    {
+      "slug": "january-gym-crowds-etiquette-and-patience",
+      "title": "January gym crowds: etiquette and patience",
+      "pillar": "lifts-and-gym-life",
+      "persona": "mia",
+      "keyword": "january gym crowds",
+      "angle": "New-year busy period, be kind to newcomers, share equipment, quieter hours, workable plan.",
+      "publish_at": "2027-01-04T12:45:00+08:00"
+    },
+    {
+      "slug": "seeing-an-ex-at-your-gym",
+      "title": "Seeing an ex at your gym: how to handle it",
+      "pillar": "meeting-people",
+      "persona": "dave",
+      "keyword": "ex at my gym",
+      "angle": "Options: change times, stay civil, set boundaries, talk to staff if needed, protect your routine.",
+      "publish_at": "2027-01-05T11:10:00+08:00"
+    },
+    {
+      "slug": "profile-mistakes-gym-goers-make",
+      "title": "9 profile mistakes gym-goers make",
+      "pillar": "profiles-and-photos",
+      "persona": "dave",
+      "keyword": "dating profile mistakes",
+      "angle": "Nine honest, kind mistakes: blurry photos, only one pose, list of rules, negativity, no personality, outdated photos and so on.",
+      "publish_at": "2027-01-06T07:19:00+08:00"
+    },
+    {
+      "slug": "training-together-as-a-couple",
+      "title": "Training together as a couple: how to make it work",
+      "pillar": "dating-and-training",
+      "persona": "marcus",
+      "keyword": "couples workout",
+      "angle": "Shared goals versus different goals, who plans, spotting, being kind about ability gaps, separate sessions are fine.",
+      "publish_at": "2027-01-07T18:16:00+08:00"
+    },
+    {
+      "slug": "progress-photos-how-to-take-them",
+      "title": "Progress photos: how to take them and why",
+      "pillar": "lifts-and-gym-life",
+      "persona": "alex",
+      "keyword": "progress photos",
+      "angle": "Same lighting, same time, what to track, how to use them kindly, not a scoreboard, privacy and storage.",
+      "publish_at": "2027-01-08T13:56:00+08:00"
+    },
+    {
+      "slug": "how-to-spot-a-fake-profile",
+      "title": "How to spot a fake profile",
+      "pillar": "dating-safely",
+      "persona": "marcus",
+      "keyword": "how to spot fake dating profile",
+      "angle": "Too-perfect photos, inconsistent details, vague answers, quick pressure; verify through video, mutual friends.",
+      "publish_at": "2027-01-09T19:02:00+08:00"
+    },
+    {
+      "slug": "shy-at-the-gym-social-confidence",
+      "title": "Shy at the gym? How to feel more at ease around people",
+      "pillar": "meeting-people",
+      "persona": "mia",
+      "keyword": "shy at the gym",
+      "angle": "Social rather than technical confidence: tiny habits, repeat exposure, pick a quieter time, practise one hello a visit.",
+      "publish_at": "2027-01-10T07:04:00+08:00"
+    },
+    {
+      "slug": "writing-who-you-would-like-to-meet",
+      "title": "How to write the 'who you'd like to meet' section",
+      "pillar": "profiles-and-photos",
+      "persona": "marcus",
+      "keyword": "who i'd like to meet dating profile",
+      "angle": "Positive framing, values over checklists, what you are after, kind and specific.",
+      "publish_at": "2027-01-11T12:17:00+08:00"
+    },
+    {
+      "slug": "valentines-day-for-single-gym-goers",
+      "title": "Valentine's Day for single gym-goers",
+      "pillar": "connection-and-intent",
+      "persona": "kai",
+      "keyword": "valentine's day single",
+      "angle": "Ways to enjoy it, friends, a training session, a low-pressure plan; a gentle mention of making a profile.",
+      "publish_at": "2027-01-12T19:07:00+08:00"
+    },
+    {
+      "slug": "dating-when-you-travel-for-work",
+      "title": "Dating when you travel for work and still train",
+      "pillar": "dating-and-training",
+      "persona": "marcus",
+      "keyword": "dating when you travel for work",
+      "angle": "Hotel gyms and bodyweight sessions, planning dates around trips, communication, quality time when home.",
+      "publish_at": "2027-01-13T13:30:00+08:00"
+    },
+    {
+      "slug": "rottnest-island-day-trip-as-a-date",
+      "title": "Rottnest Island day trip as a date: how to plan it",
+      "pillar": "perth-and-australia",
+      "persona": "priya",
+      "keyword": "rottnest island day trip",
+      "angle": "Ferry, bikes, swimming spots, sun safety, check timetables; a relaxed day out.",
+      "publish_at": "2027-01-14T18:12:00+08:00"
+    },
+    {
+      "slug": "casual-dating-how-to-be-honest-about-just-fun",
+      "title": "Casual dating: how to be honest about 'just fun'",
+      "pillar": "connection-and-intent",
+      "persona": "alex",
+      "keyword": "casual dating honesty",
+      "angle": "Say it kindly, respect the other person, consent, change of mind, no sexual content.",
+      "publish_at": "2027-01-15T07:54:00+08:00"
+    },
+    {
+      "slug": "places-to-meet-people-who-train",
+      "title": "Beyond the weights floor: other places to meet people who train",
+      "pillar": "meeting-people",
+      "persona": "priya",
+      "keyword": "places to meet active people",
+      "angle": "Park runs, run clubs, climbing gyms, community sport, charity events, volunteering; how to choose one that suits you.",
+      "publish_at": "2027-01-16T11:43:00+08:00"
+    },
+    {
+      "slug": "how-often-to-update-profile-photos",
+      "title": "How often should you update your profile photos?",
+      "pillar": "profiles-and-photos",
+      "persona": "jess",
+      "keyword": "update dating profile photos",
+      "angle": "Recency, big changes, seasonal updates; on SetsOfLove an edit sends the profile for approval again, so batch your changes.",
+      "publish_at": "2027-01-17T20:57:00+08:00"
+    },
+    {
+      "slug": "a-privacy-checklist-for-any-dating-profile",
+      "title": "A privacy checklist for any dating profile",
+      "pillar": "dating-safely",
+      "persona": "dave",
+      "keyword": "dating profile privacy",
+      "angle": "Ten-point checklist: photos, location detail, handles, workplace, link sharing, reporting.",
+      "publish_at": "2027-01-18T11:01:00+08:00"
+    }
+  ]
+}

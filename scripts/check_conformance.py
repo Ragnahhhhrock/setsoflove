@@ -394,6 +394,9 @@ def main():
     check_avatars()
     # 5. page metadata and share cards
     check_metadata()
+    # 6. blog posts against the style guide and writing brief
+    blog = subprocess.run([sys.executable, str(ROOT / "scripts" / "check_blog.py")], capture_output=True, text=True)
+    check(blog.returncode == 0, "blog checks failed:\n" + blog.stdout.strip())
 
     print(f"{passes} checks passed, {len(failures)} failed, {len(assets)} assets checked")
     for f in failures:

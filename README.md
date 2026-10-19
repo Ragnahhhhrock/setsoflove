@@ -43,3 +43,7 @@ Cloudflare Pages (`public/` and `functions/`) with D1 and R2. See [`DEPLOY.md`](
 
 - Google Analytics 4 is wired in through `public/analytics.js`. The Measurement ID is `G-FJKNFMW5NN`, set in `GA_MEASUREMENT_ID`. The Google tag gateway is built in: the tag and hits go through `/metrics` (`functions/metrics/[[path]].js`). Don't also switch on Cloudflare's own Google tag gateway. Event names and the privacy rules are in `DESIGN_GUIDE.md` section 13.
 - The homepage strip reads `/api/stats` (anonymous totals, cached for 5 minutes). It stays hidden until sign-ups reach `STATS_MIN_SIGNUPS` in `wrangler.toml`.
+
+## Blog
+
+Posts, plan and publishing schedule are described in [`BLOG.md`](BLOG.md). `python3 scripts/build_blog.py` builds the posts that are due, and a GitHub Action (`.github/workflows/publish-blog.yml`) runs it every 15 minutes and commits the result. Writing rules are in `content/blog/BRIEF.md`; `python3 scripts/check_blog.py` checks every post.

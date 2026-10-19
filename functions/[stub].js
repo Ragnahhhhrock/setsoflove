@@ -26,6 +26,7 @@ const header = `<header class="site-header"><a href="/" aria-label="SetsOfLove h
 
 const footer = (env) => `<footer class="site-footer">
   <ul>
+    <li><a href="/blog/">Blog</a></li>
     <li><a href="/terms/">Terms of use</a></li>
     <li><a href="/privacy/">Privacy policy</a></li>
     <li><a href="/contact">Contact</a></li>${env.CONTACT_EMAIL ? `\n    <li><a href="mailto:${escapeHtml(env.CONTACT_EMAIL)}">${escapeHtml(env.CONTACT_EMAIL)}</a></li>` : ""}

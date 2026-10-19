@@ -1,0 +1,36 @@
+name: Publish scheduled blog posts
+
+# Every 15 minutes, build any blog posts whose publish time has passed and commit the result.
+# The push redeploys the site on Cloudflare Pages. Post times live in content/blog/plan.json.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-blog
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build blog
+        run: python3 scripts/build_blog.py
+      - name: Commit and push changes
+        run: |
+          if [ -n "$(git status --porcelain public)" ]; then
+            git config user.name "SetsOfLove blog bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add public
+            git commit -m "Publish scheduled blog posts"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push
+          else
+            echo "Nothing new to publish."
+          fi

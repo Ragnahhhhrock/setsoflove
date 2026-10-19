@@ -118,3 +118,7 @@ Profiles are reviewed and approved by the admin before they go live. Keep these 
 3. No banned words from section 2.
 4. Would a 40-year-old find it friendly rather than cringe?
 5. Does it work out loud, read to a mate?
+
+## 8. Blog writing
+
+Blog posts follow everything above, plus `content/blog/BRIEF.md`: answer the question in the opening paragraph, 700 to 1,300 words, no invented statistics, quotes or testimonials, no brand or competitor names, and only the allowed outbound links. Safety, health and fitness advice is general and points to a qualified professional. `python3 scripts/check_blog.py` enforces the word rules.

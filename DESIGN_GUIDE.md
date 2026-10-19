@@ -172,6 +172,7 @@ The Cloudflare Pages app (`public/`, `functions/`) is an asset type too. Legal p
 - Search (`/search`, `/api/search`) is for signed-in members only. It matches approved profiles on first name, link, suburb, city or country, lists them alphabetically and never filters or ranks by gender or who someone would like to meet. The page is `noindex`.
 - Share buttons are secondary buttons with text labels. They are plain links: no third-party scripts or logos, and they never send anything to the other service until selected. We count clicks as anonymous analytics events (section 13).
 - Sign-up requires the member to accept the terms and privacy policy and to confirm that their approved profile is visible to anyone with their link. The accepted version and time are stored (`lib/legal.js`, `users.terms_version`).
+- The blog (`public/blog/`) is built by `python3 scripts/build_blog.py`. Blog pages are indexable, use the same header, footer and token styles, carry Open Graph and `BlogPosting` data, and use no images beyond the shared social cards.
 - Copy follows `STYLE_GUIDE.md`: no banned words, no exclamation marks, no emoji.
 
 ## 12. Character illustrations

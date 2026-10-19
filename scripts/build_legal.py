@@ -22,6 +22,7 @@ def footer() -> str:
     contact = f'<li><a href="mailto:{escape(EMAIL)}">{escape(EMAIL)}</a></li>' if EMAIL else ""
     return f"""<footer class="site-footer">
   <ul>
+    <li><a href="/blog/">Blog</a></li>
     <li><a href="/terms/">Terms of use</a></li>
     <li><a href="/privacy/">Privacy policy</a></li>
     <li><a href="/contact">Contact</a></li>

@@ -48,9 +48,13 @@ Sign in and you'll land on `/admin`, where every profile waits for approval.
 - Schema changes go in a new file in `migrations/`, then `npm run migrate:remote`.
 - Local test run: put `SIGNUP_CODE=anything` in `.dev.vars`, then `npm run migrate:local` and `npx wrangler pages dev`.
 
+## Blog publishing
+
+`.github/workflows/publish-blog.yml` runs every 15 minutes, builds any blog post whose time has passed and commits `public/`. In the GitHub repo, Settings, Actions, General, set Workflow permissions to Read and write. See `BLOG.md`. Submit `https://setsoflove.com/sitemap.xml` in Google Search Console after the first posts go live.
+
 ## How it works
 
-- Profile links sit at the root (`yoursite.com/sam-t`). Only approved profiles are visible, and they're marked noindex so search engines skip them.
+- Profile links sit at the root (`yoursite.com/sam-t`). Only approved profiles are visible, and they're marked noindex so search engines skip them. The homepage and blog are indexable.
 - Editing a live profile (including its photos) takes it offline until you approve it again.
 - Passwords are hashed with PBKDF2. Sessions are random tokens stored hashed in D1. Five wrong passwords lock an email for 15 minutes.
 - Members are not emailed. They see their status when they sign in.
