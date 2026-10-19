@@ -380,7 +380,7 @@ def main():
       <description>{escape(p['description'])}</description>
     </item>
 """ for p in published[:30])
-    last = rfc(published[0]["when"]) if published else rfc(now)
+    last = rfc(published[0]["when"]) if published else rfc(datetime.fromisoformat(plan["posts"][0]["publish_at"]))
     (blog / "rss.xml").write_text(f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
