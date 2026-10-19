@@ -92,6 +92,7 @@ function render() {
   }
 
   for (const refresh of refreshers) refresh();
+  if (!contactDirty) renderContact(profile);
 
   statusBox.replaceChildren();
   const link = profile.stub ? `${location.origin}/${profile.stub}` : null;
@@ -128,6 +129,76 @@ function render() {
   );
   if (!photos.length) photosBox.replaceChildren(el("p", { class: "muted" }, "No photos yet. Add your first one."));
   addPhoto.hidden = photos.length >= 4;
+  showRequestCount();
+}
+
+// ---- contact details ----
+
+const contactForm = document.getElementById("contact-form");
+const contactMessage = document.getElementById("contact-message");
+const contactSave = document.getElementById("contact-save");
+const CONTACT_HELP = {
+  instagram: ["Your Instagram name, like sam_t", "sam_t"],
+  snapchat: ["Your Snapchat name, like sam_t", "sam_t"],
+  whatsapp: ["The number on your WhatsApp, like 0400 000 000", "0400 000 000"],
+  phone: ["Your mobile number, like 0400 000 000", "0400 000 000"],
+  email: ["An email address you're happy to share", "sam@example.com"],
+};
+// Don't overwrite what the member is typing when the page reloads after a photo change.
+let contactDirty = false;
+
+function updateContactHelp() {
+  const kind = contactForm.querySelector('input[name="contact_kind"]:checked')?.value;
+  const [help, example] = CONTACT_HELP[kind] || ["Choose an option above first", ""];
+  document.getElementById("contact-help").textContent = help;
+  contactForm.contact_value.placeholder = example;
+}
+
+function renderContact(profile) {
+  const kind = profile.contact_kind || "";
+  for (const input of contactForm.querySelectorAll('input[name="contact_kind"]')) input.checked = input.value === kind;
+  contactForm.contact_value.value = profile.contact_value ?? "";
+  contactForm.contact_open.checked = !!profile.contact_open;
+  updateContactHelp();
+}
+
+contactForm.addEventListener("change", (e) => {
+  contactDirty = true;
+  if (e.target.name === "contact_kind") updateContactHelp();
+});
+contactForm.addEventListener("input", () => {
+  contactDirty = true;
+});
+
+contactForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  setMessage(contactMessage, "error", "");
+  busy(contactSave, true, "Saving");
+  const kind = contactForm.querySelector('input[name="contact_kind"]:checked')?.value || "";
+  const res = await api("/api/contact-settings", {
+    method: "PUT",
+    body: { kind, value: contactForm.contact_value.value, open: contactForm.contact_open.checked },
+  });
+  busy(contactSave, false, "Saving");
+  if (!res.ok) {
+    setMessage(contactMessage, "error", res.error);
+    return;
+  }
+  contactDirty = false;
+  await load();
+  setMessage(contactMessage, "success", "Contact details saved");
+});
+
+// Lets the member know when someone is waiting for an answer.
+async function showRequestCount() {
+  const res = await api("/api/contact-requests");
+  if (!res.ok) return;
+  const waiting = res.data.incoming.length;
+  document.getElementById("requests-link").textContent = waiting ? `See requests (${waiting} waiting)` : "See requests";
+  if (!waiting) return;
+  const box = notice("info", waiting === 1 ? "1 member has asked for your contact details." : `${waiting} members have asked for your contact details.`);
+  box.querySelector("p").append(" ", el("a", { href: "/requests" }, "Review requests"));
+  statusBox.append(box);
 }
 
 function linkRow(link, label = "Copy your link") {

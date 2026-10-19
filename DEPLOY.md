@@ -57,4 +57,4 @@ Sign in and you'll land on `/admin`, where every profile waits for approval.
 - Profile links sit at the root (`yoursite.com/sam-t`). Only approved profiles are visible, and they're marked noindex so search engines skip them. The homepage and blog are indexable.
 - Editing a live profile (including its photos) takes it offline until you approve it again.
 - Passwords are hashed with PBKDF2. Sessions are random tokens stored hashed in D1. Five wrong passwords lock an email for 15 minutes.
-- Members are not emailed. They see their status when they sign in.
+- Members are not emailed. They see their status, and any contact requests waiting, when they sign in.

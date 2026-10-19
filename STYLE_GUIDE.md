@@ -85,6 +85,12 @@ Profiles are reviewed and approved by the admin before they go live. Keep these 
 - Show them exactly as the member chose them, in a short line such as "Woman. Interested in men and women. After dates and friendship."
 - Keep the tone welcoming to every gender. Never assume who someone is looking for, and never use "guys", "ladies" or "his or her" in interface copy. Use "they" or the member's first name.
 
+**Contact details**
+
+- Optional and private: Instagram, Snapchat, WhatsApp, phone or email, one at a time. Never in public text fields.
+- Shown only to members the owner has said yes to. Say plainly that nobody is told if the answer is no.
+- Buttons: "Request contact", "Share details", "Decline", "Block", "Stop sharing". Never tell the person asking that they were declined.
+
 **Quick picks**
 
 - Suggestions under a field are plain, positive and written in the first person. No humour, no innuendo, no contact details.

@@ -10,6 +10,10 @@ export async function onRequestDelete({ request, env }) {
   const photos = await env.DB.prepare("SELECT id FROM photos WHERE user_id = ?").bind(user.id).all();
   for (const p of photos.results) await env.PHOTOS.delete(`photos/${p.id}`);
   await destroySession(env, request);
+  // Requests go with the account. Skipped if the contact requests migration hasn't been applied yet.
+  try {
+    await env.DB.prepare("DELETE FROM contact_requests WHERE from_user_id = ?1 OR to_user_id = ?1").bind(user.id).run();
+  } catch {}
   await env.DB.batch([
     env.DB.prepare("DELETE FROM photos WHERE user_id = ?").bind(user.id),
     env.DB.prepare("DELETE FROM profiles WHERE user_id = ?").bind(user.id),

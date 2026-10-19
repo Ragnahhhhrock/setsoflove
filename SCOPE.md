@@ -44,7 +44,7 @@ Backup lines: "You put in the work. Show it off." and "Dating for people who tra
 
 **How it works:** Create your profile. We approve it. Share your link.
 
-**Good to know:** No messages, no comments, no algorithm. You decide where to share your link, and introductions happen through friends or at the gym. We approve every profile before it goes live.
+**Good to know:** No messages, no comments, no algorithm. You decide where to share your link. If you like, keep one contact detail private and share it only with people you say yes to. We approve every profile before it goes live.
 
 Copy rule: "healthy, fit lifestyle" describes who the app is for, not a requirement to join. Gym membership and fitness aren't checked.
 
@@ -63,6 +63,20 @@ First name, age, gender, who they'd like to meet, what they're after, suburb, ci
 ## Quick picks
 
 To make the profile form faster, most text fields show tappable suggestions: country, what they do, how they train, about you, who you'd like to meet, and link stub ideas built from the member's first name, age and suburb. Tapping adds the text, tapping again removes it, and members can edit it freely. Suggestions follow `STYLE_GUIDE.md`, and a profile built from them is still approved by the admin like any other.
+
+## Contact requests
+
+How members get in touch without messages. It's opt-in and off by default.
+
+- A member can add one private contact detail: Instagram, Snapchat, WhatsApp, phone or email. It never shows on the profile and isn't part of approval, so editing it doesn't take the profile offline
+- The member turns on "Let members with a live profile ask for my contact details". Only then does a "Request contact" button appear on their profile
+- To ask, someone must be signed in with a live profile of their own, so the member can check who is asking. There is no note or message, just the request
+- The member sees the asker's name, age, place and photo, and a link to their profile. They choose Share details, Decline or Block
+- A no is never announced. Anyone declined, blocked or stopped sees only "Requested", and can't ask again
+- A yes shows the detail on the asker's view of that profile and in their "Shared with you" list. The member can stop sharing at any time. Changing the detail clears everyone's access, so people ask again
+- Each member can ask at most 10 people in 24 hours
+- Members find requests at `/requests`. Nobody is emailed
+- Requests are deleted with the account
 
 ## Photo rules
 
@@ -83,9 +97,10 @@ To make the profile form faster, most text fields show tappable suggestions: cou
 ## Consent norms
 
 - There are no comments, likes or messages on profiles, so nobody gets unsolicited remarks on their photos
-- Contact details are kept out of public text fields, so introductions happen through mutual friends or at the gym
+- Contact details are kept out of public text fields. They are shared only through contact requests, or through mutual friends and at the gym
 - Everyone is treated with the same respect, whatever their gender or who they're looking to meet. The admin removes profiles and takes action on reports that break this
 - Gender and who someone would like to meet are shown only as the member chose them, and are never used to rank or suggest anyone
+- Contact requests are the only way members reach each other in the app. They are opt-in, need a live profile, carry no message, never announce a no, and include block from day one. Report stays on the profile page
 - If reactions are ever added, they should be opt-in, with a block and report option from day one
 
 ## Decisions
@@ -96,3 +111,5 @@ To make the profile form faster, most text fields show tappable suggestions: cou
 - Gym membership is not checked. The admin approves profiles but does not confirm membership
 - Lifts are self-reported, with no proof needed
 - A "photo of a lift" label is left for a later version
+- Contact is by request only, with no in-app messages and no free-text note on a request, so there's nothing extra to moderate
+- Blocked members can't be unblocked in the app for now. The admin can help through the contact address

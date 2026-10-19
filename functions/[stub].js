@@ -1,4 +1,4 @@
-import { getUser, escapeHtml, RESERVED_STUBS, isSampleEmail, samplesAllowed, LIFTS, formatLift, GENDERS, ZODIAC, INTERESTS, SEEKING, labelsFor } from "../lib/util.js";
+import { getUser, escapeHtml, RESERVED_STUBS, isSampleEmail, samplesAllowed, LIFTS, formatLift, GENDERS, ZODIAC, INTERESTS, SEEKING, labelsFor, describeContact } from "../lib/util.js";
 
 const page = (title, body, { robots = "noindex, nofollow", status = 200, head = "", analyticsPage = "member-profile" } = {}) =>
   new Response(
@@ -79,6 +79,58 @@ const liftsSection = (profile) => {
     : "";
 };
 
+// The "Contact" card. The details themselves only appear for a member the owner has said yes to.
+// Returns "" when the owner isn't sharing, or if the contact requests migration hasn't been applied yet.
+async function contactCard(env, request, profile) {
+  try {
+    if (!profile.contact_open || !profile.contact_value) return "";
+    const name = escapeHtml(profile.first_name);
+    const card = (inner, attrs = "") => `<section class="card" aria-labelledby="contact-h" data-contact-root${attrs}>
+    <h2 id="contact-h" class="h3">Contact</h2>
+    ${inner}
+  </section>`;
+
+    const user = await getUser(env, request);
+    if (!user) {
+      return card(`<p class="small muted">${name} decides who gets their contact details. Sign in with a live profile to ask.</p>
+    <a class="btn btn-secondary" href="/signin">Sign in</a>`);
+    }
+    if (user.id === profile.user_id) {
+      return card(`<p class="small muted">Members with a live profile can ask for your contact details. You decide each request.</p>
+    <a class="btn btn-secondary" href="/requests">See requests</a>`);
+    }
+
+    const mine = await env.DB.prepare("SELECT status FROM profiles WHERE user_id = ?").bind(user.id).first();
+    if (mine?.status !== "approved") {
+      return card(`<p class="small muted">Your own profile needs to be live before you can ask ${name} for contact details.</p>
+    <a class="btn btn-secondary" href="/profile">Go to your profile</a>`);
+    }
+
+    const asked = await env.DB.prepare("SELECT status FROM contact_requests WHERE from_user_id = ? AND to_user_id = ?")
+      .bind(user.id, profile.user_id)
+      .first();
+    if (asked?.status === "approved") {
+      const shared = describeContact(profile.contact_kind, profile.contact_value);
+      if (shared) {
+        return card(`<p class="small muted">${name} shared their ${escapeHtml(shared.label)} with you.</p>
+    <p class="contact-value">${escapeHtml(shared.value)}</p>`);
+      }
+    }
+    if (asked) {
+      return card(`<p class="small muted" role="status">Requested. If ${name} says yes, their contact details will show here.</p>`);
+    }
+    return card(
+      `<p class="small muted">${name} decides whether to share. You'll only hear back if the answer is yes.</p>
+    <button type="button" class="btn btn-secondary" data-contact-request data-stub="${escapeHtml(profile.stub)}" data-name="${name}">Request contact</button>
+    <div class="msg" role="alert" hidden data-contact-message></div>
+    <p class="small muted" role="status" data-contact-status></p>
+    <script type="module" src="/contact-request.js"></script>`
+    );
+  } catch {
+    return "";
+  }
+}
+
 // Profile pages live at the root: setsoflove.com/sam-t
 export async function onRequestGet(context) {
   const { env, params, request } = context;
@@ -132,6 +184,7 @@ export async function onRequestGet(context) {
         `<li><a class="btn btn-secondary" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""} aria-label="Share ${label === "Email" ? "by email" : "on " + label}" data-track="share" data-track-method="${method}" data-track-content_type="profile">${label}</a></li>`
     )
     .join("");
+  const contact = preview ? "" : await contactCard(env, request, profile);
   const sharing = preview
     ? ""
     : `<section class="card" aria-labelledby="share-h" data-share-root data-url="${escapeHtml(url)}" data-text="${escapeHtml(shareText)}">
@@ -193,6 +246,7 @@ export async function onRequestGet(context) {
       ${section(`Who ${profile.first_name} would like to meet`, profile.looking_for)}
     </div>
   </article>
+  ${contact}
   ${sharing}
   <p class="small muted">We approve every profile before it goes live. <a href="${env.CONTACT_EMAIL ? `mailto:${escapeHtml(env.CONTACT_EMAIL)}?subject=${encodeURIComponent("Report profile " + stub)}` : "/terms/#report"}" data-track="report_profile_click">Report this profile</a></p>
   <p><a class="btn btn-secondary" href="/signup" data-track="cta_click" data-track-location="profile_page" data-track-label="create_account">Create your profile</a></p>

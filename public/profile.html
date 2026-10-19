@@ -16,7 +16,7 @@
 <body>
 <header class="site-header">
   <a href="/" aria-label="SetsOfLove home"><img src="/brand/logo-lockup.png" alt="SetsOfLove" height="32"></a>
-  <nav><a href="/search">Search</a><a id="admin-link" href="/admin" hidden>Admin</a><button id="signout" class="btn-link" type="button">Sign out</button></nav>
+  <nav><a href="/search">Search</a><a href="/requests">Requests</a><a id="admin-link" href="/admin" hidden>Admin</a><button id="signout" class="btn-link" type="button">Sign out</button></nav>
 </header>
 <main class="page">
   <h1>Your profile</h1>
@@ -171,6 +171,36 @@
     <div class="actions">
       <button id="save" class="btn btn-secondary btn-block" type="submit" data-label="Save profile">Save profile</button>
       <button id="send" class="btn btn-block" type="button" data-label="Send for approval">Send for approval</button>
+    </div>
+  </form>
+
+  <form id="contact-form" class="card" aria-labelledby="contact-title" novalidate>
+    <h2 id="contact-title">Contact details</h2>
+    <p class="small muted">Optional. Keep one way to reach you private. It never shows on your profile. Members with a live profile can ask for it, and you decide each request.</p>
+    <fieldset class="field choices">
+      <legend class="label">How people reach you</legend>
+      <div class="choice-list">
+        <label class="choice"><input type="radio" name="contact_kind" value="instagram"><span>Instagram</span></label>
+        <label class="choice"><input type="radio" name="contact_kind" value="snapchat"><span>Snapchat</span></label>
+        <label class="choice"><input type="radio" name="contact_kind" value="whatsapp"><span>WhatsApp</span></label>
+        <label class="choice"><input type="radio" name="contact_kind" value="phone"><span>Phone</span></label>
+        <label class="choice"><input type="radio" name="contact_kind" value="email"><span>Email</span></label>
+      </div>
+    </fieldset>
+    <div class="field">
+      <label for="contact_value">Your details</label>
+      <input id="contact_value" name="contact_value" type="text" maxlength="254" autocomplete="off" autocapitalize="none" spellcheck="false">
+      <p id="contact-help" class="help">Choose an option above first</p>
+    </div>
+    <div class="checkbox">
+      <input id="contact_open" name="contact_open" type="checkbox">
+      <label for="contact_open">Let members with a live profile ask for my contact details</label>
+    </div>
+    <p class="small muted">Changing your details clears everyone's access, so people ask again. You can stop sharing with anyone from your requests.</p>
+    <div id="contact-message" class="msg" role="alert" hidden></div>
+    <div class="actions">
+      <button id="contact-save" class="btn btn-secondary btn-block" type="submit" data-label="Save contact details">Save contact details</button>
+      <a id="requests-link" class="btn btn-secondary btn-block" href="/requests">See requests</a>
     </div>
   </form>
 

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Contact requests – SetsOfLove</title>
+<meta name="theme-color" content="#FFF6EC">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/app.css">
+<script src="/analytics.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" aria-label="SetsOfLove home"><img src="/brand/logo-lockup.png" alt="SetsOfLove" height="32"></a>
+  <nav><a href="/profile">Your profile</a><a href="/search">Search</a><button id="signout" class="btn-link" type="button">Sign out</button></nav>
+</header>
+<main class="page">
+  <h1>Contact requests</h1>
+  <p class="muted">Members with a live profile can ask for the contact details you chose to keep private. Nothing is shared until you say yes, and nobody is told if you say no.</p>
+  <div id="message" class="msg" role="alert" hidden></div>
+
+  <section aria-labelledby="incoming-title">
+    <h2 id="incoming-title">Asking for your details</h2>
+    <p id="incoming-empty" class="small muted" hidden>No requests waiting.</p>
+    <ul id="incoming" class="request-list"></ul>
+  </section>
+
+  <section aria-labelledby="sharing-title">
+    <h2 id="sharing-title">You've said yes to</h2>
+    <p id="sharing-empty" class="small muted" hidden>You haven't shared your details with anyone yet.</p>
+    <ul id="sharing" class="request-list"></ul>
+  </section>
+
+  <section aria-labelledby="shared-title">
+    <h2 id="shared-title">Shared with you</h2>
+    <p id="shared-empty" class="small muted" hidden>Nobody has shared their details with you yet. Ask from a profile page.</p>
+    <ul id="shared" class="request-list"></ul>
+  </section>
+
+  <p class="small muted">Something off about a request? Block them, or use Report this profile on their page.</p>
+</main>
+<script type="module" src="/requests.js"></script>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/terms/">Terms of use</a></li>
+    <li><a href="/privacy/">Privacy policy</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <p class="small">Another <a href="https://malgordon.com/">Mal Gordon</a> creation</p>
+</footer>
+</body>
+</html>
