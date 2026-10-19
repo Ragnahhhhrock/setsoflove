@@ -383,8 +383,9 @@ def members():
 """
 
 
-out_dir = ROOT / "public" / "img"
-out_dir.mkdir(exist_ok=True)
-(out_dir / "hero-gym.svg").write_text(hero())
-(out_dir / "members-strip.svg").write_text(members())
-print("wrote public/img/hero-gym.svg, public/img/members-strip.svg")
+if __name__ == "__main__":
+    out_dir = ROOT / "public" / "img"
+    out_dir.mkdir(exist_ok=True)
+    (out_dir / "hero-gym.svg").write_text(hero())
+    (out_dir / "members-strip.svg").write_text(members())
+    print("wrote public/img/hero-gym.svg, public/img/members-strip.svg")

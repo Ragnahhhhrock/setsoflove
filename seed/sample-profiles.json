@@ -1,0 +1,225 @@
+{
+  "_comment": "Twenty made-up sample profiles (10 men, 10 women) for local and staging use only. They are not real people. Each has an illustrated avatar built by scripts/build_avatars.py. scripts/build_sample_seed.py turns this file into seed/sample-profiles.sql. Never load the SQL into the live database.",
+  "profiles": [
+    {
+      "stub": "sam-31", "first_name": "Sam", "age": 31, "gender": "man", "interested_in": ["women"], "seeking": ["relationship", "dates"],
+      "suburb": "Subiaco", "city": "Perth", "country": "Australia", "zodiac": "virgo",
+      "occupation": "Physiotherapist",
+      "training": "Strength training four mornings a week, plus a long run on Sundays.",
+      "about": "I help people get strong for a living, so I try to practise what I preach. Mornings are for the gym, weekends are for the beach and a long coffee. I cook a decent curry and I'm always up for a walk along the river.",
+      "looking_for": "Someone kind and curious who likes being active. Early starts are a bonus, but not a requirement.",
+      "unit": "kg", "lifts": {"bench": 100, "squat": 140, "deadlift": 180, "ohp": 60},
+      "look": "a smiling man with short dark hair, in a blue tank top",
+      "avatar": {"skin": "tan", "hair": "black", "style": "quiff", "beard": false, "top": "denim", "kind": "tank", "bg": "plate", "iris": "hair-light"}
+    },
+    {
+      "stub": "dev-28", "first_name": "Dev", "age": 28, "gender": "man", "interested_in": ["women", "men"], "seeking": ["dates", "fun"],
+      "suburb": "Fitzroy", "city": "Melbourne", "country": "Australia", "zodiac": "gemini",
+      "occupation": "Software developer",
+      "training": "Full body lifting three nights a week, and indoor climbing on Saturdays.",
+      "about": "I spend my days at a desk, so the gym is where I get my head clear. I'm learning to cook properly and I'm very average at climbing, but I keep showing up. Good with a playlist, better with a spotter.",
+      "looking_for": "Someone easy to talk to who doesn't take life too seriously. Happy to start with a coffee and see how it goes.",
+      "unit": "kg", "lifts": {"bench": 90, "squat": 125, "deadlift": 160, "ohp": 55},
+      "look": "a smiling man with dark curly hair, in a teal tank top",
+      "avatar": {"skin": "brown", "hair": "black", "style": "curly", "beard": false, "top": "teal", "kind": "tank", "bg": "yellow", "iris": "hair"}
+    },
+    {
+      "stub": "jake-34", "first_name": "Jake", "age": 34, "gender": "man", "interested_in": ["women"], "seeking": ["relationship", "marriage"],
+      "suburb": "Newtown", "city": "Sydney", "country": "Australia", "zodiac": "taurus",
+      "occupation": "Electrician",
+      "training": "Push, pull, legs, six days a week. Rest day is for the barbecue.",
+      "about": "Steady, reliable and usually covered in sawdust or chalk. I train hard, eat well and call my mum every Sunday. I'd like to build a life with someone, not just a weekend plan.",
+      "looking_for": "A partner who wants the same things: a home, a dog and a standing Sunday roast. Warm, honest and a bit stubborn is perfect.",
+      "unit": "kg", "lifts": {"bench": 120, "squat": 160, "deadlift": 200, "ohp": 70},
+      "look": "a smiling man with a beard and short brown hair, in an olive tank top",
+      "avatar": {"skin": "peach", "hair": "brown", "style": "buzz", "beard": true, "top": "olive", "kind": "tank", "bg": "mint-deep", "iris": "sky"}
+    },
+    {
+      "stub": "mateo-26", "first_name": "Mateo", "age": 26, "gender": "man", "interested_in": ["women"], "seeking": ["dates", "friendship"],
+      "suburb": "West End", "city": "Brisbane", "country": "Australia", "zodiac": "sagittarius",
+      "occupation": "Barista and trainee personal trainer",
+      "training": "Calisthenics and kettlebells before my shift.",
+      "about": "I make your coffee in the morning and train people in the afternoon. Pull-ups are my favourite thing and I'll talk about them for too long. I'm new to the city and keen to meet people.",
+      "looking_for": "Someone fun who's happy to try a new cafe or a new class. Friends first is completely fine with me.",
+      "unit": "kg", "lifts": {"bench": null, "squat": null, "deadlift": null, "ohp": null},
+      "look": "a smiling man with wavy light brown hair, in an orange top",
+      "avatar": {"skin": "tan", "hair": "hair-light", "style": "sidepart", "beard": false, "top": "orange", "kind": "tee", "bg": "sky", "iris": "teal"}
+    },
+    {
+      "stub": "luke-38", "first_name": "Luke", "age": 38, "gender": "man", "interested_in": ["women"], "seeking": ["relationship"],
+      "suburb": "Fremantle", "city": "Perth", "country": "Australia", "zodiac": "leo",
+      "occupation": "Paramedic",
+      "training": "Heavy compound lifts, then the sauna.",
+      "about": "Shift work means my gym hours are all over the place, but I make them count. I'm calm under pressure and terrible at sitting still. Weekends are for the markets, the water and a good book.",
+      "looking_for": "Someone patient and independent who understands odd hours. A good sense of humour matters more than anything.",
+      "unit": "lb", "lifts": {"bench": 102.1, "squat": 142.9, "deadlift": 181.4, "ohp": 61.2},
+      "look": "a smiling man with a shaved head and a short beard, in a grey-blue tank top",
+      "avatar": {"skin": "peach", "hair": "hair", "style": "bald", "beard": true, "top": "denim", "kind": "curl", "bg": "chalk", "iris": "hair-light"}
+    },
+    {
+      "stub": "ravi-33", "first_name": "Ravi", "age": 33, "gender": "man", "interested_in": ["men"], "seeking": ["relationship", "dates"],
+      "suburb": "Surry Hills", "city": "Sydney", "country": "Australia", "zodiac": "libra",
+      "occupation": "Accountant",
+      "training": "Hypertrophy block, four days a week.",
+      "about": "Numbers by day, weights by night. I keep a training log and a very organised pantry. I love a long dinner, a good documentary and a Sunday swim.",
+      "looking_for": "A thoughtful man who likes both a quiet night in and a spontaneous weekend away. Someone who texts back is a plus.",
+      "unit": "kg", "lifts": {"bench": 85, "squat": 120, "deadlift": 150, "ohp": 52},
+      "look": "a smiling man with short black hair, in a teal tee",
+      "avatar": {"skin": "brown", "hair": "black", "style": "quiff", "beard": false, "top": "teal", "kind": "tee", "bg": "mint-deep", "iris": "hair"}
+    },
+    {
+      "stub": "tom-44", "first_name": "Tom", "age": 44, "gender": "man", "interested_in": ["women"], "seeking": ["relationship", "friendship"],
+      "suburb": "Mount Maunganui", "city": "Tauranga", "country": "New Zealand", "zodiac": "capricorn",
+      "occupation": "Secondary school teacher",
+      "training": "Easy lifting three days a week and long walks on the beach.",
+      "about": "I teach maths and coach the school rowing team. I train to stay strong for the next 40 years, not to win anything. I like quiet mornings, big breakfasts and a decent playlist for the drive.",
+      "looking_for": "A kind, grounded person who enjoys the outdoors. Whether it turns into friendship or more, I'm happy to find out.",
+      "unit": "kg", "lifts": {"bench": null, "squat": null, "deadlift": null, "ohp": null},
+      "look": "a smiling man with grey hair and a short beard, in a blue tee",
+      "avatar": {"skin": "peach", "hair": "iron", "style": "sidepart", "beard": true, "top": "sky", "kind": "tee", "bg": "plate", "iris": "sky"}
+    },
+    {
+      "stub": "callum-29", "first_name": "Callum", "age": 29, "gender": "man", "interested_in": ["women", "men"], "seeking": ["dates", "fun", "friendship"],
+      "suburb": "Leederville", "city": "Perth", "country": "Australia", "zodiac": "aquarius",
+      "occupation": "Chef",
+      "training": "Late sessions after service, usually chasing a deadlift PB.",
+      "about": "I work nights in a busy kitchen, so my gym time is late and quiet. I cook for friends whenever I get the chance. I'm easygoing, a bit cheeky and always hungry.",
+      "looking_for": "Someone relaxed who's up for a late supper or a lazy brunch. Good company and good food is all I need.",
+      "unit": "kg", "lifts": {"bench": 95, "squat": 130, "deadlift": 170, "ohp": 58},
+      "look": "a smiling man with blond hair, in an orange tank top",
+      "avatar": {"skin": "peach", "hair": "yellow", "style": "quiff", "beard": false, "top": "orange", "kind": "tank", "bg": "mint-deep", "iris": "sky"}
+    },
+    {
+      "stub": "omar-36", "first_name": "Omar", "age": 36, "gender": "man", "interested_in": ["women"], "seeking": ["marriage", "relationship"],
+      "suburb": "Footscray", "city": "Melbourne", "country": "Australia", "zodiac": "scorpio",
+      "occupation": "Civil engineer",
+      "training": "Powerlifting, with a meet twice a year.",
+      "about": "I build bridges by day and chase heavy singles by night. I'm close with my family and I'd like to start my own. I take training seriously and everything else a little less so.",
+      "looking_for": "A warm, driven woman who wants a family and a full life. Shared values and a shared love of food would be ideal.",
+      "unit": "kg", "lifts": {"bench": 140, "squat": 190, "deadlift": 230, "ohp": 80},
+      "look": "a smiling man with short black hair and a neat beard, in a white tank top",
+      "avatar": {"skin": "umber", "hair": "black", "style": "buzz", "beard": true, "top": "white", "kind": "tank", "bg": "yellow", "iris": "hair"}
+    },
+    {
+      "stub": "ben-41", "first_name": "Ben", "age": 41, "gender": "man", "interested_in": ["women"], "seeking": ["relationship"],
+      "suburb": "Burleigh Heads", "city": "Gold Coast", "country": "Australia", "zodiac": "cancer",
+      "occupation": "Builder",
+      "training": "Surf at dawn, weights at lunch.",
+      "about": "Divorced, relaxed and very sunburnt. I run a small building crew and I'm home most nights by five. My kids stay with me every second weekend and they're the best part of my life.",
+      "looking_for": "A genuine, easygoing woman who likes the ocean and a slow Sunday. Kids are welcome, and so is a bad dad joke.",
+      "unit": "kg", "lifts": {"bench": 105, "squat": 145, "deadlift": 185, "ohp": 62},
+      "look": "a smiling man with ginger hair and a short beard, in a blue tank top",
+      "avatar": {"skin": "peach", "hair": "orange", "style": "curly", "beard": true, "top": "denim", "kind": "tank", "bg": "sky", "iris": "teal"}
+    },
+    {
+      "stub": "mia-29", "first_name": "Mia", "age": 29, "gender": "woman", "interested_in": ["men"], "seeking": ["relationship", "dates"],
+      "suburb": "Scarborough", "city": "Perth", "country": "Australia", "zodiac": "pisces",
+      "occupation": "Primary school teacher",
+      "training": "Lower-body focus: squats, hip thrusts and lunges.",
+      "about": "I teach a class of seven-year-olds, so I'm good at patience and very good at snacks. Leg day is my favourite day. After a session you'll find me at the beach with a coffee and a book.",
+      "looking_for": "Someone warm and genuine who's up for a sunset swim and a long chat. Bonus points if you can carry the shopping.",
+      "unit": "kg", "lifts": {"bench": 50, "squat": 100, "deadlift": 120, "ohp": 35},
+      "look": "a smiling woman with a long ponytail, in an orange top",
+      "avatar": {"skin": "peach", "hair": "hair-light", "style": "pony", "top": "orange", "kind": "top", "bg": "mint-deep", "eyes": "open", "iris": "hair-light", "accent": "orange"}
+    },
+    {
+      "stub": "priya-27", "first_name": "Priya", "age": 27, "gender": "woman", "interested_in": ["men", "women"], "seeking": ["dates", "friendship"],
+      "suburb": "Richmond", "city": "Melbourne", "country": "Australia", "zodiac": "aries",
+      "occupation": "UX designer",
+      "training": "Pilates and strength work, four days a week.",
+      "about": "I design apps for a living and I'm picky about details. I lift to feel strong and do pilates to stay in one piece. I'm happiest with a sketchbook, a flat white and a gym playlist.",
+      "looking_for": "Someone creative and kind, of any gender. A new friend or a first date works for me.",
+      "unit": "kg", "lifts": {"bench": 45, "squat": 85, "deadlift": 105, "ohp": 30},
+      "look": "a smiling woman with long dark hair, in a teal top",
+      "avatar": {"skin": "brown", "hair": "black", "style": "long", "top": "teal", "kind": "tee", "bg": "yellow", "eyes": "happy", "iris": "hair", "accent": "yellow"}
+    },
+    {
+      "stub": "chloe-33", "first_name": "Chloe", "age": 33, "gender": "woman", "interested_in": ["men"], "seeking": ["relationship", "marriage"],
+      "suburb": "Manly", "city": "Sydney", "country": "Australia", "zodiac": "leo",
+      "occupation": "Marketing manager",
+      "training": "Group strength class at 6 am, then a walk on the beach.",
+      "about": "I like an early alarm and a late dinner. My friends call me the planner, and I'm usually the one with the spare hair tie. I'd love to meet someone I can build something lasting with.",
+      "looking_for": "A steady, funny person who knows what he wants. Someone who's good with my friends and my very loud family.",
+      "unit": "kg", "lifts": {"bench": 55, "squat": 95, "deadlift": 125, "ohp": 40},
+      "look": "a smiling woman with a blonde bob, in a coral top",
+      "avatar": {"skin": "peach", "hair": "yellow", "style": "bob", "top": "coral", "kind": "top", "bg": "sky", "eyes": "open", "iris": "sky", "accent": "coral"}
+    },
+    {
+      "stub": "aaliyah-25", "first_name": "Aaliyah", "age": 25, "gender": "woman", "interested_in": ["men"], "seeking": ["dates", "fun"],
+      "suburb": "Fortitude Valley", "city": "Brisbane", "country": "Australia", "zodiac": "gemini",
+      "occupation": "Registered nurse",
+      "training": "Gym between night shifts, mostly upper body and core.",
+      "about": "I work nights on a busy ward, so I'm tired, funny and always up for good food. I train to blow off steam and I love a spontaneous plan. Give me a playlist and I'll be fine.",
+      "looking_for": "Someone easygoing who can keep up with an odd schedule. I'd like to keep things light and see where it goes.",
+      "unit": "kg", "lifts": {"bench": 47.5, "squat": 80, "deadlift": 100, "ohp": 32.5},
+      "look": "a smiling woman with braids, in a white top",
+      "avatar": {"skin": "umber", "hair": "black", "style": "braid", "top": "white", "kind": "tee", "bg": "mint-deep", "eyes": "happy", "iris": "hair", "accent": "yellow"}
+    },
+    {
+      "stub": "hannah-37", "first_name": "Hannah", "age": 37, "gender": "woman", "interested_in": ["men"], "seeking": ["relationship"],
+      "suburb": "Cottesloe", "city": "Perth", "country": "Australia", "zodiac": "virgo",
+      "occupation": "Lawyer",
+      "training": "Strength training three days a week and ocean swims.",
+      "about": "I spend my days reading small print, so my free time is wide open spaces. I swim most mornings, lift on the other days and cook a lot on Sundays. I'm direct, loyal and a bit of a bookworm.",
+      "looking_for": "A confident, kind man who is ready for something real. I'd like a partner for travel, dinners and the occasional dawn swim.",
+      "unit": "kg", "lifts": {"bench": 52.5, "squat": 90, "deadlift": 115, "ohp": 37.5},
+      "look": "a smiling woman with auburn hair in a bun, in a denim-blue top",
+      "avatar": {"skin": "peach", "hair": "orange", "style": "bun", "top": "denim", "kind": "top", "bg": "plate", "eyes": "open", "iris": "teal", "accent": "denim"}
+    },
+    {
+      "stub": "tess-30", "first_name": "Tess", "age": 30, "gender": "woman", "interested_in": ["women"], "seeking": ["relationship", "dates"],
+      "suburb": "Newtown", "city": "Sydney", "country": "Australia", "zodiac": "sagittarius",
+      "occupation": "Veterinary nurse",
+      "training": "Powerlifting with a little bodybuilding on the side.",
+      "about": "I look after animals all day, and I'm told I'm a lot like one of them: loyal, a bit silly and always hungry. I have a rescue dog called Biscuit who comes to every park meet-up.",
+      "looking_for": "A kind, funny woman who loves animals and a good laugh. Dog walks, gym dates and slow dinners all sound good.",
+      "unit": "kg", "lifts": {"bench": 60, "squat": 110, "deadlift": 140, "ohp": 40},
+      "look": "a smiling woman with a short pixie cut, in a coral top",
+      "avatar": {"skin": "peach", "hair": "hair", "style": "pixie", "top": "coral", "kind": "tee", "bg": "yellow", "eyes": "happy", "iris": "hair-light", "accent": "coral"}
+    },
+    {
+      "stub": "kiri-35", "first_name": "Kiri", "age": 35, "gender": "woman", "interested_in": ["men"], "seeking": ["relationship", "friendship"],
+      "suburb": "Ponsonby", "city": "Auckland", "country": "New Zealand", "zodiac": "taurus",
+      "occupation": "Architect",
+      "training": "Boxing and conditioning, four days a week.",
+      "about": "I design houses for a living and I box to switch off. I love a long lunch, a good view and a bit of banter. I'm close to my whanau and I'd like a partner who is too.",
+      "looking_for": "Someone warm and grounded who laughs easily. Friendship first is welcome if it leads somewhere good.",
+      "unit": "kg", "lifts": {"bench": 50, "squat": 90, "deadlift": 110, "ohp": 35},
+      "look": "a smiling woman with long wavy dark hair, in a teal top",
+      "avatar": {"skin": "brown", "hair": "hair", "style": "curly", "top": "teal", "kind": "top", "bg": "plate", "eyes": "happy", "iris": "hair", "accent": "teal"}
+    },
+    {
+      "stub": "jess-28", "first_name": "Jess", "age": 28, "gender": "woman", "interested_in": ["men", "women"], "seeking": ["fun", "dates", "friendship"],
+      "suburb": "Northbridge", "city": "Perth", "country": "Australia", "zodiac": "aquarius",
+      "occupation": "Bartender and personal trainer",
+      "training": "Strength sessions in the afternoon, boxing on Fridays.",
+      "about": "I pour drinks at night and train people in the morning, so I live on very little sleep and a lot of iced coffee. I'm sociable, silly and happiest in a group. Tell me your best gym story.",
+      "looking_for": "Someone playful and easy to be around, of any gender. I'm keen on good company and good times.",
+      "unit": "kg", "lifts": {"bench": 55, "squat": 100, "deadlift": 130, "ohp": 38},
+      "look": "a smiling woman with a high ponytail, in an olive top",
+      "avatar": {"skin": "tan", "hair": "hair", "style": "pony", "top": "olive", "kind": "top", "bg": "sky", "eyes": "open", "iris": "hair", "accent": "olive"}
+    },
+    {
+      "stub": "marisol-40", "first_name": "Marisol", "age": 40, "gender": "woman", "interested_in": ["men"], "seeking": ["marriage", "relationship"],
+      "suburb": "Glen Waverley", "city": "Melbourne", "country": "Australia", "zodiac": "cancer",
+      "occupation": "Pharmacist",
+      "training": "Morning cardio, then a machine circuit.",
+      "about": "I run a busy pharmacy and I like things done properly. I train before work so my evenings stay free for cooking and family. I'm warm, practical and a very good listener.",
+      "looking_for": "A mature, kind man who's ready to share a home and a future. Someone who enjoys a big table of food and loud company.",
+      "unit": "kg", "lifts": {"bench": null, "squat": null, "deadlift": null, "ohp": null},
+      "look": "a smiling woman with dark wavy hair, in a coral top",
+      "avatar": {"skin": "tan", "hair": "black", "style": "long", "top": "coral", "kind": "tee", "bg": "mint-deep", "eyes": "happy", "iris": "hair", "accent": "coral"}
+    },
+    {
+      "stub": "georgia-32", "first_name": "Georgia", "age": 32, "gender": "woman", "interested_in": ["men"], "seeking": ["relationship"],
+      "suburb": "Mount Lawley", "city": "Perth", "country": "Australia", "zodiac": "libra",
+      "occupation": "Event manager",
+      "training": "Olympic lifting club twice a week, plus mobility work.",
+      "about": "I run events, so I'm calm when everything is on fire. Olympic lifting taught me patience and how to laugh at a missed lift. Weekends are for the farmers market, long lunches and a good film.",
+      "looking_for": "A thoughtful man with a good sense of humour who likes a plan and a surprise. Someone who'll happily cheer from the sidelines.",
+      "unit": "kg", "lifts": {"bench": 52.5, "squat": 105, "deadlift": 125, "ohp": 37.5},
+      "look": "a smiling woman with a blonde ponytail, in an orange top",
+      "avatar": {"skin": "peach", "hair": "yellow", "style": "pony", "top": "orange", "kind": "tee", "bg": "plate", "eyes": "open", "iris": "sky", "accent": "orange"}
+    }
+  ]
+}

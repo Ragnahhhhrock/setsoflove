@@ -47,3 +47,12 @@ Cloudflare Pages (`public/` and `functions/`) with D1 and R2. See [`DEPLOY.md`](
 ## Blog
 
 Posts, plan and publishing schedule are described in [`BLOG.md`](BLOG.md). `python3 scripts/build_blog.py` builds the posts that are due, and a GitHub Action (`.github/workflows/publish-blog.yml`) runs it every 15 minutes and commits the result. Writing rules are in `content/blog/BRIEF.md`; `python3 scripts/check_blog.py` checks every post.
+
+## Sample profiles and avatars
+
+`seed/sample-profiles.json` holds 20 made-up profiles (10 men, 10 women) with illustrated avatars. They are for local and staging use and are never shown on the live site.
+
+- `python3 scripts/build_avatars.py` builds `public/img/avatars/*.svg` and refreshes the "Meet some example members" strip on the landing page.
+- `npm run seed:samples` loads the profiles and avatars into the local database (migration 0008 adds `is_sample`). Then run `npm run dev:samples` and open `/mia-29`.
+- Sample profiles are marked `is_sample = 1`. `functions/[stub].js` and `functions/api/photos/[id].js` return 404 for them unless `ALLOW_SAMPLES=1`, so don't set that on the live site.
+- Never run the seed SQL with `--remote`, and don't replace the avatars with realistic generated photos of people who don't exist.

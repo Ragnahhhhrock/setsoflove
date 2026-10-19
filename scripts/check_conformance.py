@@ -347,7 +347,40 @@ def check_avatars():
         check(cols <= allowed, f"{rel}: colours outside the palette: {sorted(cols - allowed)}")
         check(root.get("viewBox") == vb, f"{rel}: viewBox must be {vb}")
         check(root.get("role") == "img" and root.find(f"{SVG_NS}title") is not None, f"{rel}: needs role=img and a title")
+    # sample avatars (DESIGN_GUIDE.md section 12, "Sample avatars")
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "build_avatars.py")], check=True, capture_output=True)
+    profiles = json.loads((ROOT / "seed" / "sample-profiles.json").read_text())["profiles"]
     page = (ROOT / "public" / "index.html").read_text()
+    men = sum(1 for p in profiles if p["gender"] == "man")
+    check(abs(men - (len(profiles) - men)) <= 1, f"seed/sample-profiles.json: keep men and women about even (got {men} men of {len(profiles)})")
+    check(len({p["stub"] for p in profiles}) == len(profiles), "seed/sample-profiles.json: stubs must be unique")
+    banned = re.compile(r"\b(hot|babe|hunk|swipe|match|bro|thirst)\b", re.I)
+    for p in profiles:
+        stub = p["stub"]
+        check(bool(re.fullmatch(r"[a-z0-9][a-z0-9-]{1,28}[a-z0-9]", stub)), f"sample stub '{stub}' is not a valid link stub")
+        check(p["age"] >= 18, f"sample {stub}: must be 18 or over")
+        for field in ("occupation", "training", "about", "looking_for"):
+            text = p[field]
+            check("!" not in text and not banned.search(text) and not re.search(r"@|https?:|www\.|\d{6,}", text), f"sample {stub}: {field} breaks the style guide")
+        path = ROOT / "public" / "img" / "avatars" / f"{stub}.svg"
+        rel = path.relative_to(ROOT)
+        check(path.exists(), f"{rel} is missing (run scripts/build_avatars.py)")
+        if not path.exists():
+            continue
+        root = ET.parse(path).getroot()
+        tags = {el.tag.replace(SVG_NS, "") for el in root.iter()}
+        check(tags <= tags_ok, f"{rel}: disallowed elements {sorted(tags - tags_ok)}")
+        for node in root.iter():
+            for banned_attr in ("style", "opacity", "fill-opacity", "stroke-opacity", "filter", "mask", "clip-path", "font-family"):
+                check(banned_attr not in node.attrib, f"{rel}: forbidden attribute '{banned_attr}'")
+        cols = colours_in(root)
+        check(cols <= allowed, f"{rel}: colours outside the palette: {sorted(cols - allowed)}")
+        check(root.get("viewBox") == "0 0 200 250", f"{rel}: viewBox must be 0 0 200 250")
+        check(root.get("role") == "img" and root.find(f"{SVG_NS}title") is not None, f"{rel}: needs role=img and a title")
+        check(re.search(rf'<img[^>]+src="/img/avatars/{stub}\.svg"[^>]+alt="Illustrated avatar of [^"]{{10,}}"', page) is not None, f"public/index.html: avatar for {stub} needs descriptive alt text")
+    for fn in ("functions/[stub].js", "functions/api/photos/[id].js"):
+        check("ALLOW_SAMPLES" in (ROOT / fn).read_text(), f"{fn}: must refuse sample profiles unless ALLOW_SAMPLES is set")
+    check("--remote" not in (ROOT / "scripts" / "seed_samples.sh").read_text().replace("# Never run this against the live site: there is no --remote here on purpose.", ""), "scripts/seed_samples.sh must only touch the local database")
     for name in ("members-strip.svg",):  # hero-gym.svg is no longer shown on the landing page
         check(re.search(rf'<img[^>]+src="/img/{name}"[^>]+alt="[^"]{{10,}}"', page) is not None, f"public/index.html: {name} needs descriptive alt text")
 

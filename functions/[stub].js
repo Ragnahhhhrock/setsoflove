@@ -90,6 +90,10 @@ export async function onRequestGet(context) {
   const profile = await env.DB.prepare("SELECT * FROM profiles WHERE stub = ?").bind(stub).first();
   if (!profile) return notFound(env);
 
+  // Sample profiles are made-up characters for local and staging use. They never show on the live site.
+  const sample = !!profile.is_sample;
+  if (sample && env.ALLOW_SAMPLES !== "1") return notFound(env);
+
   let preview = false;
   if (profile.status !== "approved") {
     const user = await getUser(env, request);
@@ -164,9 +168,9 @@ export async function onRequestGet(context) {
 <meta name="twitter:image" content="https://setsoflove.com/twitter-card.png">
 <meta name="twitter:image:alt" content="SetsOfLove. Find someone who gets the early alarm.">`;
 
-  const banner = preview
-    ? `<p class="notice notice-warning" role="status">Preview only. This profile isn't live, so only you and the admin can see it.</p>`
-    : "";
+  const banner =
+    (sample ? `<p class="notice notice-warning" role="status">Sample profile. This is a made-up character, not a real member.</p>` : "") +
+    (preview ? `<p class="notice notice-warning" role="status">Preview only. This profile isn't live, so only you and the admin can see it.</p>` : "");
 
   return page(
     `${profile.first_name}, ${profile.age} – SetsOfLove`,

@@ -191,7 +191,20 @@ Files in `public/img/` (SVG, built by `python3 scripts/build_hero.py`):
 - No gradients, filters, opacity, text or logos. Flat shapes only.
 - Build: athletic and fit. Men have broad shoulders and strong jaws. Women are slim with toned arms. Never sexualised, never exaggerated into a bodybuilder caricature, and nobody is shown shirtless.
 - Shown with a 16px radius and a 1px plate border, like a profile photo. Every image carries descriptive alt text.
-- Landing page only. Never on profile pages or in social images.
+- Landing page only for the shared scenes above. Never on profile pages of real members or in social images.
+
+### Sample avatars
+
+Twenty illustrated avatars stand in for made-up members, so the app can be designed, tested and shown without real people or realistic fake photos. They are made from the same character parts, tones and rules as the scenes above.
+
+| Files | Use |
+|---|---|
+| `public/img/avatars/<stub>.svg` | One 200 x 250 (4:5) portrait per sample profile, built by `python3 scripts/build_avatars.py` from `seed/sample-profiles.json` |
+
+- 10 men and 10 women, every skin tone, hair style and kit drawn from the illustration tones. Everyone is an adult and always smiling.
+- Landing page: shown in the "Meet some example members" strip, introduced as made-up characters, never as real members. Alt text reads "Illustrated avatar of [first name], [look]".
+- Sample profiles (`seed/`) are for local and staging databases only. The live site refuses to show them (see `is_sample` in migration 0008 and `ALLOW_SAMPLES`). When shown locally, a notice says they are made up.
+- Never use these avatars as a stand-in for a real member's photo, and never generate realistic fake people.
 
 ## 13. Analytics and landing-page stats
 

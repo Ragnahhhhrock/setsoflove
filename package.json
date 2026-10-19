@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "wrangler pages dev --d1=DB --r2=PHOTOS --binding SIGNUP_CODE=gymcode",
+    "dev:samples": "wrangler pages dev --binding SIGNUP_CODE=gymcode --binding ALLOW_SAMPLES=1",
+    "seed:samples": "bash scripts/seed_samples.sh",
     "migrate:local": "wrangler d1 migrations apply setsoflove --local",
     "migrate:remote": "wrangler d1 migrations apply setsoflove --remote",
     "deploy": "wrangler pages deploy"
