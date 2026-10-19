@@ -202,7 +202,7 @@ Twenty illustrated avatars stand in for made-up members, so the app can be desig
 | `public/img/avatars/<stub>.svg` | One 200 x 250 (4:5) portrait per sample profile, built by `python3 scripts/build_avatars.py` from `seed/sample-profiles.json` |
 
 - 10 men and 10 women, every skin tone, hair style and kit drawn from the illustration tones. Everyone is an adult and always smiling.
-- Landing page: shown in the "Meet some example members" strip, introduced as made-up characters, never as real members. Alt text reads "Illustrated avatar of [first name], [look]".
+- Not shown on the landing page, which keeps only the scenes above. They appear only on sample profiles in local and staging databases.
 - Sample profiles (`seed/`) are for local and staging databases only. The live site refuses to show or count them (their accounts use an `@sample.invalid` email, and only `ALLOW_SAMPLES=1` lets them appear). When shown locally, a notice says they are made up.
 - Never use these avatars as a stand-in for a real member's photo, and never generate realistic fake people.
 

@@ -242,10 +242,6 @@ dl.facts dd { margin: 0; overflow-wrap: anywhere; }
 
 .hero-mark { display: block; width: 96px; height: auto; margin: 0 auto var(--sol-space-4); }
 
-.example-scroll { display: flex; gap: var(--sol-space-3); overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 0 var(--sol-space-4); padding: 0 0 var(--sol-space-2); list-style: none; }
-.example-card { flex: 0 0 148px; scroll-snap-align: start; background: var(--sol-colour-white); border: 1px solid var(--sol-colour-plate); border-radius: var(--sol-radius-lg); padding: var(--sol-space-2); }
-.example-card img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; border-radius: var(--sol-radius-md); }
-.example-card p { margin: var(--sol-space-2) 0 0; }
 .members-strip { display: block; width: 100%; max-width: 100%; height: auto; border-radius: var(--sol-radius-lg); border: 1px solid var(--sol-colour-plate); margin: var(--sol-space-6) 0 0; }
 
 /* Homepage social proof. The numbers count up once on load (home.js), and not at all with reduced motion. */
