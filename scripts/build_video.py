@@ -19,6 +19,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "public" / "video"
+MUSIC = OUT / "setsoflove-explainer-music.m4a"   # from scripts/build_music.py; silent track if missing
 TOKENS = json.loads((ROOT / "tokens" / "tokens.json").read_text())
 C = {k: tuple(int(v["hex"][i:i + 2], 16) for i in (1, 3, 5)) for k, v in TOKENS["colour"].items()}
 INK, CHALK, IRON, PLATE = C["ink"], C["chalk"], C["iron"], C["plate"]
@@ -502,12 +503,12 @@ def render(name, size):
     out = OUT / f"setsoflove-explainer-{name}.mp4"
     cmd = ["ffmpeg", "-y", "-loglevel", "error",
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
-           "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
+           *(["-i", str(MUSIC)] if MUSIC.exists() else ["-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100"]),
            "-map", "0:v", "-map", "1:a", "-shortest",
            "-vf", "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p",
            "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-profile:v", "high", "-r", str(FPS),
            "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv",
-           "-c:a", "aac", "-b:a", "96k",
+           "-c:a", "aac", "-b:a", "192k",
            "-metadata", "title=SetsOfLove explainer", "-movflags", "+faststart", str(out)]
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     prev = None
