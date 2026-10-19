@@ -169,6 +169,7 @@ The Cloudflare Pages app (`public/`, `functions/`) is an asset type too. Legal p
 - Styles use only `tokens/tokens.css` variables. No hex colours, gradients or `box-shadow` in `public/app.css`.
 - Every page links to the terms of use and privacy policy in the footer.
 - Profile pages live at `/<stub>`, are `noindex`, and carry Open Graph preview tags and share buttons (Facebook, X, WhatsApp, email, plus Copy link and Share where the browser supports them).
+- Search (`/search`, `/api/search`) is for signed-in members only. It matches approved profiles on first name, link, suburb, city or country, lists them alphabetically and never filters or ranks by gender or who someone would like to meet. The page is `noindex`.
 - Share buttons are secondary buttons with text labels. They are plain links: no third-party scripts, logos or tracking.
 - Sign-up requires the member to accept the terms and privacy policy and to confirm that their approved profile is visible to anyone with their link. The accepted version and time are stored (`lib/legal.js`, `users.terms_version`).
 - Copy follows `STYLE_GUIDE.md`: no banned words, no exclamation marks, no emoji.

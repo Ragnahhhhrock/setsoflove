@@ -9,6 +9,7 @@ A simple profile app for single gym-goers of any gender: men, women and non-bina
 - Any gym-goer who is 18 or over and single, at any gym
 - Each member says who they are (man, woman or non-binary), who they'd like to meet (any mix of men, women and non-binary people) and what they're after (any mix of dates, a relationship, marriage, friendship and just fun)
 - Nobody is steered or filtered by the app. There's no matching, so members choose how to share their own link
+- Signed-in members can search live profiles by first name, link, suburb, city or country. Results are alphabetical, with no ranking, and gender and who someone would like to meet are never search filters
 
 ## Point of difference
 
