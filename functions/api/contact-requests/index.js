@@ -1,5 +1,5 @@
 import {
-  json, fail, readJson, getUser, hasProfileColumn, describeContact, isSampleEmail, samplesAllowed,
+  json, fail, readJson, getUser, hasProfileColumn, describeContacts, parseContactMethods, isSampleEmail, samplesAllowed,
   SAMPLE_EMAIL_PATTERN, CONTACT_REQUESTS_PER_DAY,
 } from "../../../lib/util.js";
 
@@ -10,7 +10,7 @@ const placeOf = (r) => [...new Set([r.suburb, r.city, r.country].map((s) => Stri
 export async function onRequestPost({ request, env }) {
   const user = await getUser(env, request);
   if (!user) return fail("Sign in to ask for contact details.", 401);
-  if (!(await hasProfileColumn(env, "contact_open"))) return fail("Contact details aren't switched on yet. Try again soon.", 503);
+  if (!(await hasProfileColumn(env, "contact_methods"))) return fail("Contact details aren't switched on yet. Try again soon.", 503);
   const body = await readJson(request);
   const stub = String(body?.stub || "").trim().toLowerCase();
 
@@ -18,12 +18,12 @@ export async function onRequestPost({ request, env }) {
   if (mine?.status !== "approved") return fail("Your own profile needs to be live before you can ask. Send it for approval first.", 403);
 
   const target = await env.DB.prepare(
-    `SELECT pr.user_id, pr.status, pr.contact_open, pr.contact_value, u.email
+    `SELECT pr.user_id, pr.status, pr.contact_open, pr.contact_methods, u.email
      FROM profiles pr JOIN users u ON u.id = pr.user_id WHERE pr.stub = ?`
   )
     .bind(stub)
     .first();
-  const unavailable = !target || target.status !== "approved" || !target.contact_open || !target.contact_value ||
+  const unavailable = !target || target.status !== "approved" || !target.contact_open || !parseContactMethods(target.contact_methods).length ||
     (isSampleEmail(target.email) && !samplesAllowed(env));
   if (unavailable) return fail("That member isn't sharing contact details right now.", 404);
   if (target.user_id === user.id) return fail("That's your own profile.");
@@ -51,7 +51,7 @@ export async function onRequestGet({ request, env }) {
   const user = await getUser(env, request);
   if (!user) return fail("Sign in to continue.", 401);
   const empty = { incoming: [], sharing: [], shared: [] };
-  if (!(await hasProfileColumn(env, "contact_open"))) return json(empty);
+  if (!(await hasProfileColumn(env, "contact_methods"))) return json(empty);
 
   const allowSamples = samplesAllowed(env) ? 1 : 0;
   const photo = "(SELECT p.id FROM photos p WHERE p.user_id = pr.user_id ORDER BY p.position, p.created_at LIMIT 1) AS photo";
@@ -79,9 +79,9 @@ export async function onRequestGet({ request, env }) {
     .all();
 
   const shared = await env.DB.prepare(
-    `SELECT ${columns}, pr.contact_kind, pr.contact_value
+    `SELECT ${columns}, pr.contact_methods
      FROM contact_requests cr JOIN profiles pr ON pr.user_id = cr.to_user_id
-     WHERE cr.from_user_id = ?1 AND cr.status = 'approved' AND pr.contact_open = 1 AND pr.contact_value != '' AND ${live}
+     WHERE cr.from_user_id = ?1 AND cr.status = 'approved' AND pr.contact_open = 1 AND pr.contact_methods != '[]' AND ${live}
      ORDER BY cr.decided_at DESC LIMIT 100`
   )
     .bind(user.id, allowSamples, SAMPLE_EMAIL_PATTERN)
@@ -90,6 +90,6 @@ export async function onRequestGet({ request, env }) {
   return json({
     incoming: incoming.results.map(person),
     sharing: sharing.results.map(person),
-    shared: shared.results.map((r) => ({ ...person(r), contact: describeContact(r.contact_kind, r.contact_value) })),
+    shared: shared.results.map((r) => ({ ...person(r), contacts: describeContacts(parseContactMethods(r.contact_methods)) })),
   });
 }

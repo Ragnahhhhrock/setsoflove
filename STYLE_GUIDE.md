@@ -87,8 +87,8 @@ Profiles are reviewed and approved by the admin before they go live. Keep these 
 
 **Contact details**
 
-- Optional and private: Instagram, Snapchat, WhatsApp, phone or email, one at a time. Never in public text fields.
-- Shown only to members the owner has said yes to. Say plainly that nobody is told if the answer is no.
+- Optional and private. A member can add any mix of Instagram, Facebook, TikTok, Snapchat, X, WhatsApp, phone and email, or none. Names or profile links are accepted for social accounts. Never in public text fields.
+- Shown only to members the owner has said yes to. Say plainly that nobody is told if the answer is no. Changing the details ends earlier approvals.
 - Buttons: "Request contact", "Share details", "Decline", "Block", "Stop sharing". Never tell the person asking that they were declined.
 
 **Quick picks**

@@ -33,10 +33,10 @@ Cloudflare Pages (`public/` and `functions/`) with D1 and R2. See [`DEPLOY.md`](
 
 - Legal copy lives in `content/terms.html` and `content/privacy.html`. After editing, run `python3 scripts/build_legal.py` and commit `public/terms/` and `public/privacy/`. Change the date at the top and `TERMS_VERSION` in `lib/legal.js` when the change is material.
 - `CONTACT_EMAIL` in `wrangler.toml` is `contact@setsoflove.com`. It appears in the footer of every page and in the "Report this profile" link.
-- Run `npx wrangler d1 migrations apply setsoflove --remote` to add the terms-acceptance columns (migration 0002), the contact messages table (0003) the lift stat columns (0004) the city and country columns (0005) the gender, interested-in and seeking columns (0006), the star sign column (0007) and the contact requests tables (0008).
+- Run `npx wrangler d1 migrations apply setsoflove --remote` to add the terms-acceptance columns (migration 0002), the contact messages table (0003) the lift stat columns (0004) the city and country columns (0005) the gender, interested-in and seeking columns (0006), the star sign column (0007) the contact requests tables (0008) and the list of contact methods (0009).
 - The contact form lives at `/contact` and posts to `/api/contact`. See `DEPLOY.md` for email setup.
 - Search lives at `/search` and `/api/search`. It needs a signed-in member and only returns approved profiles, alphabetically.
-- Contact requests live at `/requests`, with `/api/contact-settings` and `/api/contact-requests`. Migration 0008 must be applied before the feature switches on. Until then the rest of the site works as normal and these routes answer with a short message.
+- Contact requests live at `/requests`, with `/api/contact-settings` and `/api/contact-requests`. Migrations 0008 and 0009 must be applied before the feature switches on. Until then the rest of the site works as normal and these routes answer with a short message.
 - Each approved profile page (`/<stub>`) has preview tags for social sharing and share buttons.
 - The sign-up form must send `accept_terms: true` and `consent_public: true` to `/api/signup`.
 

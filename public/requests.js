@@ -70,6 +70,12 @@ function sharingRow(r) {
   );
 }
 
+function contactValue(c) {
+  if (!c.href) return c.value;
+  const external = c.href.startsWith("https:");
+  return el("a", { href: c.href, ...(external ? { target: "_blank", rel: "noopener noreferrer nofollow" } : {}) }, c.value);
+}
+
 function sharedRow(r) {
   return el(
     "li",
@@ -78,8 +84,8 @@ function sharedRow(r) {
       "div",
       { class: "request" },
       head(r),
-      el("p", { class: "small muted space-top" }, `${r.first_name} shared their ${r.contact.label}`),
-      el("p", { class: "contact-value" }, r.contact.value),
+      el("p", { class: "small muted space-top" }, `${r.first_name} shared these with you`),
+      el("dl", { class: "contact-list" }, r.contacts.map((c) => el("div", {}, el("dt", {}, c.label), el("dd", {}, contactValue(c))))),
       el("div", { class: "actions" }, profileLink(r))
     )
   );

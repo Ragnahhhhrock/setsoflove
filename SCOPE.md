@@ -44,7 +44,7 @@ Backup lines: "You put in the work. Show it off." and "Dating for people who tra
 
 **How it works:** Create your profile. We approve it. Share your link.
 
-**Good to know:** No messages, no comments, no algorithm. You decide where to share your link. If you like, keep one contact detail private and share it only with people you say yes to. We approve every profile before it goes live.
+**Good to know:** No messages, no comments, no algorithm. You decide where to share your link. If you like, keep your social accounts, phone or email private and share it only with people you say yes to. We approve every profile before it goes live.
 
 Copy rule: "healthy, fit lifestyle" describes who the app is for, not a requirement to join. Gym membership and fitness aren't checked.
 
@@ -68,7 +68,7 @@ To make the profile form faster, most text fields show tappable suggestions: cou
 
 How members get in touch without messages. It's opt-in and off by default.
 
-- A member can add one private contact detail: Instagram, Snapchat, WhatsApp, phone or email. It never shows on the profile and isn't part of approval, so editing it doesn't take the profile offline
+- A member can add any mix of private contact methods: Instagram, Facebook, TikTok, Snapchat, X, WhatsApp, phone and email, as a name or a profile link. All are optional. They never show on the profile and isn't part of approval, so editing it doesn't take the profile offline
 - The member turns on "Let members with a live profile ask for my contact details". Only then does a "Request contact" button appear on their profile
 - To ask, someone must be signed in with a live profile of their own, so the member can check who is asking. There is no note or message, just the request
 - The member sees the asker's name, age, place and photo, and a link to their profile. They choose Share details, Decline or Block

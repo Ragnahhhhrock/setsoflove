@@ -63,7 +63,7 @@ Friendly, direct, a little dry, like a good gym regular. Capable adults, no lect
 - Every profile is approved by the admin before it goes live. Any edit takes a live profile offline until it is approved again. Rejections and takedowns come with a note on what to change.
 - No messages, comments, likes or algorithm, and no matching. Members decide where to share their link. Introductions happen through friends or at the gym.
 - Contact details such as phone numbers and social handles are not allowed in public text fields.
-- Members can keep one contact detail private. Someone with a live profile can request it, and the member says yes or no. A no is never announced. There are still no messages.
+- Members can keep contact details private (social accounts, phone, WhatsApp or email, any mix or none). Someone with a live profile can request it, and the member says yes or no. A no is never announced. There are still no messages.
 - Every public profile has a "Report this profile" link. Search engines are told not to list profiles.
 - Free, no ads. Gym membership is not checked and lifts are self-reported.
 - The tagline is "Mirror selfies welcome." Create an account at `/signup`.

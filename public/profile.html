@@ -176,25 +176,29 @@
 
   <form id="contact-form" class="card" aria-labelledby="contact-title" novalidate>
     <h2 id="contact-title">Contact details</h2>
-    <p class="small muted">Optional. Keep one way to reach you private. It never shows on your profile. Members with a live profile can ask for it, and you decide each request.</p>
-    <fieldset class="field choices">
-      <legend class="label">How people reach you</legend>
-      <div class="choice-list">
-        <label class="choice"><input type="radio" name="contact_kind" value="instagram"><span>Instagram</span></label>
-        <label class="choice"><input type="radio" name="contact_kind" value="snapchat"><span>Snapchat</span></label>
-        <label class="choice"><input type="radio" name="contact_kind" value="whatsapp"><span>WhatsApp</span></label>
-        <label class="choice"><input type="radio" name="contact_kind" value="phone"><span>Phone</span></label>
-        <label class="choice"><input type="radio" name="contact_kind" value="email"><span>Email</span></label>
+    <p class="small muted">Optional. Choose how you'd like to be reached, or leave it all blank. Add as many as you like. They never show on your profile. Members with a live profile can ask for them, and you decide each request.</p>
+    <fieldset class="field">
+      <legend class="label">Social accounts</legend>
+      <p class="help">Add a name or a link to your profile</p>
+      <div class="contact-fields">
+        <div class="field"><label for="contact_instagram">Instagram</label><input id="contact_instagram" name="instagram" type="text" maxlength="254" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="sam_t"></div>
+        <div class="field"><label for="contact_facebook">Facebook</label><input id="contact_facebook" name="facebook" type="text" maxlength="254" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="sam.t"></div>
+        <div class="field"><label for="contact_tiktok">TikTok</label><input id="contact_tiktok" name="tiktok" type="text" maxlength="254" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="sam_t"></div>
+        <div class="field"><label for="contact_snapchat">Snapchat</label><input id="contact_snapchat" name="snapchat" type="text" maxlength="254" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="sam_t"></div>
+        <div class="field"><label for="contact_x">X</label><input id="contact_x" name="x" type="text" maxlength="254" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="sam_t"></div>
       </div>
     </fieldset>
-    <div class="field">
-      <label for="contact_value">Your details</label>
-      <input id="contact_value" name="contact_value" type="text" maxlength="254" autocomplete="off" autocapitalize="none" spellcheck="false">
-      <p id="contact-help" class="help">Choose an option above first</p>
-    </div>
+    <fieldset class="field">
+      <legend class="label">Phone and email</legend>
+      <div class="contact-fields">
+        <div class="field"><label for="contact_whatsapp">WhatsApp</label><input id="contact_whatsapp" name="whatsapp" type="text" inputmode="tel" maxlength="254" autocomplete="off" placeholder="+61 400 000 000"></div>
+        <div class="field"><label for="contact_phone">Phone</label><input id="contact_phone" name="phone" type="text" inputmode="tel" maxlength="254" autocomplete="off" placeholder="0400 000 000"></div>
+        <div class="field"><label for="contact_email">Email</label><input id="contact_email" name="email" type="text" inputmode="email" maxlength="254" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="sam@example.com"></div>
+      </div>
+    </fieldset>
     <div class="checkbox">
       <input id="contact_open" name="contact_open" type="checkbox">
-      <label for="contact_open">Let members with a live profile ask for my contact details</label>
+      <label for="contact_open">Let members with a live profile ask for these</label>
     </div>
     <p class="small muted">Changing your details clears everyone's access, so people ask again. You can stop sharing with anyone from your requests.</p>
     <div id="contact-message" class="msg" role="alert" hidden></div>

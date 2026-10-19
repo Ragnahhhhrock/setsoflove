@@ -1,4 +1,4 @@
-import { getUser, escapeHtml, RESERVED_STUBS, isSampleEmail, samplesAllowed, LIFTS, formatLift, GENDERS, ZODIAC, INTERESTS, SEEKING, labelsFor, describeContact } from "../lib/util.js";
+import { getUser, escapeHtml, RESERVED_STUBS, isSampleEmail, samplesAllowed, LIFTS, formatLift, GENDERS, ZODIAC, INTERESTS, SEEKING, labelsFor, describeContacts, parseContactMethods } from "../lib/util.js";
 
 const page = (title, body, { robots = "noindex, nofollow", status = 200, head = "", analyticsPage = "member-profile" } = {}) =>
   new Response(
@@ -83,7 +83,8 @@ const liftsSection = (profile) => {
 // Returns "" when the owner isn't sharing, or if the contact requests migration hasn't been applied yet.
 async function contactCard(env, request, profile) {
   try {
-    if (!profile.contact_open || !profile.contact_value) return "";
+    const methods = parseContactMethods(profile.contact_methods);
+    if (!profile.contact_open || !methods.length) return "";
     const name = escapeHtml(profile.first_name);
     const card = (inner, attrs = "") => `<section class="card" aria-labelledby="contact-h" data-contact-root${attrs}>
     <h2 id="contact-h" class="h3">Contact</h2>
@@ -110,11 +111,19 @@ async function contactCard(env, request, profile) {
       .bind(user.id, profile.user_id)
       .first();
     if (asked?.status === "approved") {
-      const shared = describeContact(profile.contact_kind, profile.contact_value);
-      if (shared) {
-        return card(`<p class="small muted">${name} shared their ${escapeHtml(shared.label)} with you.</p>
-    <p class="contact-value">${escapeHtml(shared.value)}</p>`);
-      }
+      const rows = describeContacts(methods)
+        .map((c) => {
+          const text = escapeHtml(c.value);
+          const value = !c.href
+            ? text
+            : /^https:/.test(c.href)
+              ? `<a href="${escapeHtml(c.href)}" target="_blank" rel="noopener noreferrer nofollow">${text}</a>`
+              : `<a href="${escapeHtml(c.href)}">${text}</a>`;
+          return `<div><dt>${escapeHtml(c.label)}</dt><dd>${value}</dd></div>`;
+        })
+        .join("");
+      return card(`<p class="small muted">${name} shared these with you.</p>
+    <dl class="contact-list">${rows}</dl>`);
     }
     if (asked) {
       return card(`<p class="small muted" role="status">Requested. If ${name} says yes, their contact details will show here.</p>`);

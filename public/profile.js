@@ -137,36 +137,24 @@ function render() {
 const contactForm = document.getElementById("contact-form");
 const contactMessage = document.getElementById("contact-message");
 const contactSave = document.getElementById("contact-save");
-const CONTACT_HELP = {
-  instagram: ["Your Instagram name, like sam_t", "sam_t"],
-  snapchat: ["Your Snapchat name, like sam_t", "sam_t"],
-  whatsapp: ["The number on your WhatsApp, like 0400 000 000", "0400 000 000"],
-  phone: ["Your mobile number, like 0400 000 000", "0400 000 000"],
-  email: ["An email address you're happy to share", "sam@example.com"],
-};
+const CONTACT_KINDS = ["instagram", "facebook", "tiktok", "snapchat", "x", "whatsapp", "phone", "email"];
 // Don't overwrite what the member is typing when the page reloads after a photo change.
 let contactDirty = false;
 
-function updateContactHelp() {
-  const kind = contactForm.querySelector('input[name="contact_kind"]:checked')?.value;
-  const [help, example] = CONTACT_HELP[kind] || ["Choose an option above first", ""];
-  document.getElementById("contact-help").textContent = help;
-  contactForm.contact_value.placeholder = example;
-}
-
 function renderContact(profile) {
-  const kind = profile.contact_kind || "";
-  for (const input of contactForm.querySelectorAll('input[name="contact_kind"]')) input.checked = input.value === kind;
-  contactForm.contact_value.value = profile.contact_value ?? "";
+  let saved = [];
+  try {
+    saved = JSON.parse(profile.contact_methods || "[]");
+  } catch {}
+  const byKind = Object.fromEntries(saved.map((m) => [m.kind, m.value]));
+  for (const kind of CONTACT_KINDS) contactForm.elements[kind].value = byKind[kind] ?? "";
   contactForm.contact_open.checked = !!profile.contact_open;
-  updateContactHelp();
 }
 
-contactForm.addEventListener("change", (e) => {
-  contactDirty = true;
-  if (e.target.name === "contact_kind") updateContactHelp();
-});
 contactForm.addEventListener("input", () => {
+  contactDirty = true;
+});
+contactForm.addEventListener("change", () => {
   contactDirty = true;
 });
 
@@ -174,11 +162,9 @@ contactForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   setMessage(contactMessage, "error", "");
   busy(contactSave, true, "Saving");
-  const kind = contactForm.querySelector('input[name="contact_kind"]:checked')?.value || "";
-  const res = await api("/api/contact-settings", {
-    method: "PUT",
-    body: { kind, value: contactForm.contact_value.value, open: contactForm.contact_open.checked },
-  });
+  const methods = {};
+  for (const kind of CONTACT_KINDS) methods[kind] = contactForm.elements[kind].value;
+  const res = await api("/api/contact-settings", { method: "PUT", body: { methods, open: contactForm.contact_open.checked } });
   busy(contactSave, false, "Saving");
   if (!res.ok) {
     setMessage(contactMessage, "error", res.error);
