@@ -222,3 +222,24 @@ Twenty illustrated avatars stand in for made-up members, so the app can be desig
 - Real numbers only. The strip stays hidden until sign-ups reach `STATS_MIN_SIGNUPS` in `wrangler.toml`, and any total that is 0 is left out.
 - Cards use the lift-stats look: white, 1px plate border, 16px radius. Numbers are Bricolage Grotesque 800 at h1 size, labels are caption style in iron.
 - The numbers count up once on load over 1.2 seconds, easing out. With reduced motion they appear at their final value. Screen readers get the final figure straight away.
+
+## 14. Explainer video
+
+A 30-second silent explainer in two formats, built by `python3 scripts/build_video.py` from the tokens, the site fonts and the logo files. It needs Pillow, fonttools, brotli and ffmpeg.
+
+Files in `public/video/`:
+
+| File | Size | Use |
+|---|---|---|
+| `setsoflove-explainer-landscape.mp4` | 1920 x 1080 (16:9) | Homepage on wider screens, YouTube, Facebook, X |
+| `setsoflove-explainer-portrait.mp4` | 1080 x 1920 (9:16) | Homepage on phones, YouTube Shorts, Instagram Reels, TikTok, Threads |
+| `setsoflove-explainer-landscape-poster.png` | 960 x 540 | Poster shown before the landscape video plays |
+| `setsoflove-explainer-portrait-poster.png` | 540 x 960 | Poster shown before the portrait video plays |
+
+- Drawn at 3x the interface scale, like the social images: type sizes and spacing steps from sections 3 and 4 multiplied by 3. The opening line is the one exception, at 160 / 176 (4x display).
+- Only the 11 colours, Bricolage Grotesque, DM Sans and the logo files. Text and ground pairings come from section 2, so iron is never used on ink.
+- Left-aligned, sentence case, copy per `STYLE_GUIDE.md`. No people, photos, stock footage, music or voice-over. The text is the message, because most feeds play video muted. A silent audio track is included because some platforms expect one.
+- The numbers in the lift card are the same example lifts as the landing page. Anything the video says about the product must match `SCOPE.md`.
+- Motion follows section 10: scene changes and reveals are 200ms fades, with later items sliding up 24px as they fade in. Nothing bounces, pulses or zooms.
+- Portrait keeps all text out of the top 240px and bottom 480px, which Shorts, Reels and TikTok cover with their own controls.
+- On the landing page the video never autoplays. It shows controls and a poster, loads only when played, and has its text underneath for screen readers. Phones get the portrait file and wider screens get the landscape one.

@@ -277,3 +277,14 @@ dl.facts dd { margin: 0; overflow-wrap: anywhere; }
 .topic-list a:hover, .topic-list a:active { background: var(--sol-colour-plate); }
 .topic-list .topic-name { display: block; font-family: var(--sol-font-display); font-weight: 700; font-size: var(--sol-text-h3-size); line-height: var(--sol-text-h3-line); }
 .topic-list .topic-desc { display: block; margin-top: var(--sol-space-1); color: var(--sol-colour-iron); }
+
+/* Explainer video (DESIGN_GUIDE.md section 14). Never autoplays. */
+.explainer { display: block; width: 100%; height: auto; background: var(--sol-colour-ink); border: 1px solid var(--sol-colour-plate); border-radius: var(--sol-radius-lg); }
+.explainer-landscape { aspect-ratio: 16 / 9; }
+.explainer-portrait { display: none; aspect-ratio: 9 / 16; max-width: 360px; }
+@media (max-width: 640px) {
+  .explainer-landscape { display: none; }
+  .explainer-portrait { display: block; }
+}
+.transcript summary { cursor: pointer; min-height: var(--sol-touch-target-min); padding: var(--sol-space-3) 0; font-weight: var(--sol-text-label-weight); }
+.transcript p { margin: 0 0 var(--sol-space-3); }

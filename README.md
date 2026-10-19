@@ -53,6 +53,7 @@ Posts, plan and publishing schedule are described in [`BLOG.md`](BLOG.md). `pyth
 `seed/sample-profiles.json` holds 20 made-up profiles (10 men, 10 women) with illustrated avatars. They are for local and staging use and are never shown on the live site.
 
 - `python3 scripts/build_avatars.py` builds `public/img/avatars/*.svg`.
+- `python3 scripts/build_video.py` builds the explainer videos and posters in `public/video/` (see `DESIGN_GUIDE.md` section 14).
 - `npm run seed:samples` loads the profiles and avatars into the local database . Then run `npm run dev:samples` and open `/mia-29`.
 - Sample accounts use an `@sample.invalid` email. The profile page, photo and search endpoints return nothing for them unless `ALLOW_SAMPLES=1`, and the homepage stats never count them. Don't set `ALLOW_SAMPLES` on the live site.
 - Never run the seed SQL with `--remote`, and don't replace the avatars with realistic generated photos of people who don't exist.
