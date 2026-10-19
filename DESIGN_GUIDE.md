@@ -231,10 +231,10 @@ Files in `public/video/`:
 
 | File | Size | Use |
 |---|---|---|
-| `setsoflove-explainer-landscape.mp4` | 1920 x 1080 (16:9) | Homepage on wider screens, YouTube, Facebook, X |
-| `setsoflove-explainer-portrait.mp4` | 1080 x 1920 (9:16) | Homepage on phones, YouTube Shorts, Instagram Reels, TikTok, Threads |
-| `setsoflove-explainer-landscape-poster.png` | 960 x 540 | Poster shown before the landscape video plays |
-| `setsoflove-explainer-portrait-poster.png` | 540 x 960 | Poster shown before the portrait video plays |
+| `setsoflove-explainer-landscape.mp4` | 1920 x 1080 (16:9) | YouTube, Facebook, X |
+| `setsoflove-explainer-portrait.mp4` | 1080 x 1920 (9:16) | YouTube Shorts, Instagram Reels, TikTok, Threads |
+| `setsoflove-explainer-landscape-poster.png` | 960 x 540 | Poster image for the landscape video |
+| `setsoflove-explainer-portrait-poster.png` | 540 x 960 | Poster image for the portrait video |
 
 - Drawn at 3x the interface scale, like the social images: type sizes and spacing steps from sections 3 and 4 multiplied by 3. The opening line is the one exception, at 160 / 176 (4x display).
 - Only the 11 colours, Bricolage Grotesque, DM Sans and the logo files. Text and ground pairings come from section 2, so iron is never used on ink.
@@ -242,4 +242,4 @@ Files in `public/video/`:
 - The numbers in the lift card are the same example lifts as the landing page. Anything the video says about the product must match `SCOPE.md`.
 - Motion follows section 10: scene changes and reveals are 200ms fades, with later items sliding up 24px as they fade in. Nothing bounces, pulses or zooms.
 - Portrait keeps all text out of the top 240px and bottom 480px, which Shorts, Reels and TikTok cover with their own controls.
-- On the landing page the video never autoplays. It shows controls and a poster, loads only when played, and has its text underneath for screen readers. Phones get the portrait file and wider screens get the landscape one.
+- The videos are for social posts and are not embedded on the landing page. If one is embedded later, it must never autoplay and must fit the 640px page width without cropping.
