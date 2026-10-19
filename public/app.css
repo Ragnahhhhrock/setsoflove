@@ -232,3 +232,10 @@ dl.facts dd { margin: 0; overflow-wrap: anywhere; }
 .hero-mark { display: block; width: 96px; height: auto; margin: 0 auto var(--sol-space-4); }
 
 .members-strip { display: block; width: 100%; max-width: 100%; height: auto; border-radius: var(--sol-radius-lg); border: 1px solid var(--sol-colour-plate); margin: var(--sol-space-6) 0 0; }
+
+/* Homepage social proof. The numbers count up once on load (home.js), and not at all with reduced motion. */
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.proof-stats { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sol-space-3); margin: 0; }
+.proof-stats div { padding: var(--sol-space-4); background: var(--sol-colour-white); border: 1px solid var(--sol-colour-plate); border-radius: var(--sol-radius-lg); }
+.proof-stats dt { font-size: var(--sol-text-caption-size); line-height: var(--sol-text-caption-line); font-weight: var(--sol-text-caption-weight); color: var(--sol-colour-iron); }
+.proof-stats dd { margin: var(--sol-space-1) 0 0; font-family: var(--sol-font-display); font-size: var(--sol-text-h1-size); line-height: var(--sol-text-h1-line); font-weight: 800; color: var(--sol-colour-ink); font-variant-numeric: tabular-nums; }

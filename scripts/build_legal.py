@@ -53,6 +53,7 @@ for slug, (title, desc) in PAGES.items():
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/app.css">
+<script src="/analytics.js" defer></script>
 </head>
 <body>
 <header class="site-header"><a href="/" aria-label="SetsOfLove home"><img src="/brand/logo-lockup.svg" alt="SetsOfLove" height="40"></a></header>

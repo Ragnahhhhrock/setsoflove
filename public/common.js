@@ -6,6 +6,13 @@ const ICONS = {
   info: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.01"/></svg>',
 };
 
+// Sends an analytics event. Safe to call anywhere: it does nothing when analytics is off or blocked.
+export function track(name, params) {
+  try {
+    if (window.solTrack) window.solTrack(name, params);
+  } catch {}
+}
+
 export async function api(path, { method = "GET", body, raw } = {}) {
   const init = { method, credentials: "same-origin", headers: {} };
   if (raw) {

@@ -1,6 +1,6 @@
 // Quick picks for the profile form. Tap to add, tap again to remove. Members can still type anything.
 // Suggestions follow STYLE_GUIDE.md: plain, positive, Australian English, no contact details.
-import { el } from "/common.js";
+import { el, track } from "/common.js";
 
 // replace: one answer, tapping swaps it in.
 // list: short phrases joined with commas.
@@ -77,8 +77,10 @@ export function mountChips(container, input, { mode, items }, label) {
   const buttons = items.map((item) => {
     const btn = el("button", { class: "chip", type: "button", "aria-pressed": "false" }, item);
     btn.addEventListener("click", () => {
-      const next = isOn(mode, input.value, item) ? removed(mode, input.value, item) : added(mode, input.value, item);
+      const adding = !isOn(mode, input.value, item);
+      const next = adding ? added(mode, input.value, item) : removed(mode, input.value, item);
       if (next.length > max) return;
+      if (adding) track("quick_pick_use", { field: input.id });
       input.value = next;
       input.dispatchEvent(new Event("input", { bubbles: true }));
     });

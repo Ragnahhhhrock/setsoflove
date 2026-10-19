@@ -1,6 +1,6 @@
 import { getUser, escapeHtml, RESERVED_STUBS, LIFTS, formatLift, GENDERS, ZODIAC, INTERESTS, SEEKING, labelsFor } from "../lib/util.js";
 
-const page = (title, body, { robots = "noindex, nofollow", status = 200, head = "" } = {}) =>
+const page = (title, body, { robots = "noindex, nofollow", status = 200, head = "", analyticsPage = "member-profile" } = {}) =>
   new Response(
     `<!doctype html>
 <html lang="en-AU">
@@ -12,6 +12,8 @@ const page = (title, body, { robots = "noindex, nofollow", status = 200, head = 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/app.css">
+<meta name="sol-analytics-page" content="${analyticsPage}">
+<script src="/analytics.js" defer></script>
 ${head}</head>
 <body>
 ${body}
@@ -40,7 +42,7 @@ const notFound = (env) =>
       <p>The link may be wrong, or the profile isn't live yet.</p>
       <p><a class="btn btn-secondary" href="/">Go to SetsOfLove</a></p>
     </main>${footer(env)}`,
-    { status: 404 }
+    { status: 404, analyticsPage: "profile-not-found" }
   );
 
 // "Subiaco, Perth, Australia". Blank parts are skipped and repeats (a suburb named for its city) are dropped.
@@ -108,14 +110,14 @@ export async function onRequestGet(context) {
   const u = encodeURIComponent(url);
   const t = encodeURIComponent(shareText);
   const shareLinks = [
-    ["Facebook", `https://www.facebook.com/sharer/sharer.php?u=${u}`, true],
-    ["X", `https://twitter.com/intent/tweet?url=${u}&text=${t}`, true],
-    ["WhatsApp", `https://wa.me/?text=${t}%20${u}`, true],
-    ["Email", `mailto:?subject=${t}&body=${t}%0A%0A${u}`, false],
+    ["Facebook", `https://www.facebook.com/sharer/sharer.php?u=${u}`, true, "facebook"],
+    ["X", `https://twitter.com/intent/tweet?url=${u}&text=${t}`, true, "x"],
+    ["WhatsApp", `https://wa.me/?text=${t}%20${u}`, true, "whatsapp"],
+    ["Email", `mailto:?subject=${t}&body=${t}%0A%0A${u}`, false, "email"],
   ]
     .map(
-      ([label, href, external]) =>
-        `<li><a class="btn btn-secondary" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""} aria-label="Share ${label === "Email" ? "by email" : "on " + label}">${label}</a></li>`
+      ([label, href, external, method]) =>
+        `<li><a class="btn btn-secondary" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""} aria-label="Share ${label === "Email" ? "by email" : "on " + label}" data-track="share" data-track-method="${method}" data-track-content_type="profile">${label}</a></li>`
     )
     .join("");
   const sharing = preview
@@ -177,8 +179,8 @@ export async function onRequestGet(context) {
     </div>
   </article>
   ${sharing}
-  <p class="small muted">We approve every profile before it goes live. <a href="${env.CONTACT_EMAIL ? `mailto:${escapeHtml(env.CONTACT_EMAIL)}?subject=${encodeURIComponent("Report profile " + stub)}` : "/terms/#report"}">Report this profile</a></p>
-  <p><a class="btn btn-secondary" href="/signup">Create your profile</a></p>
+  <p class="small muted">We approve every profile before it goes live. <a href="${env.CONTACT_EMAIL ? `mailto:${escapeHtml(env.CONTACT_EMAIL)}?subject=${encodeURIComponent("Report profile " + stub)}` : "/terms/#report"}" data-track="report_profile_click">Report this profile</a></p>
+  <p><a class="btn btn-secondary" href="/signup" data-track="cta_click" data-track-location="profile_page" data-track-label="create_account">Create your profile</a></p>
 </main>
 ${footer(env)}`,
     { robots: "noindex, nofollow", head }

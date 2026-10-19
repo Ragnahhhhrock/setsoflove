@@ -14,3 +14,5 @@ bucket_name = "setsoflove-photos"
 [vars]
 SITE_NAME = "SetsOfLove"
 CONTACT_EMAIL = "contact@setsoflove.com"
+# Hide the homepage stats strip until this many people have signed up.
+STATS_MIN_SIGNUPS = "10"

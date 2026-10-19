@@ -151,7 +151,7 @@ Files in `assets/social/`:
 - All text meets the pairings in section 2.
 - Visible focus ring on every interactive element: 2px ink outline with 2px offset.
 - Every image has alt text. Profile photos get "Photo of [first name]".
-- Respect reduced-motion. Motion is limited to 150ms to 200ms fades and slides. Nothing bounces, pulses or auto-plays.
+- Respect reduced-motion. Motion is limited to 150ms to 200ms fades and slides. Nothing bounces, pulses or auto-plays. The one exception is the landing-page stats (section 13), which count up once on load.
 
 ## 11. Asset checklist
 
@@ -170,7 +170,7 @@ The Cloudflare Pages app (`public/`, `functions/`) is an asset type too. Legal p
 - Every page links to the terms of use and privacy policy in the footer.
 - Profile pages live at `/<stub>`, are `noindex`, and carry Open Graph preview tags and share buttons (Facebook, X, WhatsApp, email, plus Copy link and Share where the browser supports them).
 - Search (`/search`, `/api/search`) is for signed-in members only. It matches approved profiles on first name, link, suburb, city or country, lists them alphabetically and never filters or ranks by gender or who someone would like to meet. The page is `noindex`.
-- Share buttons are secondary buttons with text labels. They are plain links: no third-party scripts, logos or tracking.
+- Share buttons are secondary buttons with text labels. They are plain links: no third-party scripts or logos, and they never send anything to the other service until selected. We count clicks as anonymous analytics events (section 13).
 - Sign-up requires the member to accept the terms and privacy policy and to confirm that their approved profile is visible to anyone with their link. The accepted version and time are stored (`lib/legal.js`, `users.terms_version`).
 - Copy follows `STYLE_GUIDE.md`: no banned words, no exclamation marks, no emoji.
 
@@ -191,3 +191,20 @@ Files in `public/img/` (SVG, built by `python3 scripts/build_hero.py`):
 - Build: athletic and fit. Men have broad shoulders and strong jaws. Women are slim with toned arms. Never sexualised, never exaggerated into a bodybuilder caricature, and nobody is shown shirtless.
 - Shown with a 16px radius and a 1px plate border, like a profile photo. Every image carries descriptive alt text.
 - Landing page only. Never on profile pages or in social images.
+
+## 13. Analytics and landing-page stats
+
+**Analytics.** Google Analytics 4 loads from `public/analytics.js` (the only inline-free loader; the CSP allows Google's tag and collection hosts and nothing else). The tag and its hits go through our own domain at `/metrics` (Google tag gateway, `functions/metrics/[[path]].js`), so the browser only talks to setsoflove.com. Clear `GA_MEASUREMENT_ID` in that file to turn it off.
+
+- Advertising features are off. Nothing is sent when the browser has Do Not Track or Global Privacy Control on.
+- Events never carry an email, name, link stub, gender, who someone wants to meet or what they're after. Public profile pages report under one shared path.
+- Any element can report a click with `data-track="event_name"` and `data-track-*` details. Code calls `track(name, params)` from `common.js`.
+- Events: `sign_up`, `signup_start`, `signup_error`, `login`, `login_error`, `profile_save`, `profile_submit`, `photo_upload`, `quick_pick_use`, `profile_delete`, `share`, `report_profile_click`, `contact_submit`, `cta_click`, `coffee_click`.
+- Key events to mark in GA4: `sign_up`, `profile_submit`, `share` and `coffee_click`.
+- Changing what's collected means updating `content/privacy.html` section 12 first.
+
+**Stats strip.** The landing page shows anonymous totals (sign-ups, live profiles, photos shared, combined kg lifted) from `/api/stats`.
+
+- Real numbers only. The strip stays hidden until sign-ups reach `STATS_MIN_SIGNUPS` in `wrangler.toml`, and any total that is 0 is left out.
+- Cards use the lift-stats look: white, 1px plate border, 16px radius. Numbers are Bricolage Grotesque 800 at h1 size, labels are caption style in iron.
+- The numbers count up once on load over 1.2 seconds, easing out. With reduced motion they appear at their final value. Screen readers get the final figure straight away.

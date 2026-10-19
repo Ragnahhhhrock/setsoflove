@@ -1,4 +1,4 @@
-import { api, setMessage, busy } from "/common.js";
+import { api, setMessage, busy, track } from "/common.js";
 
 const form = document.getElementById("form");
 const message = document.getElementById("message");
@@ -17,6 +17,7 @@ form.addEventListener("submit", async (e) => {
     setMessage(message, "error", res.error);
     return;
   }
+  track("contact_submit");
   form.reset();
   setMessage(message, "success", "Message sent. We'll reply by email.");
 });

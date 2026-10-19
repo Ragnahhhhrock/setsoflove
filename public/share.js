@@ -6,6 +6,7 @@
   var text = root.getAttribute('data-text');
   var status = root.querySelector('[data-share-status]');
   function say(msg) { if (status) status.textContent = msg; }
+  function track(method) { if (window.solTrack) window.solTrack('share', { method: method, content_type: 'profile' }); }
 
   var copy = root.querySelector('[data-share-copy]');
   if (copy) {
@@ -13,7 +14,7 @@
     copy.addEventListener('click', function () {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url).then(
-          function () { say('Link copied'); },
+          function () { say('Link copied'); track('copy_link'); },
           function () { say('Copy failed. Select the link and copy it.'); }
         );
       } else {
@@ -26,7 +27,7 @@
   if (native && navigator.share) {
     native.parentNode.hidden = false;
     native.addEventListener('click', function () {
-      navigator.share({ title: text, text: text, url: url }).catch(function () {});
+      navigator.share({ title: text, text: text, url: url }).then(function () { track('native'); }).catch(function () {});
     });
   }
 })();

@@ -38,3 +38,8 @@ Cloudflare Pages (`public/` and `functions/`) with D1 and R2. See [`DEPLOY.md`](
 - Search lives at `/search` and `/api/search`. It needs a signed-in member and only returns approved profiles, alphabetically.
 - Each approved profile page (`/<stub>`) has preview tags for social sharing and share buttons.
 - The sign-up form must send `accept_terms: true` and `consent_public: true` to `/api/signup`.
+
+## Analytics and homepage stats
+
+- Google Analytics 4 is wired in through `public/analytics.js`. The Measurement ID is `G-FJKNFMW5NN`, set in `GA_MEASUREMENT_ID`. The Google tag gateway is built in: the tag and hits go through `/metrics` (`functions/metrics/[[path]].js`). Don't also switch on Cloudflare's own Google tag gateway. Event names and the privacy rules are in `DESIGN_GUIDE.md` section 13.
+- The homepage strip reads `/api/stats` (anonymous totals, cached for 5 minutes). It stays hidden until sign-ups reach `STATS_MIN_SIGNUPS` in `wrangler.toml`.

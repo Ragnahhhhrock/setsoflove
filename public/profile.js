@@ -1,4 +1,4 @@
-import { api, el, setMessage, notice, busy, signOut } from "/common.js";
+import { api, el, setMessage, notice, busy, signOut, track } from "/common.js";
 import { SUGGESTIONS, mountChips, mountStubChips } from "/suggestions.js";
 
 const form = document.getElementById("form");
@@ -173,6 +173,7 @@ form.addEventListener("submit", async (e) => {
   const ok = await save();
   busy(saveBtn, false, "Saving");
   if (ok) {
+    track("profile_save");
     await load();
     setMessage(formMessage, "success", "Profile saved");
   }
@@ -188,6 +189,9 @@ sendBtn.addEventListener("click", async () => {
   }
   busy(sendBtn, false, "Sending");
   if (ok) {
+    // Counts only, never what was written.
+    const lifts = ["bench", "squat", "deadlift", "ohp"].filter((k) => String(form[k]?.value || "").trim() !== "").length;
+    track("profile_submit", { photo_count: state?.photos?.length ?? 0, lifts_count: lifts });
     await load();
     scrollTo({ top: 0 });
   }
@@ -206,7 +210,10 @@ fileInput.addEventListener("change", async () => {
     const blob = await cropToPortrait(file);
     const res = await api("/api/photos", { method: "POST", raw: blob });
     if (!res.ok) setMessage(photoMessage, "error", res.error);
-    else await load();
+    else {
+      track("photo_upload");
+      await load();
+    }
   } catch {
     setMessage(photoMessage, "error", "We couldn't read that photo. Try a JPEG or PNG.");
   }
@@ -253,8 +260,10 @@ async function makeMain(id) {
 document.getElementById("delete").addEventListener("click", async () => {
   if (!confirm("Delete your profile? This can't be undone.")) return;
   const res = await api("/api/account", { method: "DELETE", body: { confirm: true } });
-  if (res.ok) location.href = "/";
-  else setMessage(formMessage, "error", res.error);
+  if (res.ok) {
+    track("profile_delete");
+    location.href = "/";
+  } else setMessage(formMessage, "error", res.error);
 });
 
 load();
