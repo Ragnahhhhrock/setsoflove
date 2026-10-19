@@ -162,6 +162,17 @@ fieldset.field { border: 0; padding: 0; margin-left: 0; margin-right: 0; min-wid
 .profile-card { padding: 0; overflow: hidden; }
 .gallery { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 0; }
 .profile-photo { flex: 0 0 100%; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; scroll-snap-align: start; display: block; }
+.gallery { scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.gallery::-webkit-scrollbar { display: none; }
+.gallery-wrap { position: relative; }
+/* More than one photo: show a sliver of the next one, a counter and dots so it's clear the gallery scrolls. */
+.gallery-multi .gallery { gap: var(--sol-space-1); }
+.gallery-multi .profile-photo { flex-basis: 88%; width: 88%; }
+.gallery-multi .profile-photo:last-child { scroll-snap-align: end; }
+.gallery-count { position: absolute; top: var(--sol-space-3); right: var(--sol-space-3); margin: 0; padding: var(--sol-space-1) var(--sol-space-3); border-radius: var(--sol-radius-full); background: rgba(27, 29, 38, 0.75); color: var(--sol-colour-white); font-size: var(--sol-text-caption-size); line-height: var(--sol-text-caption-line); font-weight: 600; pointer-events: none; }
+.gallery-dots { position: absolute; left: 0; right: 0; bottom: var(--sol-space-3); display: flex; justify-content: center; gap: 6px; pointer-events: none; }
+.gallery-dot { width: 8px; height: 8px; border-radius: var(--sol-radius-full); background: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 1px rgba(27, 29, 38, 0.35); }
+.gallery-dot.is-active { background: var(--sol-colour-white); }
 .profile-body { padding: var(--sol-space-4); }
 .profile-section { margin-top: var(--sol-space-4); }
 .profile-section .h3 { margin-bottom: var(--sol-space-1); }

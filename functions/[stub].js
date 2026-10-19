@@ -103,6 +103,13 @@ export async function onRequestGet(context) {
   const gallery = photos.results
     .map((p, i) => `<img class="profile-photo" src="/api/photos/${p.id}" alt="Photo of ${name}" ${i ? 'loading="lazy"' : ""}>`)
     .join("");
+  const photoCount = photos.results.length;
+  const multi = photoCount > 1;
+  const galleryHint = multi
+    ? `<p class="gallery-count" aria-hidden="true" data-gallery-count>1 / ${photoCount}</p>
+      <div class="gallery-dots" aria-hidden="true">${photos.results.map((_, i) => `<span class="gallery-dot${i ? "" : " is-active"}"></span>`).join("")}</div>
+      <script src="/gallery.js" defer></script>`
+    : "";
 
   const origin = new URL(request.url).origin;
   const url = `${origin}/${stub}`;
@@ -166,7 +173,10 @@ export async function onRequestGet(context) {
 <main class="page narrow">
   ${banner}
   <article class="card profile-card">
-    <div class="gallery" tabindex="0" aria-label="Photos of ${name}">${gallery}</div>
+    <div class="gallery-wrap${multi ? " gallery-multi" : ""}" data-gallery-root>
+      <div class="gallery" tabindex="0" aria-label="Photos of ${name}${multi ? `, ${photoCount} photos, swipe to see more` : ""}">${gallery}</div>
+      ${galleryHint}
+    </div>
     <div class="profile-body">
       <h1>${name}, ${escapeHtml(profile.age)}</h1>
       <p class="muted">${escapeHtml(place(profile))}</p>
