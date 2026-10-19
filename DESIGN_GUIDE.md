@@ -225,7 +225,7 @@ Twenty illustrated avatars stand in for made-up members, so the app can be desig
 
 ## 14. Explainer video
 
-A 30-second explainer in two formats, built by `python3 scripts/build_video.py` from the tokens, the site fonts and the logo files. The backing track is built by `python3 scripts/build_music.py`. They need Pillow, fonttools, brotli, numpy, scipy and ffmpeg.
+A 48-second explainer in two formats, built by `python3 scripts/build_video.py` from the tokens, the site fonts, the logo files, the band track and the owner's own profile. It needs Pillow, fonttools, brotli and ffmpeg.
 
 Files in `public/video/`:
 
@@ -233,14 +233,15 @@ Files in `public/video/`:
 |---|---|---|
 | `setsoflove-explainer-landscape.mp4` | 1920 x 1080 (16:9) | YouTube, Facebook, X |
 | `setsoflove-explainer-portrait.mp4` | 1080 x 1920 (9:16) | YouTube Shorts, Instagram Reels, TikTok, Threads |
-| `setsoflove-explainer-music.m4a` | 30.5 s | The backing track on its own, if a platform needs it separately |
 | `setsoflove-explainer-landscape-poster.png` | 960 x 540 | Poster image for the landscape video |
 | `setsoflove-explainer-portrait-poster.png` | 540 x 960 | Poster image for the portrait video |
 
-- Drawn at 3x the interface scale, like the social images: type sizes and spacing steps from sections 3 and 4 multiplied by 3. The opening line is the one exception, at 160 / 176 (4x display).
+- Drawn at 3x the interface scale, like the social images: type sizes and spacing steps from sections 3 and 4 multiplied by 3. The only larger text is the opening line in the landing-page-style scenes, at display size.
 - Only the 11 colours, Bricolage Grotesque, DM Sans and the logo files. Text and ground pairings come from section 2, so iron is never used on ink.
-- Left-aligned, sentence case, copy per `STYLE_GUIDE.md`. No people, photos, stock footage or voice-over. The text is the message, because most feeds play video muted. The music is a light, upbeat loop synthesised in `scripts/build_music.py`, so it is original and free to use on every platform. Never add licensed or sampled music.
-- The numbers in the lift card are the same example lifts as the landing page. Anything the video says about the product must match `SCOPE.md`.
+- Left-aligned, sentence case, copy per `STYLE_GUIDE.md`. No illustrations, stock footage or voice-over. Text is on screen throughout because most feeds play video muted.
+- **Sound:** three cuts from the band track `brand-src/music/sets-of-love-anthem.mp3` (the chorus, the pre-chorus and the closing "Sets of Love dot com"), cut on the beat and joined with short crossfades. Each scene is timed to the line being sung. Check the track's licence terms (for example the Suno plan it was made on) before posting anywhere that earns money. Never add other licensed or sampled music.
+- **Photos:** the video shows the owner's own profile (`setsoflove.com/malgordon`), with the photos fetched from the live site at build time and shown exactly as uploaded, cropped to 4:5, never filtered or overlaid. This is the one place a real member appears, and only with that member's say-so. Never use another member's photos, and never use a member's photos in social images (section 8).
+- The lift and profile details in the video must match the live profile. Anything the video says about the product must match `SCOPE.md`.
 - Motion follows section 10: scene changes and reveals are 200ms fades, with later items sliding up 24px as they fade in. Nothing bounces, pulses or zooms.
 - Portrait keeps all text out of the top 240px and bottom 480px, which Shorts, Reels and TikTok cover with their own controls.
 - The videos are for social posts and are not embedded on the landing page. If one is embedded later, it must never autoplay and must fit the 640px page width without cropping.

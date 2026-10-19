@@ -2,7 +2,9 @@
 """Build the SetsOfLove explainer video in landscape (1920x1080) and portrait (1080x1920).
 
 Output goes to public/video/. Everything is drawn from the design tokens, the site
-fonts and the logo files, so it follows DESIGN_GUIDE.md section 14.
+fonts and the logo files, so it follows DESIGN_GUIDE.md section 14. The sound is three
+cuts from the band track in brand-src/music/, and the profile shown is the owner's own
+(setsoflove.com/malgordon), with its photos fetched from the live site at build time.
 
 Needs: Pillow, fonttools and brotli (to read the site's woff2 fonts), and ffmpeg.
 Run: python3 scripts/build_video.py
@@ -12,6 +14,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import urllib.request
 from functools import lru_cache
 from pathlib import Path
 
@@ -19,7 +22,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "public" / "video"
-MUSIC = OUT / "setsoflove-explainer-music.m4a"   # from scripts/build_music.py; silent track if missing
+SONG = ROOT / "brand-src" / "music" / "sets-of-love-anthem.mp3"
 TOKENS = json.loads((ROOT / "tokens" / "tokens.json").read_text())
 C = {k: tuple(int(v["hex"][i:i + 2], 16) for i in (1, 3, 5)) for k, v in TOKENS["colour"].items()}
 INK, CHALK, IRON, PLATE = C["ink"], C["chalk"], C["iron"], C["plate"]
@@ -166,6 +169,8 @@ def icon(name: str, size: int, colour: tuple):
         rr(17, 8, 19.5, 16, 1.2)
         line((2, 10.5), (2, 13.5))
         line((22, 10.5), (22, 13.5))
+    elif name == "check":
+        line((5, 12.5), (10, 17.5), (19, 7))
     elif name == "phone":
         rr(7, 2, 17, 22, 2.5)
         line((10.5, 18.5), (13.5, 18.5))
@@ -276,234 +281,292 @@ def multi_item(spec, rows, width, start=0, gap=0):
     return Item(len(lines) * spec[2], gap, [(start, draw)])
 
 
-# ---------------------------------------------------------------- scenes
+# ---------------------------------------------------------------- profile (the owner's own, setsoflove.com/malgordon)
 
-def scene_mirror(L):
-    sc = Scene("mirror", INK, 3.0)
-    TRANSCRIPT.append("Mirror selfies welcome")
+PROFILE = {"name": "Malcolm, 48", "place": "St James, Perth", "lift": "Bench press", "kg": "125 kg", "lb": "(276 lb)",
+           "link": "setsoflove.com/malgordon"}
+PHOTO_URLS = [  # main photo, mirror selfie, close-up: the three photos on the live profile, in that order
+    "https://setsoflove.com/api/photos/57462357-4f8e-479d-9e50-38595c687411",
+    "https://setsoflove.com/api/photos/09a89ac8-8211-4bd9-aecc-df0e8158783e",
+    "https://setsoflove.com/api/photos/2c2be823-7c45-4e7d-9e28-e8c30e6b60db",
+]
+PHOTOS: list[Image.Image] = []
+
+
+def load_photos(tmp: Path):
+    for i, url in enumerate(PHOTO_URLS):
+        dst = tmp / f"photo{i}.jpg"
+        req = urllib.request.Request(url, headers={"User-Agent": "curl/8"})   # the site refuses the default Python agent
+        with urllib.request.urlopen(req, timeout=60) as r:
+            dst.write_bytes(r.read())
+        PHOTOS.append(Image.open(dst).convert("RGB"))
+
+
+@lru_cache(maxsize=None)
+def _photo(i, w, h):
+    im = PHOTOS[i]
+    scale = max(w / im.width, h / im.height)
+    im = im.resize((round(im.width * scale), round(im.height * scale)), Image.LANCZOS)
+    left, top = (im.width - w) // 2, (im.height - h) // 2
+    return im.crop((left, top, left + w, top + h))
+
+
+def draw_photo(img, i, x, y, w, h, r=SPACING[16]):
+    """Photo exactly as uploaded (cropped to its 4:5 frame), with the plate border. Never filtered or overlaid."""
+    x, y, w, h = (round(v) for v in (x, y, w, h))
+    rrect(img, x, y, w, h, r, fill=PLATE)
+    img.paste(_photo(i, w - 6, h - 6), (x + 3, y + 3), _mask(w - 6, h - 6, r - 3))
+
+
+def pill(img, x, y, text, size, fill=CORAL):
+    f = font("t600", size)
+    w, h = round(f.getlength(text)) + 2 * SPACING[24], SPACING[48]
+    rrect(img, x, y, w, h, SPACING[12], fill=fill)
+    draw_text(img, x + w / 2, y + (h - 72) / 2, text, ("t600", size, 72), WHITE, anchor="m")
+    return w
+
+
+# ---------------------------------------------------------------- scenes, timed to the song
+
+def scene_hook(L):
+    """'Mirror selfies welcome, you put in the work, now show it off.'"""
+    sc = Scene("hook", INK, 6.2)
+    TRANSCRIPT.append("Mirror selfies welcome. You put in the work. Show it off.")
     if L.land:
-        m = 400
-        mx, my = L.x0, L.cy - m / 2
+        ph = 800
+        pw = ph * 4 // 5
+        py = L.cy - ph / 2
+        tx = L.x0 + pw + SPACING[32]
+        sc.add(0, lambda img, dy: draw_photo(img, 1, L.x0, py + dy, pw, ph))
         lines = [("Mirror selfies", CHALK), ("welcome", HEART)]
-        tx, ty = mx + m + SPACING[32], L.cy - len(lines) * HERO[2] / 2
+        total = len(lines) * DISPLAY[2] + SPACING[16] + BODY[2]
+        ty = L.cy - total / 2
+
+        def head(img, dy):
+            for i, (ln, fill) in enumerate(lines):
+                draw_text(img, tx, ty + dy + i * DISPLAY[2], ln, DISPLAY, fill)
+
+        sc.add(0, head)
+        sc.add(3.2, lambda img, dy: draw_text(img, tx, ty + dy + len(lines) * DISPLAY[2] + SPACING[16],
+                                              "You put in the work. Show it off.", BODY, CHALK))
     else:
-        m = 360
-        lines = [("Mirror", CHALK), ("selfies", CHALK), ("welcome", HEART)]
-        total = m + SPACING[24] + len(lines) * HERO[2]
-        mx, my = L.x0, L.cy - total / 2
-        tx, ty = L.x0, my + m + SPACING[24]
-    sc.add(0, lambda img, dy: paste_rgba(img, logo("mark", m), mx, my + dy))
+        ph, pw = 700, 560
+        lines = [("Mirror selfies", CHALK), ("welcome", HEART)]
+        total = ph + SPACING[16] + len(lines) * DISPLAY[2] + SPACING[8] + BODY[2]
+        y0 = L.cy - total / 2
+        sc.add(0, lambda img, dy: draw_photo(img, 1, L.x0, y0 + dy, pw, ph))
+        ty = y0 + ph + SPACING[16]
 
-    def draw(img, dy):
-        for i, (ln, fill) in enumerate(lines):
-            draw_text(img, tx, ty + dy + i * HERO[2], ln, HERO, fill)
+        def head(img, dy):
+            for i, (ln, fill) in enumerate(lines):
+                draw_text(img, L.x0, ty + dy + i * DISPLAY[2], ln, DISPLAY, fill)
 
-    sc.add(0, draw)
+        sc.add(0, head)
+        sc.add(3.2, lambda img, dy: draw_text(img, L.x0, ty + dy + len(lines) * DISPLAY[2] + SPACING[8],
+                                              "You put in the work. Show it off.", BODY, CHALK))
     return sc
 
 
-def scene_what(L):
-    sc = Scene("what", CHALK, 4.0)
-    stack(sc, L, [
-        logo_item("lockup", 96),
-        text_item(H1, "A profile app for single gym-goers", INK, L.w, gap=SPACING[32]),
-        text_item(BODY, "Show off the work you put in. Share your link. Let people get to know you.", IRON, L.w, start=0.8, gap=SPACING[16]),
-    ])
-    return sc
+def scene_profile(L):
+    """'Sets of Love, let the whole room know. Show your lifts, stand tall and proud. Sing it out loud.'"""
+    sc = Scene("profile", CHALK, 7.3)
+    TRANSCRIPT.append(f"{PROFILE['name']}, {PROFILE['place']}. {PROFILE['lift']} {PROFILE['kg']} {PROFILE['lb']}. {PROFILE['link']}")
+    ph = 460 if L.land else 450
+    pw = ph * 4 // 5
+    pad = SPACING[16]
+    card_h = ph + 2 * pad
+    cap_h = CAPTION[2]
+    total = card_h + SPACING[12] + cap_h + SPACING[4] + SPACING[48]
+    y0 = L.cy - total / 2
+    tx = L.x0 + pad + pw + pad
+    name_spec = H2 if L.land else H3
 
+    def card(img, dy):
+        y = y0 + dy
+        rrect(img, L.x0, y, L.w, card_h, SPACING[16], fill=WHITE, outline=PLATE, bw=3)
+        draw_photo(img, 0, L.x0 + pad, y + pad, pw, ph)
+        draw_text(img, tx, y + pad, PROFILE["name"], name_spec, INK)
+        draw_text(img, tx, y + pad + name_spec[2], PROFILE["place"], SMALL, IRON)
 
-def photo_card(img, x, y, w, h, name, label, caption, tall):
-    rrect(img, x, y, w, h, SPACING[16], fill=WHITE, outline=PLATE, bw=3)
-    if tall:   # 4:5 photo slot, icon on top and text at the bottom
-        pad = SPACING[12]
-        paste_rgba(img, icon(name, 144, IRON), x + pad, y + pad)
-        cap_lines = wrap(spec_font(CAPTION), caption, w - 2 * pad)
-        block = LABEL[2] + len(cap_lines) * CAPTION[2]
-        by = y + h - pad - block
-        draw_text(img, x + pad, by, label, LABEL, INK)
-        draw_lines(img, x + pad, by + LABEL[2], cap_lines, CAPTION, IRON)
-    else:      # full-width row: icon left, text right
-        pad = SPACING[16]
-        paste_rgba(img, icon(name, 120, IRON), x + pad, y + (h - 120) / 2)
-        tx = x + pad + 120 + SPACING[16]
-        by = y + (h - (LABEL[2] + CAPTION[2])) / 2
-        draw_text(img, tx, by, label, LABEL, INK)
-        draw_text(img, tx, by + LABEL[2], caption, CAPTION, IRON)
-
-
-def scene_photos(L):
-    sc = Scene("photos", CHALK, 4.5)
-    cards = [("face", "Main photo", "Face clearly visible"), ("camera", "Gym selfie", "Encouraged"),
-             ("dumbbell", "Workout", "Gym kit welcome"), ("phone", "Mirror pic", "After your session")]
-    for _, label, caption in cards:
-        TRANSCRIPT.append(f"{label}. {caption}")
-    gap = SPACING[12] if L.land else SPACING[8]
-    if L.land:
-        cw = (L.w - 3 * gap) // 4
-        ch = round(cw * 5 / 4)
-        parts = [(0.4 + i * 0.35, lambda img, x, y, i=i, c=c: photo_card(img, x + i * (cw + gap), y, cw, ch, c[0], c[1], c[2], True))
-                 for i, c in enumerate(cards)]
-        row = Item(ch, SPACING[24], parts)
-    else:
-        rh = SPACING[64] + SPACING[8]   # 216
-        parts = [(0.4 + i * 0.35, lambda img, x, y, i=i, c=c: photo_card(img, x, y + i * (rh + gap), L.w, rh, c[0], c[1], c[2], False))
-                 for i, c in enumerate(cards)]
-        row = Item(4 * rh + 3 * gap, SPACING[16], parts)
-    stack(sc, L, [text_item(H2, "Your gym photos are the main event", INK, L.w), row])
-    return sc
-
-
-LIFTS = [("Bench press", "100 kg (220 lb)"), ("Squat", "140 kg (309 lb)"),
-         ("Deadlift", "180 kg (397 lb)"), ("Overhead press", "60 kg (132 lb)")]
-
-
-def lifts_card(L, width):
-    pad, row_h = SPACING[16], SPACING[32] + SPACING[4]   # 48 and 108
-    head = CAPTION[2] + SPACING[8]
-    h = pad + head + len(LIFTS) * row_h + pad - SPACING[8]
-    TRANSCRIPT.append("Example lifts. " + ". ".join(f"{a} {b}" for a, b in LIFTS))
-    TRANSCRIPT.append("Optional and self-reported. Enter kg or lb and we show both.")
-
-    def base(img, x, y):
-        rrect(img, x, y, width, h, SPACING[16], fill=WHITE, outline=PLATE, bw=3)
-        draw_text(img, x + pad, y + pad, "Example lifts", CAPTION, IRON)
-
-    parts = [(0.3, base)]
-    for i, (name, value) in enumerate(LIFTS):
-        def row(img, x, y, i=i, name=name, value=value):
-            ry = y + pad + head + i * row_h
-            if i:
-                rrect(img, x + pad, ry, width - 2 * pad, 3, 0, fill=PLATE)
-            draw_text(img, x + pad, ry + (row_h - LABEL[2]) / 2, name, SMALL, IRON)
-            vw = spec_font(LABEL).getlength(value)
-            draw_text(img, x + width - pad - vw, ry + (row_h - LABEL[2]) / 2, value, LABEL, INK)
-        parts.append((0.6 + i * 0.25, row))
-    return Item(h, SPACING[24], parts), h
-
-
-def scene_lifts(L):
-    sc = Scene("lifts", INK, 4.5)
-    if L.land:
-        col = 640
-        card_w = L.w - col - SPACING[32]
-        card, ch = lifts_card(L, card_w)
-        left = [text_item(H2, "Lifts sit right beside your photos", CHALK, col),
-                text_item(BODY, "Optional and self-reported. Enter kg or lb and we show both.", CHALK, col, start=0.3, gap=SPACING[16])]
-        stack(sc, L, left)
-        stack(sc, L, [Item(card.h, 0, card.parts)], x=L.x0 + col + SPACING[32])
-    else:
-        card, ch = lifts_card(L, L.w)
-        stack(sc, L, [
-            text_item(H2, "Lifts sit right beside your photos", CHALK, L.w),
-            text_item(BODY, "Optional and self-reported. Enter kg or lb and we show both.", CHALK, L.w, start=0.3, gap=SPACING[16]),
-            Item(card.h, SPACING[24], card.parts),
-        ])
-    return sc
-
-
-def step_row(img, x, y, w, h, n, title, desc_runs):
-    rrect(img, x, y, w, h, SPACING[16], fill=WHITE, outline=PLATE, bw=3)
-    b = 108
-    by = y + (h - b) / 2
-    rrect(img, x + SPACING[16], by, b, b, b // 2, fill=YELLOW)
-    draw_text(img, x + SPACING[16] + b / 2, by + (b - H3[2]) / 2, str(n), H3, INK, anchor="m")
-    tx = x + SPACING[16] + b + SPACING[16]
-    block = H3[2] + SMALL[2] * len(desc_runs)
-    ty = y + (h - block) / 2
-    draw_text(img, tx, ty, title, H3, INK)
-    for i, runs in enumerate(desc_runs):
-        cx = tx
-        for text, spec, fill in runs:
-            draw_text(img, cx, ty + H3[2] + i * SMALL[2], text, spec, fill)
-            cx += spec_font(spec).getlength(text)
-
-
-def scene_how(L):
-    sc = Scene("how", CHALK, 6.0)
-    steps = [
-        ("Create your profile", "Add a few photos and a few lines about you."),
-        ("We approve it", "We check every profile before it goes live."),
-        ("Share your link", "Your own link, like setsoflove.com/sam-t"),
-    ]
-    text_w = L.w - (SPACING[16] + 108 + SPACING[16]) - SPACING[16]
-    rows = []
-    for title, desc in steps:
-        TRANSCRIPT.append(f"{title}. {desc}")
-        if "sam-t" in desc:
-            lead, link = "Your own link, like ", "setsoflove.com/sam-t"
-            if spec_font(SMALL).getlength(lead) + spec_font(LABEL).getlength(link) <= text_w:
-                runs = [[(lead, SMALL, IRON), (link, LABEL, CORAL)]]
-            else:   # narrow frame: link on its own line
-                runs = [[(lead.strip(), SMALL, IRON)], [(link, LABEL, CORAL)]]
+    def lifts(img, dy):
+        y = y0 + dy + card_h - pad
+        draw_text(img, tx, y - (SMALL[2] + H1[2] if L.land else SMALL[2] + H2[2] + SMALL[2]), PROFILE["lift"], SMALL, IRON)
+        if L.land:
+            vy = y - H1[2]
+            draw_text(img, tx, vy, PROFILE["kg"], H1, INK)
+            draw_text(img, tx + spec_font(H1).getlength(PROFILE["kg"]) + SPACING[8], vy + (H1[2] - SMALL[2]) / 2 + SPACING[4],
+                      PROFILE["lb"], SMALL, IRON)
         else:
-            lines = wrap(spec_font(SMALL), desc, text_w)
-            runs = [[(ln, SMALL, IRON)] for ln in lines]
-        rows.append((title, runs))
-    row_h = SPACING[8] * 3 + H3[2] + SMALL[2] * max(len(r) for _, r in rows) + SPACING[8] * 3
-    gap = SPACING[8]
-    parts = [(0.4 + i * 1.4, lambda img, x, y, i=i, t=t, r=r: step_row(img, x, y + i * (row_h + gap), L.w, row_h, i + 1, t, r))
-             for i, (t, r) in enumerate(rows)]
-    stack(sc, L, [text_item(H2, "How it works", INK, L.w),
-                  Item(3 * row_h + 2 * gap, SPACING[16], parts)])
+            draw_text(img, tx, y - H2[2] - SMALL[2], PROFILE["kg"], H2, INK)
+            draw_text(img, tx, y - SMALL[2], PROFILE["lb"], SMALL, IRON)
+
+    def link(img, dy):
+        y = y0 + dy + card_h + SPACING[12]
+        draw_text(img, L.x0, y, "Your own link", CAPTION, IRON)
+        pill(img, L.x0, y + cap_h + SPACING[4], PROFILE["link"], 54)
+
+    sc.add(0, card)
+    sc.add(1.7, lifts)
+    sc.add(4.0, link)
     return sc
 
 
 def scene_rules(L):
-    sc = Scene("rules", INK, 4.0)
+    """'No messages, no comments, no algorithm in the way.'"""
+    sc = Scene("rules", INK, 5.7)
     spec = DISPLAY
     lines = ["No messages", "No comments", "No algorithm"]
     bullet = SPACING[12]
     avail = L.w - bullet - SPACING[12]
     if any(spec_font(spec).getlength(ln) > avail for ln in lines):
-        spec = H1   # narrow frame: drop to h1 size
-    for ln in lines:
-        assert spec_font(spec).getlength(ln) <= avail, f"'{ln}' too wide"
+        spec = H1
     TRANSCRIPT.append(". ".join(lines))
     items = []
-    for i, ln in enumerate(lines):
+    for ln, start in zip(lines, (0, 1.4, 2.2)):
         def draw(img, x, y, ln=ln):
             rrect(img, x, y + (spec[2] - bullet) / 2, bullet, bullet, SPACING[4], fill=YELLOW)
             draw_text(img, x + bullet + SPACING[12], y, ln, spec, CHALK)
-        items.append(Item(spec[2], SPACING[8] if i else 0, [(i * 0.5, draw)]))
+        items.append(Item(spec[2], SPACING[8] if start else 0, [(start, draw)]))
     items.append(text_item(BODY, "You choose where to share your link. Introductions happen through friends or at the gym.",
-                           CHALK, L.w, start=1.8, gap=SPACING[24]))
+                           CHALK, L.w, start=3.6, gap=SPACING[24]))
     stack(sc, L, items)
     return sc
 
 
+def scene_name(L):
+    """'Sets of Love' held, then 'your profile, your say'."""
+    sc = Scene("name", CHALK, 4.76)
+    stack(sc, L, [
+        logo_item("lockup", 144),
+        multi_item(DISPLAY, [("Your profile.", INK), ("Your say.", HEART)], L.w, start=0.8, gap=SPACING[32]),
+    ])
+    return sc
+
+
+def scene_age(L):
+    """'Eighteen plus, come as you are.'"""
+    sc = Scene("age", INK, 4.07)
+    badge_w, badge_h = 264, 168
+    TRANSCRIPT.append("18+")
+
+    def badge(img, x, y):
+        rrect(img, x, y, badge_w, badge_h, SPACING[16], fill=YELLOW)
+        draw_text(img, x + badge_w / 2, y + (badge_h - DISPLAY[2]) / 2, "18+", DISPLAY, INK, anchor="m")
+
+    stack(sc, L, [
+        Item(badge_h, 0, [(0, badge)]),
+        text_item(H1, "Come as you are", CHALK, L.w, start=0.3, gap=SPACING[24]),
+        text_item(BODY, "For single gym-goers. Men, women and non-binary members are all welcome.", CHALK, L.w, start=1.3, gap=SPACING[12]),
+    ])
+    return sc
+
+
+def scene_approved(L):
+    """'Every profile cleared to start.'"""
+    sc = Scene("approved", CHALK, 3.4)
+    d = 168
+
+    def tick(img, x, y):
+        rrect(img, x, y, d, d, d // 2, fill=YELLOW)
+        paste_rgba(img, icon("check", 96, INK), x + (d - 96) / 2, y + (d - 96) / 2)
+
+    stack(sc, L, [
+        Item(d, 0, [(0, tick)]),
+        text_item(H1, "We approve every profile", INK, L.w, start=0.3, gap=SPACING[24]),
+        text_item(BODY, "A person checks each one before it goes live.", IRON, L.w, start=1.1, gap=SPACING[12]),
+    ])
+    return sc
+
+
+def scene_link(L):
+    """'Your own link, your name, your proof.'"""
+    sc = Scene("link", INK, 2.9)
+    size = 72 if L.land else 54
+    f = font("t600", size)
+    pw = round(f.getlength(PROFILE["link"])) + 2 * SPACING[24]
+    TRANSCRIPT.append(PROFILE["link"])
+    stack(sc, L, [
+        text_item(H2, "Your own link", CHALK, L.w),
+        Item(SPACING[48], SPACING[16], [(0.4, lambda img, x, y: pill(img, x, y, PROFILE["link"], size))]),
+        text_item(SMALL, "Send it to whoever you like", CHALK, L.w, start=1.2, gap=SPACING[16]),
+    ])
+    return sc
+
+
+def scene_photos(L):
+    """'Take what you've built and let it move.'"""
+    sc = Scene("photos", CHALK, 5.23)
+    order = [0, 1, 2]
+    if L.land:
+        gap, pw = SPACING[16], 480
+    else:
+        gap = SPACING[8]
+        pw = (L.w - 2 * gap) // 3
+    ph = pw * 5 // 4
+    parts = [(0.2 + n * 0.5, lambda img, x, y, n=n, i=i: draw_photo(img, i, x + n * (pw + gap), y, pw, ph))
+             for n, i in enumerate(order)]
+    stack(sc, L, [
+        text_item(H2, "Show what you've built", INK, L.w),
+        Item(ph, SPACING[8], parts),
+        text_item(SMALL, "Up to 4 photos. Gym selfies encouraged.", IRON, L.w, start=1.8, gap=SPACING[8]),
+    ])
+    return sc
+
+
 def scene_close(L):
-    sc = Scene("close", CHALK, 4.5)
+    """'Sets of Love' held, then 'dot com'."""
+    sc = Scene("close", CHALK, 8.95)
     url = "setsoflove.com"
     uf = font("t600", 54)
     pw, ph = round(uf.getlength(url)) + 2 * SPACING[24], SPACING[48]
     TRANSCRIPT.append(url)
 
-    def pill(img, x, y):
+    def pill_url(img, x, y):
         rrect(img, x, y, pw, ph, SPACING[12], fill=CORAL)
         draw_text(img, x + pw / 2, y + (ph - 72) / 2, url, ("t600", 54, 72), WHITE, anchor="m")
 
     stack(sc, L, [
         logo_item("lockup", 144),
         multi_item(DISPLAY, [("You put in the work.", INK), ("Show it off.", HEART)], L.w, gap=SPACING[32]),
-        Item(ph, SPACING[24], [(0.5, pill)]),
-        text_item(SMALL, "For single gym-goers aged 18+, of every gender", IRON, L.w, start=0.9, gap=SPACING[16]),
+        Item(ph, SPACING[24], [(6.15, pill_url)]),
+        text_item(SMALL, "For single gym-goers aged 18+, of every gender", IRON, L.w, start=6.6, gap=SPACING[16]),
     ])
     return sc
 
 
-SCENES = [scene_mirror, scene_what, scene_photos, scene_lifts, scene_how, scene_rules, scene_close]
+SCENES = [scene_hook, scene_profile, scene_rules, scene_name, scene_age, scene_approved, scene_link, scene_photos, scene_close]
+
+
+# ---------------------------------------------------------------- sound: three cuts from the band track
+
+# (start, end) in seconds in the song, all cut on the beat (143.5 BPM): the chorus, the pre-chorus that leads
+# to the second chorus, and the closing "Sets of Love dot com". Joined with 0.3 s crossfades.
+CUTS = [(74.82, 99.08), (127.13, 143.03), (257.95, 266.90)]
+XFADE = 0.3
+
+
+def build_audio(dst: Path):
+    total = sum(b - a for a, b in CUTS) - XFADE * (len(CUTS) - 1)
+    parts = ";".join(f"[0:a]atrim={a}:{b},asetpts=PTS-STARTPTS[a{i}]" for i, (a, b) in enumerate(CUTS))
+    chain = "[a0]"
+    for i in range(1, len(CUTS)):
+        chain += f"[a{i}]acrossfade=d={XFADE}:c1=qsin:c2=qsin" + (f"[x{i}];[x{i}]" if i < len(CUTS) - 1 else "[mix]")
+    fx = f"[mix]afade=t=in:d=0.04,afade=t=out:st={total - 0.35:.2f}:d=0.35,loudnorm=I=-14:TP=-1.5:LRA=9[out]"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(SONG),
+                    "-filter_complex", f"{parts};{chain};{fx}", "-map", "[out]", "-ar", "48000", str(dst)], check=True)
+    return total
 
 
 # ---------------------------------------------------------------- encode
 
-def render(name, size):
+def render(name, size, audio):
     W, H = size
     L = Layout(W, H)
     scenes = [fn(L) for fn in SCENES]
     out = OUT / f"setsoflove-explainer-{name}.mp4"
     cmd = ["ffmpeg", "-y", "-loglevel", "error",
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
-           *(["-i", str(MUSIC)] if MUSIC.exists() else ["-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100"]),
+           "-i", str(audio),
            "-map", "0:v", "-map", "1:a", "-shortest",
            "-vf", "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p",
            "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-profile:v", "high", "-r", str(FPS),
@@ -548,14 +611,19 @@ def check_copy():
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
-        prepare_fonts(Path(tmp))
-        render("landscape", (1920, 1080))
-        landscape_text = list(TRANSCRIPT)
-        TRANSCRIPT.clear()
-        render("portrait", (1080, 1920))
-        TRANSCRIPT[:] = landscape_text
+        tmp = Path(tmp)
+        prepare_fonts(tmp)
+        load_photos(tmp)
+        wav = tmp / "audio.wav"
+        audio_len = build_audio(wav)
+        video_len = None
+        for name, size in (("landscape", (1920, 1080)), ("portrait", (1080, 1920))):
+            _photo.cache_clear()
+            render(name, size, wav)
+            if video_len is None:
+                video_len = sum(fn(Layout(*size)).dur for fn in SCENES)
+        print(f"audio {audio_len:.2f} s, scenes {video_len:.2f} s")
         check_copy()
-        print("\n".join(landscape_text))
 
 
 if __name__ == "__main__":
