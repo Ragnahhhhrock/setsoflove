@@ -231,7 +231,7 @@ Files in `public/video/`:
 
 | File | Size | Use |
 |---|---|---|
-| `setsoflove-explainer-landscape.mp4` | 1920 x 1080 (16:9) | YouTube, Facebook, X |
+| `setsoflove-explainer-landscape.mp4` | 1920 x 1080 (16:9) | Landing page, YouTube, Facebook, X |
 | `setsoflove-explainer-portrait.mp4` | 1080 x 1920 (9:16) | YouTube Shorts, Instagram Reels, TikTok, Threads |
 | `setsoflove-explainer-landscape-poster.png` | 960 x 540 | Poster image for the landscape video |
 | `setsoflove-explainer-portrait-poster.png` | 540 x 960 | Poster image for the portrait video |
@@ -244,4 +244,4 @@ Files in `public/video/`:
 - The lift and profile details in the video must match the live profile. Anything the video says about the product must match `SCOPE.md`.
 - Motion follows section 10: scene changes and reveals are 200ms fades, with later items sliding up 24px as they fade in. Nothing bounces, pulses or zooms.
 - Portrait keeps all text out of the top 240px and bottom 480px, which Shorts, Reels and TikTok cover with their own controls.
-- The videos are for social posts and are not embedded on the landing page. If one is embedded later, it must never autoplay and must fit the 640px page width without cropping.
+- The landscape video sits on the landing page in a 16:9 frame (`.video-frame`) and is contained in it, so it is never cropped at any width. It never autoplays, shows controls and a poster, loads only when played, and has its text underneath. The portrait video is for social posts only.
