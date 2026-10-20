@@ -7,5 +7,13 @@
     <language>en-AU</language>
     <lastBuildDate>Tue, 20 Oct 2026 17:31:00 +0800</lastBuildDate>
     <atom:link href="https://setsoflove.com/blog/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>What is SetsOfLove? A profile app for single gym-goers</title>
+      <link>https://setsoflove.com/blog/what-is-setsoflove/</link>
+      <guid isPermaLink="true">https://setsoflove.com/blog/what-is-setsoflove/</guid>
+      <pubDate>Tue, 20 Oct 2026 17:31:00 +0800</pubDate>
+      <category>Profiles and photos</category>
+      <description>SetsOfLove is a gym dating profile app: one page at your own link, 1 to 4 photos, optional lifts, no messages, and every profile approved first.</description>
+    </item>
   </channel>
 </rss>
