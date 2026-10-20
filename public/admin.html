@@ -20,6 +20,15 @@
 <main class="page">
   <h1>Approvals</h1>
   <div id="message" class="msg" role="alert" hidden></div>
+  <section aria-labelledby="stats-heading">
+    <h2 id="stats-heading">At a glance</h2>
+    <div id="stats" class="stat-grid"></div>
+  </section>
+  <section aria-labelledby="queue-heading">
+    <h2 id="queue-heading">Awaiting approval</h2>
+    <div id="queue"></div>
+  </section>
+  <h2>All profiles</h2>
   <div id="list"></div>
 </main>
 <script type="module" src="/admin.js"></script>
