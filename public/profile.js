@@ -149,6 +149,7 @@ function renderContact(profile) {
   const byKind = Object.fromEntries(saved.map((m) => [m.kind, m.value]));
   for (const kind of CONTACT_KINDS) contactForm.elements[kind].value = byKind[kind] ?? "";
   contactForm.contact_open.checked = !!profile.contact_open;
+  contactForm.email_open.checked = !!profile.email_open;
 }
 
 contactForm.addEventListener("input", () => {
@@ -164,7 +165,7 @@ contactForm.addEventListener("submit", async (e) => {
   busy(contactSave, true, "Saving");
   const methods = {};
   for (const kind of CONTACT_KINDS) methods[kind] = contactForm.elements[kind].value;
-  const res = await api("/api/contact-settings", { method: "PUT", body: { methods, open: contactForm.contact_open.checked } });
+  const res = await api("/api/contact-settings", { method: "PUT", body: { methods, open: contactForm.contact_open.checked, email_form: contactForm.email_open.checked } });
   busy(contactSave, false, "Saving");
   if (!res.ok) {
     setMessage(contactMessage, "error", res.error);

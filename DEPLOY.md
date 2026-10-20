@@ -26,6 +26,8 @@ All site email goes to `contact@setsoflove.com` (`CONTACT_EMAIL` in `wrangler.to
 2. **Send form messages to that address.** Create a free Resend account, verify `setsoflove.com`, and create an API key. In the Pages project, Settings, Variables and Secrets, add a secret named `RESEND_API_KEY`. Redeploy.
 3. **Add the table.** Run `npm run migrate:remote` (migration 0003).
 
+The same `RESEND_API_KEY` also sends member-to-member messages from profile pages (`/api/profile-message`, migration 0010). Without the key those messages answer "can't be sent right now" and nothing is logged.
+
 Every message is saved in D1 even if email delivery fails. Read them with:
 
 ```
@@ -57,4 +59,4 @@ Sign in and you'll land on `/admin`, where every profile waits for approval.
 - Profile links sit at the root (`yoursite.com/sam-t`). Only approved profiles are visible, and they're marked noindex so search engines skip them. The homepage and blog are indexable.
 - Editing a live profile (including its photos) takes it offline until you approve it again.
 - Passwords are hashed with PBKDF2. Sessions are random tokens stored hashed in D1. Five wrong passwords lock an email for 15 minutes.
-- Members are not emailed. They see their status, and any contact requests waiting, when they sign in.
+- Members are emailed only when another member sends them a message through their profile, and only if they switched that on. Approval and contact requests are not emailed. They see their status and any requests waiting when they sign in.

@@ -44,7 +44,7 @@ Backup lines: "You put in the work. Show it off." and "Dating for people who tra
 
 **How it works:** Create your profile. We approve it. Share your link.
 
-**Good to know:** No messages, no comments, no algorithm. You decide where to share your link. If you like, keep your social accounts, phone or email private and share it only with people you say yes to. We approve every profile before it goes live.
+**Good to know:** No chat inbox, no comments, no algorithm. You decide where to share your link. If you like, keep your social accounts, phone or email private and share it only with people you say yes to. We approve every profile before it goes live.
 
 Copy rule: "healthy, fit lifestyle" describes who the app is for, not a requirement to join. Gym membership and fitness aren't checked.
 
@@ -75,8 +75,10 @@ How members get in touch without messages. It's opt-in and off by default.
 - A no is never announced. Anyone declined, blocked or stopped sees only "Requested", and can't ask again
 - A yes shows the detail on the asker's view of that profile and in their "Shared with you" list. The member can stop sharing at any time. Changing the detail clears everyone's access, so people ask again
 - Each member can ask at most 10 people in 24 hours
-- Members find requests at `/requests`. Nobody is emailed
+- Members find requests at `/requests`. Requests aren't emailed
 - Requests are deleted with the account
+- A member can also switch on "Let members with a live profile send me a message by email". Someone with a live profile then sees a short message form on that profile. The message goes to the owner's account email through Resend, with no reply-to and a link to the sender's profile, so the address stays private and the owner replies from the sender's profile. The text is never stored, only a log of who sent to whom and when
+- Limits: 3 messages per person per day to the same member, 10 a day in total, 1000 characters, 10 minimum. A member the owner blocked from a contact request is told it worked and nothing is sent. Needs `RESEND_API_KEY`
 
 ## Photo rules
 
@@ -96,7 +98,7 @@ How members get in touch without messages. It's opt-in and off by default.
 
 ## Consent norms
 
-- There are no comments, likes or messages on profiles, so nobody gets unsolicited remarks on their photos
+- There are no comments, likes or public messages on profiles, so nobody gets unsolicited remarks on their photos. Emailed messages are opt-in and only from members with a live profile
 - Contact details are kept out of public text fields. They are shared only through contact requests, or through mutual friends and at the gym
 - Everyone is treated with the same respect, whatever their gender or who they're looking to meet. The admin removes profiles and takes action on reports that break this
 - Gender and who someone would like to meet are shown only as the member chose them, and are never used to rank or suggest anyone

@@ -61,9 +61,9 @@ Friendly, direct, a little dry, like a good gym regular. Capable adults, no lect
 - Profile fields: first name, age, gender, who they'd like to meet, what they're after, suburb, city, country, what they do, how they train, about you, a few words on who they'd like to meet. Optional lifts: bench press, squat, deadlift, overhead press, entered in kg or lb and shown in both.
 - Tappable quick picks suggest text for most fields. Members can edit anything.
 - Every profile is approved by the admin before it goes live. Any edit takes a live profile offline until it is approved again. Rejections and takedowns come with a note on what to change.
-- No messages, comments, likes or algorithm, and no matching. Members decide where to share their link. Introductions happen through friends or at the gym.
+- No chat inbox, comments, likes or algorithm, and no matching. Members decide where to share their link. Introductions happen through friends or at the gym.
 - Contact details such as phone numbers and social handles are not allowed in public text fields.
-- Members can keep contact details private (social accounts, phone, WhatsApp or email, any mix or none). Someone with a live profile can request it, and the member says yes or no. A no is never announced. There are still no messages.
+- Members can keep contact details private (social accounts, phone, WhatsApp or email, any mix or none). Someone with a live profile can request it, and the member says yes or no. A no is never announced. Members can also switch on a short message form that emails them without showing their address. There is no chat inbox.
 - Every public profile has a "Report this profile" link. Search engines are told not to list profiles.
 - Free, no ads. Gym membership is not checked and lifts are self-reported.
 - The tagline is "Mirror selfies welcome." Create an account at `/signup`.

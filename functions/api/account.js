@@ -14,6 +14,9 @@ export async function onRequestDelete({ request, env }) {
   try {
     await env.DB.prepare("DELETE FROM contact_requests WHERE from_user_id = ?1 OR to_user_id = ?1").bind(user.id).run();
   } catch {}
+  try {
+    await env.DB.prepare("DELETE FROM profile_emails WHERE from_user_id = ?1 OR to_user_id = ?1").bind(user.id).run();
+  } catch {}
   await env.DB.batch([
     env.DB.prepare("DELETE FROM photos WHERE user_id = ?").bind(user.id),
     env.DB.prepare("DELETE FROM profiles WHERE user_id = ?").bind(user.id),

@@ -84,7 +84,9 @@ const liftsSection = (profile) => {
 async function contactCard(env, request, profile) {
   try {
     const methods = parseContactMethods(profile.contact_methods);
-    if (!profile.contact_open || !methods.length) return "";
+    const canAsk = !!profile.contact_open && methods.length > 0;
+    const canEmail = !!profile.email_open;
+    if (!canAsk && !canEmail) return "";
     const name = escapeHtml(profile.first_name);
     const card = (inner, attrs = "") => `<section class="card" aria-labelledby="contact-h" data-contact-root${attrs}>
     <h2 id="contact-h" class="h3">Contact</h2>
@@ -93,23 +95,40 @@ async function contactCard(env, request, profile) {
 
     const user = await getUser(env, request);
     if (!user) {
-      return card(`<p class="small muted">${name} decides who gets their contact details. Sign in with a live profile to ask.</p>
+      return card(`<p class="small muted">${name} decides who hears from you. Sign in with a live profile to ${canAsk ? "ask for contact details" : "send a message"}.</p>
     <a class="btn btn-secondary" href="/signin">Sign in</a>`);
     }
     if (user.id === profile.user_id) {
-      return card(`<p class="small muted">Members with a live profile can ask for your contact details. You decide each request.</p>
-    <a class="btn btn-secondary" href="/requests">See requests</a>`);
+      return card(canAsk
+        ? `<p class="small muted">Members with a live profile can ask for your contact details. You decide each request.</p>
+    <a class="btn btn-secondary" href="/requests">See requests</a>`
+        : `<p class="small muted">Members with a live profile can send you a message by email. Your address stays private.</p>`);
     }
 
     const mine = await env.DB.prepare("SELECT status FROM profiles WHERE user_id = ?").bind(user.id).first();
     if (mine?.status !== "approved") {
-      return card(`<p class="small muted">Your own profile needs to be live before you can ask ${name} for contact details.</p>
+      return card(`<p class="small muted">Your own profile needs to be live before you can ${canAsk ? `ask ${name} for contact details` : `message ${name}`}.</p>
     <a class="btn btn-secondary" href="/profile">Go to your profile</a>`);
     }
 
-    const asked = await env.DB.prepare("SELECT status FROM contact_requests WHERE from_user_id = ? AND to_user_id = ?")
-      .bind(user.id, profile.user_id)
-      .first();
+    const messageForm = canEmail
+      ? `<form class="contact-message-form" data-message-form data-stub="${escapeHtml(profile.stub)}" novalidate>
+    <div class="field">
+      <label for="message-text">Send ${name} a message</label>
+      <p class="help">We email it to ${name} and keep their address private. Nothing is saved.</p>
+      <textarea id="message-text" name="message" maxlength="1000" rows="4"></textarea>
+    </div>
+    <div class="msg" role="alert" hidden data-message-error></div>
+    <p class="small muted" role="status" data-message-status></p>
+    <button type="submit" class="btn btn-secondary" data-label="Send message">Send message</button>
+    <script type="module" src="/profile-message.js"></script>
+  </form>`
+      : "";
+
+    const asked = canAsk
+      ? await env.DB.prepare("SELECT status FROM contact_requests WHERE from_user_id = ? AND to_user_id = ?").bind(user.id, profile.user_id).first()
+      : null;
+    if (!canAsk) return card(messageForm);
     if (asked?.status === "approved") {
       const rows = describeContacts(methods)
         .map((c) => {
@@ -123,17 +142,17 @@ async function contactCard(env, request, profile) {
         })
         .join("");
       return card(`<p class="small muted">${name} shared these with you.</p>
-    <dl class="contact-list">${rows}</dl>`);
+    <dl class="contact-list">${rows}</dl>${messageForm}`);
     }
     if (asked) {
-      return card(`<p class="small muted" role="status">Requested. If ${name} says yes, their contact details will show here.</p>`);
+      return card(`<p class="small muted" role="status">Requested. If ${name} says yes, their contact details will show here.</p>${messageForm}`);
     }
     return card(
       `<p class="small muted">${name} decides whether to share. You'll only hear back if the answer is yes.</p>
     <button type="button" class="btn btn-secondary" data-contact-request data-stub="${escapeHtml(profile.stub)}" data-name="${name}">Request contact</button>
     <div class="msg" role="alert" hidden data-contact-message></div>
     <p class="small muted" role="status" data-contact-status></p>
-    <script type="module" src="/contact-request.js"></script>`
+    <script type="module" src="/contact-request.js"></script>${messageForm}`
     );
   } catch {
     return "";

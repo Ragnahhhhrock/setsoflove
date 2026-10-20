@@ -176,7 +176,7 @@
 
   <form id="contact-form" class="card" aria-labelledby="contact-title" novalidate>
     <h2 id="contact-title">Contact details</h2>
-    <p class="small muted">Optional. Choose how you'd like to be reached, or leave it all blank. Add as many as you like. They never show on your profile. Members with a live profile can ask for them, and you decide each request.</p>
+    <p class="small muted">Optional. Choose how you'd like to be reached, or leave it all blank. Add as many as you like. They never show on your profile. Members with a live profile can ask for them, and you decide each request. You can also let members send you a message by email.</p>
     <fieldset class="field">
       <legend class="label">Social accounts</legend>
       <p class="help">Add a name or a link to your profile</p>
@@ -200,6 +200,11 @@
       <input id="contact_open" name="contact_open" type="checkbox">
       <label for="contact_open">Let members with a live profile ask for these</label>
     </div>
+    <div class="checkbox">
+      <input id="email_open" name="email_open" type="checkbox">
+      <label for="email_open">Let members with a live profile send me a message by email</label>
+    </div>
+    <p class="small muted">Messages go to the email you signed up with. Senders never see it, and we don't keep the messages.</p>
     <p class="small muted">Changing your details clears everyone's access, so people ask again. You can stop sharing with anyone from your requests.</p>
     <div id="contact-message" class="msg" role="alert" hidden></div>
     <div class="actions">

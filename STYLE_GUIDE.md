@@ -89,6 +89,7 @@ Profiles are reviewed and approved by the admin before they go live. Keep these 
 
 - Optional and private. A member can add any mix of Instagram, Facebook, TikTok, Snapchat, X, WhatsApp, phone and email, or none. Names or profile links are accepted for social accounts. Never in public text fields.
 - Shown only to members the owner has said yes to. Say plainly that nobody is told if the answer is no. Changing the details ends earlier approvals.
+- Message form: "Send message". Say that the address stays private and nothing is saved. Never promise a reply.
 - Buttons: "Request contact", "Share details", "Decline", "Block", "Stop sharing". Never tell the person asking that they were declined.
 
 **Quick picks**

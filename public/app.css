@@ -189,6 +189,7 @@ fieldset.field { border: 0; padding: 0; margin-left: 0; margin-right: 0; min-wid
 
 /* Contact requests */
 .contact-fields { display: grid; grid-template-columns: 1fr; gap: 0 var(--sol-space-3); }
+.contact-message-form { display: grid; gap: var(--sol-space-3); margin-top: var(--sol-space-4); }
 .contact-list { display: grid; gap: var(--sol-space-2); margin: var(--sol-space-2) 0 0; }
 .contact-list div { padding: var(--sol-space-3); background: var(--sol-colour-white); border: 1px solid var(--sol-colour-plate); border-radius: var(--sol-radius-sm); }
 .contact-list dt { font-size: var(--sol-text-caption-size); line-height: var(--sol-text-caption-line); color: var(--sol-colour-iron); }

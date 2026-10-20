@@ -2,7 +2,7 @@ import { json, fail, readJson, getUser, hasProfileColumn, cleanContact, parseCon
 
 // Saves how the member would like to be reached (any mix of social accounts, phone and email, or none)
 // and whether others may ask for it. This is never public text, so it doesn't take a live profile offline.
-// Body: { open: true | false, methods: { instagram: "sam_t", email: "sam@example.com", ... } }. Blank means not shared.
+// Body: { open: true | false, email_form: true | false (optional), methods: { instagram: "sam_t", email: "sam@example.com", ... } }. Blank means not shared.
 export async function onRequestPut({ request, env }) {
   const user = await getUser(env, request);
   if (!user) return fail("Sign in to continue.", 401);
@@ -30,6 +30,11 @@ export async function onRequestPut({ request, env }) {
   const statements = [
     env.DB.prepare("UPDATE profiles SET contact_open = ?, contact_methods = ? WHERE user_id = ?").bind(open ? 1 : 0, stored, user.id),
   ];
+  // Optional: let members send a message by email. Only touched when the form sends it.
+  if (typeof body.email_form === "boolean") {
+    if (!(await hasProfileColumn(env, "email_open"))) return fail("Messages aren't switched on yet. Try again soon.", 503);
+    statements.push(env.DB.prepare("UPDATE profiles SET email_open = ? WHERE user_id = ?").bind(body.email_form ? 1 : 0, user.id));
+  }
   // Changing the details clears everyone's access, so people ask again for the new ones.
   if (changed) statements.push(env.DB.prepare("DELETE FROM contact_requests WHERE to_user_id = ? AND status = 'approved'").bind(user.id));
   await env.DB.batch(statements);
