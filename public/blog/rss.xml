@@ -5,8 +5,16 @@
     <link>https://setsoflove.com/blog/</link>
     <description>Practical, friendly guides for single gym-goers: meeting people respectfully, building a profile, dating around training and staying safe.</description>
     <language>en-AU</language>
-    <lastBuildDate>Wed, 18 Nov 2026 21:23:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 18:48:00 +0800</lastBuildDate>
     <atom:link href="https://setsoflove.com/blog/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>What not to put on a dating profile</title>
+      <link>https://setsoflove.com/blog/what-not-to-put-on-your-profile/</link>
+      <guid isPermaLink="true">https://setsoflove.com/blog/what-not-to-put-on-your-profile/</guid>
+      <pubDate>Thu, 19 Nov 2026 18:48:00 +0800</pubDate>
+      <category>Dating safely</category>
+      <description>What not to put on a dating profile for your privacy: contact details, workplace, daily routine, full surname and other people&#x27;s photos.</description>
+    </item>
     <item>
       <title>Summer dates by the water in Perth</title>
       <link>https://setsoflove.com/blog/summer-dates-by-the-water-in-perth/</link>
@@ -238,14 +246,6 @@
       <pubDate>Wed, 21 Oct 2026 07:48:00 +0800</pubDate>
       <category>Meeting people at the gym</category>
       <description>How to talk to someone at the gym without being awkward: pick your moment, keep it short, offer an easy exit and accept a quiet reply.</description>
-    </item>
-    <item>
-      <title>What is SetsOfLove? A profile app for single gym-goers</title>
-      <link>https://setsoflove.com/blog/what-is-setsoflove/</link>
-      <guid isPermaLink="true">https://setsoflove.com/blog/what-is-setsoflove/</guid>
-      <pubDate>Tue, 20 Oct 2026 17:31:00 +0800</pubDate>
-      <category>Profiles and photos</category>
-      <description>SetsOfLove is a gym dating profile app: one page at your own link, 1 to 4 photos, optional lifts, no messages, and every profile approved first.</description>
     </item>
   </channel>
 </rss>
